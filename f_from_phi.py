@@ -14,6 +14,14 @@ Full distribution function f(x1,v1,t) is output from the numerical solver.
 In the future this could be from osiris, but for now it will be from the numerical solver Hayden's postdoc wrote
 """
 
+def phi_from_f(f: np.ndarray)-> np.ndarray:
+    """
+    f : distribution function, of shape (num_x, num_v, num_t)
+    phi : potential, of shape (num_x, num_t)
+    """
+    assert np.shape(f) == np.shape(phi[...])
+    return phi
+
 # Source: https://www.codegenes.net/blog/how-to-do-mlp-pytorch/
 class MLP(nn.Module):
     def __init__(self, input_size, hidden_size, output_size):
@@ -42,6 +50,24 @@ mlp = MLP(input_size, hidden_size, output_size)
 f = np.load("distribution_function.npy") #TODO fix this
 # Assume that f is of shape num_x x num_v x num_t
 # We can analytically derive the potential phi from f
+phi = phi_from_f(f)
+# For our input into the MLP, we downsample phi at n positions in space, but keep full time resolution.
+# However, we will need to play with the number of different time steps we can give the MLP. It requires at least 2
+
+def get_training_data(phi, n_skip, n_times):
+    # Downsample phi at n positions in space
+    num_x, num_t = phi.shape
+    downsampled_phi = phi[::n_skip, :]
+    # Now we have a downsampled phi of shape n_downsample x num_t
+    # We need to create training data of shape (num_samples, input_size)
+    # where input_size = n_downsample * n_times
+    num_samples = num_t - n_times + 1
+    training_data = np.zeros((num_samples, input_size))
+    for i in range(num_samples):
+        training_data[i] = downsampled_phi[:, i:i+n_times].flatten()
+    return training_data
+
+
 output = mlp(torch.from_numpy(f).float()) #TODO
 
  
