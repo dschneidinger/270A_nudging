@@ -1,0 +1,132 @@
+#!/bin/bash --login
+module purge
+module load SciPy-bundle/2025.07-gfbf-2025b
+
+# Lambda values rescaled by N^2 = 2.5e7 (N=5000) since residual is now in density units
+
+python simulation.py \
+  --data_path ../simulation/data/mv_sim_seed0.npz \
+  --outdir ./data_lambda_0 \
+  --max_steps 1000 \
+  --num_particles 5000 \
+  --obs_num_particles 50000 \
+  --grid_nx 64 \
+  --grid_nv 64 \
+  --v_mesh_margin 0.5 \
+  --nudge_iters 5 \
+  --init_mode maxwellian \
+  --obs_keep_prob 1.0 \
+  --obs_noise_x_std 0.0 \
+  --obs_noise_v_std 0.0 \
+  --lambda_nudge 0
+
+python simulation.py \
+  --data_path ../simulation/data/mv_sim_seed0.npz \
+  --outdir ./data_lambda_1e_3 \
+  --max_steps 1000 \
+  --num_particles 5000 \
+  --obs_num_particles 50000 \
+  --grid_nx 64 \
+  --grid_nv 64 \
+  --v_mesh_margin 0.5 \
+  --nudge_iters 5 \
+  --init_mode maxwellian \
+  --obs_keep_prob 1.0 \
+  --obs_noise_x_std 0.0 \
+  --obs_noise_v_std 0.0 \
+  --lambda_nudge 25000
+
+
+python simulation.py \
+  --data_path ../simulation/data/mv_sim_seed0.npz \
+  --outdir ./data_lambda_1e_4 \
+  --max_steps 1000 \
+  --num_particles 5000 \
+  --obs_num_particles 50000 \
+  --grid_nx 64 \
+  --grid_nv 64 \
+  --v_mesh_margin 0.5 \
+  --nudge_iters 5 \
+  --init_mode maxwellian \
+  --obs_keep_prob 1.0 \
+  --obs_noise_x_std 0.0 \
+  --obs_noise_v_std 0.0 \
+  --lambda_nudge 2500
+
+
+
+
+python simulation.py \
+  --data_path ../simulation/data/mv_sim_seed0.npz \
+  --outdir ./data_lambda_1e_5 \
+  --max_steps 1000 \
+  --num_particles 5000 \
+  --obs_num_particles 50000 \
+  --grid_nx 64 \
+  --grid_nv 64 \
+  --v_mesh_margin 0.5 \
+  --nudge_iters 5 \
+  --init_mode maxwellian \
+  --obs_keep_prob 1.0 \
+  --obs_noise_x_std 0.0 \
+  --obs_noise_v_std 0.0 \
+  --lambda_nudge 250
+
+
+# Model A: wrong bath temperature, same spatial mode by default.
+# Example choices: --model_temperature 1.2 or --model_temperature 0.8
+#
+# python simulation.py \
+#   --data_path ../simulation/data/mv_sim_seed0.npz \
+#   --outdir ./data_modelA_T1p2_lambda_1e_3 \
+#   --max_steps 1000 \
+#   --num_particles 1000 \
+#   --obs_num_particles 50000 \
+#   --grid_nx 64 \
+#   --grid_nv 64 \
+#   --v_mesh_margin 0.5 \
+#   --nudge_iters 5 \
+#   --init_mode model_a \
+#   --model_temperature 1.2 \
+#   --obs_keep_prob 1.0 \
+#   --obs_noise_x_std 0.0 \
+#   --obs_noise_v_std 0.0 \
+#   --lambda_nudge 25000
+
+
+# Model B: clean initial-condition mismatch through phase or amplitude error.
+#
+# python simulation.py \
+#   --data_path ../simulation/data/mv_sim_seed0.npz \
+#   --outdir ./data_modelB_theta_pi4_lambda_1e_3 \
+#   --max_steps 1000 \
+#   --num_particles 1000 \
+#   --obs_num_particles 50000 \
+#   --grid_nx 64 \
+#   --grid_nv 64 \
+#   --v_mesh_margin 0.5 \
+#   --nudge_iters 5 \
+#   --init_mode model_b \
+#   --model_phase_shift 0.7853981633974483 \
+#   --obs_keep_prob 1.0 \
+#   --obs_noise_x_std 0.0 \
+#   --obs_noise_v_std 0.0 \
+#   --lambda_nudge 25000
+#
+# python simulation.py \
+#   --data_path ../simulation/data/mv_sim_seed0.npz \
+#   --outdir ./data_modelB_eps03_theta0_lambda_1e_3 \
+#   --max_steps 1000 \
+#   --num_particles 1000 \
+#   --obs_num_particles 50000 \
+#   --grid_nx 64 \
+#   --grid_nv 64 \
+#   --v_mesh_margin 0.5 \
+#   --nudge_iters 5 \
+#   --init_mode model_b \
+#   --model_epsilon 0.3 \
+#   --model_phase_shift 0.0 \
+#   --obs_keep_prob 1.0 \
+#   --obs_noise_x_std 0.0 \
+#   --obs_noise_v_std 0.0 \
+#   --lambda_nudge 25000

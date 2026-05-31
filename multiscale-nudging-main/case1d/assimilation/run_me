@@ -1,0 +1,12 @@
+#!/bin/bash --login
+module purge
+module load matplotlib/3.8.2-gfbf-2023b
+
+# Single run
+#python simulation.py --seed 0 --data_path ../simulation/data/mv_sim_seed0.npz --outdir data --dt 0.01 --a 1.0 --c 0.1 --sigma 1.0 --obs_keep_prob 0.3 --obs_noise_std 0.05 --grid_n 256 --h_bw 0.5 --lambda_nudge 1e-4 --nudge_iters 20
+
+# Fixed h, sweep lambda (lambda values rescaled by N^2 = 1e6 since residual is now in density units)
+python scan_parameters.py --experiment lambda_scan --seed 0 --data_path ../simulation/data/mv_sim_seed0.npz --outdir data --dt 0.01 --a 0.5,2.0,5.0 --sigma 1.0 --obs_keep_prob 1 --obs_noise_std 0. --grid_n 256 --h_bw 0.5 --nudge_iters 1,5,10,20 --lambda_values 0,0.1,1,10,100,1000,10000
+# Fixed lambda and h, sweep Delta through a and c:
+# a_run = a + Delta, c_run = c + Delta by default
+#python scan_parameters.py --experiment delta_scan --seed 0 --data_path ../simulation/data/mv_sim_seed0.npz --outdir data --dt 0.01 --a 1.0 --c 0.1 --sigma 1.0 --obs_keep_prob 0.3 --obs_noise_std 0.05 --grid_n 256 --h_bw 0.5 --lambda_nudge 1e-3 --nudge_iters 20 --delta_values 0,0.02,0.05,0.08,0.12,0.16,0.2

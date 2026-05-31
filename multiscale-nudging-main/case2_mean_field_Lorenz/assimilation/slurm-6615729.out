@@ -1,0 +1,96 @@
+Running 3D DA: steps=1000, N=1000, dt=0.01, lambda=0.0, h=0.5, sigma=10.0, rho=28.0, beta=2.6666666666666665, keep_prob=0.3, obs_noise=0.05, init_from_truth=False, forecast_seed_offset=101
+Step    50/1000 | mesh_err=0.073489 | rmse=11.044787 | rmse_xyz=(x=9.707864, y=13.613253, z=9.295089) | obs_ratio=0.294
+Step   100/1000 | mesh_err=0.060472 | rmse=3.836195 | rmse_xyz=(x=3.191579, y=4.284017, z=3.950973) | obs_ratio=0.286
+Step   150/1000 | mesh_err=0.069165 | rmse=5.350920 | rmse_xyz=(x=5.282050, y=4.697626, z=5.994103) | obs_ratio=0.310
+Step   200/1000 | mesh_err=0.086295 | rmse=16.160371 | rmse_xyz=(x=11.176152, y=13.141957, z=22.042127) | obs_ratio=0.291
+Step   250/1000 | mesh_err=0.086721 | rmse=17.495982 | rmse_xyz=(x=12.042587, y=14.074314, z=23.983702) | obs_ratio=0.319
+Step   300/1000 | mesh_err=0.082129 | rmse=8.588924 | rmse_xyz=(x=9.094568, y=9.778091, z=6.556419) | obs_ratio=0.304
+Step   350/1000 | mesh_err=0.081178 | rmse=10.288421 | rmse_xyz=(x=11.932253, y=10.587599, z=7.942223) | obs_ratio=0.324
+Step   400/1000 | mesh_err=0.082665 | rmse=12.804383 | rmse_xyz=(x=13.726500, y=13.245869, z=11.313125) | obs_ratio=0.278
+Step   450/1000 | mesh_err=0.086840 | rmse=12.837474 | rmse_xyz=(x=12.654687, y=16.924442, z=6.915515) | obs_ratio=0.297
+Step   500/1000 | mesh_err=0.082773 | rmse=9.644954 | rmse_xyz=(x=7.543669, y=8.086453, z=12.521093) | obs_ratio=0.305
+Step   550/1000 | mesh_err=0.084502 | rmse=10.575635 | rmse_xyz=(x=10.604859, y=11.332453, z=9.728549) | obs_ratio=0.302
+Step   600/1000 | mesh_err=0.087567 | rmse=15.266614 | rmse_xyz=(x=15.769308, y=16.230388, z=13.678886) | obs_ratio=0.276
+Step   650/1000 | mesh_err=0.084154 | rmse=10.032848 | rmse_xyz=(x=7.302479, y=9.107626, z=12.872414) | obs_ratio=0.302
+Step   700/1000 | mesh_err=0.081287 | rmse=9.109349 | rmse_xyz=(x=8.711754, y=10.654241, z=7.715775) | obs_ratio=0.289
+Step   750/1000 | mesh_err=0.083291 | rmse=12.300631 | rmse_xyz=(x=13.539994, y=11.907420, z=11.348940) | obs_ratio=0.290
+Step   800/1000 | mesh_err=0.086301 | rmse=13.722117 | rmse_xyz=(x=13.247907, y=18.314164, z=7.346690) | obs_ratio=0.288
+Step   850/1000 | mesh_err=0.083751 | rmse=9.480511 | rmse_xyz=(x=7.360962, y=7.861881, z=12.395456) | obs_ratio=0.284
+Step   900/1000 | mesh_err=0.089615 | rmse=18.910889 | rmse_xyz=(x=20.435591, y=18.812355, z=17.359352) | obs_ratio=0.308
+Step   950/1000 | mesh_err=0.081723 | rmse=12.203822 | rmse_xyz=(x=12.726092, y=14.440766, z=8.735598) | obs_ratio=0.303
+Step  1000/1000 | mesh_err=0.082411 | rmse=10.331862 | rmse_xyz=(x=10.524347, y=12.455139, z=7.372228) | obs_ratio=0.265
+Saved DA result to: ./data_lambda_0/xyz_da_kdenudge_3d_seed0.npz
+Final RMSEs: total=10.331862, x=10.524347, y=12.455139, z=7.372228
+Mean RMSEs : total=11.017092, x=10.300139, y=11.802357, z=10.220362
+Running 3D DA: steps=1000, N=1000, dt=0.01, lambda=100.0, h=0.5, sigma=10.0, rho=28.0, beta=2.6666666666666665, keep_prob=0.3, obs_noise=0.05, init_from_truth=False, forecast_seed_offset=101
+Step    50/1000 | mesh_err=0.025504 | rmse=7.486002 | rmse_xyz=(x=6.351129, y=9.566731, z=6.021750) | obs_ratio=0.294
+Step   100/1000 | mesh_err=0.015259 | rmse=2.949527 | rmse_xyz=(x=2.572724, y=3.574729, z=2.588732) | obs_ratio=0.286
+Step   150/1000 | mesh_err=0.014692 | rmse=3.364672 | rmse_xyz=(x=3.503312, y=3.145061, z=3.434887) | obs_ratio=0.310
+Step   200/1000 | mesh_err=0.018503 | rmse=6.560197 | rmse_xyz=(x=4.397111, y=5.238340, z=9.073795) | obs_ratio=0.291
+Step   250/1000 | mesh_err=0.023699 | rmse=8.692412 | rmse_xyz=(x=6.590715, y=7.712878, z=11.124210) | obs_ratio=0.319
+Step   300/1000 | mesh_err=0.017619 | rmse=4.440391 | rmse_xyz=(x=4.802864, y=5.163529, z=3.069475) | obs_ratio=0.304
+Step   350/1000 | mesh_err=0.016661 | rmse=4.705240 | rmse_xyz=(x=5.453122, y=4.995602, z=3.424218) | obs_ratio=0.324
+Step   400/1000 | mesh_err=0.016673 | rmse=6.098002 | rmse_xyz=(x=6.904755, y=6.006030, z=5.273409) | obs_ratio=0.278
+Step   450/1000 | mesh_err=0.017283 | rmse=6.566405 | rmse_xyz=(x=6.531594, y=8.720934, z=3.261381) | obs_ratio=0.297
+Step   500/1000 | mesh_err=0.015450 | rmse=4.282744 | rmse_xyz=(x=3.525846, y=4.044089, z=5.122444) | obs_ratio=0.305
+Step   550/1000 | mesh_err=0.016204 | rmse=4.654309 | rmse_xyz=(x=4.328986, y=5.132080, z=4.461997) | obs_ratio=0.302
+Step   600/1000 | mesh_err=0.017421 | rmse=6.885202 | rmse_xyz=(x=7.375302, y=7.511741, z=5.603273) | obs_ratio=0.276
+Step   650/1000 | mesh_err=0.015726 | rmse=4.646505 | rmse_xyz=(x=3.422584, y=4.304024, z=5.876335) | obs_ratio=0.302
+Step   700/1000 | mesh_err=0.014809 | rmse=3.995777 | rmse_xyz=(x=3.577851, y=4.709485, z=3.594223) | obs_ratio=0.289
+Step   750/1000 | mesh_err=0.015619 | rmse=5.150194 | rmse_xyz=(x=5.545201, y=4.764042, z=5.111568) | obs_ratio=0.290
+Step   800/1000 | mesh_err=0.016288 | rmse=6.032958 | rmse_xyz=(x=5.751089, y=8.068686, z=3.318286) | obs_ratio=0.288
+Step   850/1000 | mesh_err=0.014589 | rmse=4.272087 | rmse_xyz=(x=3.389780, y=3.975782, z=5.239726) | obs_ratio=0.284
+Step   900/1000 | mesh_err=0.021018 | rmse=8.467222 | rmse_xyz=(x=8.438851, y=8.401116, z=8.560875) | obs_ratio=0.308
+Step   950/1000 | mesh_err=0.015518 | rmse=5.389601 | rmse_xyz=(x=5.732351, y=6.511313, z=3.447657) | obs_ratio=0.303
+Step  1000/1000 | mesh_err=0.014925 | rmse=4.732578 | rmse_xyz=(x=4.912580, y=5.783195, z=3.100499) | obs_ratio=0.265
+Saved DA result to: ./data_lambda_1e_4/xyz_da_kdenudge_3d_seed0.npz
+Final RMSEs: total=4.732578, x=4.912580, y=5.783195, z=3.100499
+Mean RMSEs : total=5.354428, x=5.040627, y=5.857533, z=4.800374
+Running 3D DA: steps=1000, N=1000, dt=0.01, lambda=10.0, h=0.5, sigma=10.0, rho=28.0, beta=2.6666666666666665, keep_prob=0.3, obs_noise=0.05, init_from_truth=False, forecast_seed_offset=101
+Step    50/1000 | mesh_err=0.064931 | rmse=10.456375 | rmse_xyz=(x=9.145744, y=12.929322, z=8.786086) | obs_ratio=0.294
+Step   100/1000 | mesh_err=0.044290 | rmse=3.697960 | rmse_xyz=(x=3.081645, y=4.161568, z=3.769556) | obs_ratio=0.286
+Step   150/1000 | mesh_err=0.046665 | rmse=4.888008 | rmse_xyz=(x=4.940749, y=4.345520, z=5.327599) | obs_ratio=0.310
+Step   200/1000 | mesh_err=0.070027 | rmse=12.712771 | rmse_xyz=(x=8.782260, y=10.941017, z=16.970848) | obs_ratio=0.291
+Step   250/1000 | mesh_err=0.082340 | rmse=15.778041 | rmse_xyz=(x=12.150532, y=13.315155, z=20.540472) | obs_ratio=0.319
+Step   300/1000 | mesh_err=0.067326 | rmse=8.086491 | rmse_xyz=(x=8.883474, y=9.450887, z=5.285701) | obs_ratio=0.304
+Step   350/1000 | mesh_err=0.064382 | rmse=9.030625 | rmse_xyz=(x=10.803150, y=9.642091, z=5.914269) | obs_ratio=0.324
+Step   400/1000 | mesh_err=0.064957 | rmse=11.390785 | rmse_xyz=(x=12.950112, y=11.661067, z=9.250084) | obs_ratio=0.278
+Step   450/1000 | mesh_err=0.067895 | rmse=12.034636 | rmse_xyz=(x=11.970579, y=15.850264, z=6.322321) | obs_ratio=0.297
+Step   500/1000 | mesh_err=0.062997 | rmse=8.484572 | rmse_xyz=(x=6.797992, y=7.377325, z=10.739007) | obs_ratio=0.305
+Step   550/1000 | mesh_err=0.068988 | rmse=9.022326 | rmse_xyz=(x=8.950452, y=9.733129, z=8.328429) | obs_ratio=0.302
+Step   600/1000 | mesh_err=0.069215 | rmse=13.217708 | rmse_xyz=(x=13.893376, y=14.021150, z=11.597624) | obs_ratio=0.276
+Step   650/1000 | mesh_err=0.066820 | rmse=9.070895 | rmse_xyz=(x=6.671009, y=8.388857, z=11.487737) | obs_ratio=0.302
+Step   700/1000 | mesh_err=0.067628 | rmse=8.269238 | rmse_xyz=(x=7.656450, y=9.602320, z=7.369880) | obs_ratio=0.289
+Step   750/1000 | mesh_err=0.066197 | rmse=10.565528 | rmse_xyz=(x=11.505269, y=10.113805, z=10.011536) | obs_ratio=0.290
+Step   800/1000 | mesh_err=0.068855 | rmse=12.349314 | rmse_xyz=(x=11.864727, y=16.511020, z=6.643124) | obs_ratio=0.288
+Step   850/1000 | mesh_err=0.065000 | rmse=8.262671 | rmse_xyz=(x=6.561902, y=7.285987, z=10.424539) | obs_ratio=0.284
+Step   900/1000 | mesh_err=0.078600 | rmse=17.208284 | rmse_xyz=(x=18.016093, y=16.996862, z=16.580174) | obs_ratio=0.308
+Step   950/1000 | mesh_err=0.065614 | rmse=10.663250 | rmse_xyz=(x=11.343842, y=12.673520, z=7.198185) | obs_ratio=0.303
+Step  1000/1000 | mesh_err=0.064239 | rmse=9.444118 | rmse_xyz=(x=9.664806, y=11.345515, z=6.741283) | obs_ratio=0.265
+Saved DA result to: ./data_lambda_1e_5/xyz_da_kdenudge_3d_seed0.npz
+Final RMSEs: total=9.444118, x=9.664806, y=11.345515, z=6.741283
+Mean RMSEs : total=9.883735, x=9.330595, y=10.710581, z=8.957176
+Running 3D DA: steps=1000, N=1000, dt=0.01, lambda=1000.0, h=0.5, sigma=10.0, rho=28.0, beta=2.6666666666666665, keep_prob=0.3, obs_noise=0.05, init_from_truth=False, forecast_seed_offset=101
+Step    50/1000 | mesh_err=0.075772 | rmse=10.020705 | rmse_xyz=(x=7.956424, y=13.325739, z=7.769401) | obs_ratio=0.294
+Step   100/1000 | mesh_err=0.078387 | rmse=7.227916 | rmse_xyz=(x=6.849742, y=8.068464, z=6.686496) | obs_ratio=0.286
+Step   150/1000 | mesh_err=0.077097 | rmse=7.057729 | rmse_xyz=(x=7.153633, y=6.743051, z=7.265770) | obs_ratio=0.310
+Step   200/1000 | mesh_err=0.079243 | rmse=11.971163 | rmse_xyz=(x=7.816921, y=9.079713, z=16.922789) | obs_ratio=0.291
+Step   250/1000 | mesh_err=0.083048 | rmse=12.846393 | rmse_xyz=(x=11.296512, y=11.629981, z=15.238826) | obs_ratio=0.319
+Step   300/1000 | mesh_err=0.078733 | rmse=8.700733 | rmse_xyz=(x=8.838125, y=9.677405, z=7.439330) | obs_ratio=0.304
+Step   350/1000 | mesh_err=0.079364 | rmse=8.691690 | rmse_xyz=(x=9.198866, y=8.466486, z=8.386649) | obs_ratio=0.324
+Step   400/1000 | mesh_err=0.080946 | rmse=10.217408 | rmse_xyz=(x=11.021461, y=9.904762, z=9.675192) | obs_ratio=0.278
+Step   450/1000 | mesh_err=0.080534 | rmse=11.718602 | rmse_xyz=(x=11.568453, y=14.403892, z=8.406885) | obs_ratio=0.297
+Step   500/1000 | mesh_err=0.076774 | rmse=8.476776 | rmse_xyz=(x=7.112208, y=7.789501, z=10.213098) | obs_ratio=0.305
+Step   550/1000 | mesh_err=0.079721 | rmse=8.070362 | rmse_xyz=(x=8.147036, y=7.604318, z=8.437557) | obs_ratio=0.302
+Step   600/1000 | mesh_err=0.079134 | rmse=11.664045 | rmse_xyz=(x=11.806923, y=12.265965, z=10.876237) | obs_ratio=0.276
+Step   650/1000 | mesh_err=0.079508 | rmse=9.188626 | rmse_xyz=(x=7.240662, y=8.600024, z=11.265211) | obs_ratio=0.302
+Step   700/1000 | mesh_err=0.076730 | rmse=7.493119 | rmse_xyz=(x=7.036374, y=8.026023, z=7.383283) | obs_ratio=0.289
+Step   750/1000 | mesh_err=0.079384 | rmse=9.980264 | rmse_xyz=(x=10.509783, y=8.857861, z=10.483309) | obs_ratio=0.290
+Step   800/1000 | mesh_err=0.080556 | rmse=11.576777 | rmse_xyz=(x=10.826323, y=14.557424, z=8.540340) | obs_ratio=0.288
+Step   850/1000 | mesh_err=0.079945 | rmse=8.096651 | rmse_xyz=(x=6.664757, y=6.929639, z=10.209229) | obs_ratio=0.284
+Step   900/1000 | mesh_err=0.081150 | rmse=15.075239 | rmse_xyz=(x=15.250867, y=15.099047, z=14.873410) | obs_ratio=0.308
+Step   950/1000 | mesh_err=0.080578 | rmse=9.885150 | rmse_xyz=(x=10.226160, y=11.180191, z=7.973553) | obs_ratio=0.303
+Step  1000/1000 | mesh_err=0.077746 | rmse=9.402865 | rmse_xyz=(x=9.384544, y=10.703827, z=7.912018) | obs_ratio=0.265
+Saved DA result to: ./data_lambda_1e_3/xyz_da_kdenudge_3d_seed0.npz
+Final RMSEs: total=9.402865, x=9.384544, y=10.703827, z=7.912018
+Mean RMSEs : total=9.787512, x=9.182219, y=10.170581, z=9.580420

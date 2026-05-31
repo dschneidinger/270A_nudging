@@ -1,0 +1,88 @@
+#!/bin/bash --login
+#SBATCH -J Deepmd_mixed
+#SBATCH -N 1
+#SBATCH -n 64
+#SBATCH --time=4:00:00
+#SBATCH --mem=128G
+#SBATCH -A data-machine
+#SBATCH -p data-machine
+
+module purge
+module load SciPy-bundle/2025.07-gfbf-2025b
+
+# Lambda values rescaled by N^2 = 1e6 (N=1000) since residual is now in density units
+# Model A example:
+#   --init_mode model_a --model_temperature 0.048
+# Model B example:
+#   --init_mode model_b --model_phase_shift 0.7853981633974483
+
+
+python simulation.py \
+  --data_path ../simulation/data/mv_sim_seed0.npz \
+  --outdir ./data_lambda_0 \
+  --max_steps 10000 \
+  --num_particles 1000 \
+  --obs_num_particles 50000 \
+  --grid_nx 64 \
+  --grid_nv 64 \
+  --v_mesh_margin 0.5 \
+  --nudge_iters 5 \
+  --init_mode model_a \
+  --model_temperature 0.048\
+  --obs_keep_prob 1.0 \
+  --obs_noise_x_std 0.0 \
+  --obs_noise_v_std 0.0 \
+  --lambda_nudge 0
+
+
+
+python simulation.py \
+  --data_path ../simulation/data/mv_sim_seed0.npz \
+  --outdir ./data_lambda_1e_3 \
+  --max_steps 10000 \
+  --num_particles 1000 \
+  --obs_num_particles 50000 \
+  --grid_nx 64 \
+  --grid_nv 64 \
+  --v_mesh_margin 0.5 \
+  --nudge_iters 20 \
+  --init_mode model_a \
+  --model_temperature 0.048\
+  --obs_keep_prob 1.0 \
+  --obs_noise_x_std 0.0 \
+  --obs_noise_v_std 0.0 \
+  --lambda_nudge 1000
+
+python simulation.py \
+  --data_path ../simulation/data/mv_sim_seed0.npz \
+  --outdir ./data_lambda_1e_5 \
+  --max_steps 10000 \
+  --num_particles 1000 \
+  --obs_num_particles 50000 \
+  --grid_nx 64 \
+  --grid_nv 64 \
+  --v_mesh_margin 0.5 \
+  --nudge_iters 5 \
+  --init_mode model_a \
+  --model_temperature 0.048\
+  --obs_keep_prob 1.0 \
+  --obs_noise_x_std 0.0 \
+  --obs_noise_v_std 0.0 \
+  --lambda_nudge 10
+
+python simulation.py \
+  --data_path ../simulation/data/mv_sim_seed0.npz \
+  --outdir ./data_lambda_1e_4 \
+  --max_steps 10000 \
+  --num_particles 1000 \
+  --obs_num_particles 50000 \
+  --grid_nx 64 \
+  --grid_nv 64 \
+  --v_mesh_margin 0.5 \
+  --nudge_iters 5 \
+  --init_mode model_a \
+  --model_temperature 0.048\
+  --obs_keep_prob 1.0 \
+  --obs_noise_x_std 0.0 \
+  --obs_noise_v_std 0.0 \
+  --lambda_nudge 100

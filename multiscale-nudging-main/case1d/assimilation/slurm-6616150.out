@@ -1,0 +1,1297 @@
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=0.0, h=0.5, a=0.5, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.015292 | rmse=0.850651 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.013807 | rmse=1.049744 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.031589 | rmse=1.153644 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.038047 | rmse=1.158813 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.031199 | rmse=1.177949 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.031729 | rmse=1.187034 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.033285 | rmse=1.204617 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.036022 | rmse=1.220995 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.034217 | rmse=1.229563 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.039445 | rmse=1.203369 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e-01__nudge_iters_001/lambda_scan/runs/lambda_001_0p000e00/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 1.203369
+Mean RMSE : 1.106799
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=0.1, h=0.5, a=0.5, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.015194 | rmse=0.850341 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.013636 | rmse=1.048985 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.031291 | rmse=1.152360 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.037602 | rmse=1.156888 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.030694 | rmse=1.175646 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.031197 | rmse=1.184754 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.032728 | rmse=1.202021 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.035445 | rmse=1.218200 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.033572 | rmse=1.226596 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.038755 | rmse=1.200594 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e-01__nudge_iters_001/lambda_scan/runs/lambda_002_1p000e-01/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 1.200594
+Mean RMSE : 1.104938
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=1.0, h=0.5, a=0.5, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.014363 | rmse=0.847702 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.012250 | rmse=1.042731 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.028848 | rmse=1.141859 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.034019 | rmse=1.141278 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.026758 | rmse=1.157313 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.027116 | rmse=1.167021 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.028472 | rmse=1.181916 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.031016 | rmse=1.196787 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.028607 | rmse=1.203826 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.033436 | rmse=1.179373 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e-01__nudge_iters_001/lambda_scan/runs/lambda_003_1p000e00/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 1.179373
+Mean RMSE : 1.090335
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=10.0, h=0.5, a=0.5, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.009436 | rmse=0.830926 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.006176 | rmse=1.011499 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.016599 | rmse=1.088349 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.017716 | rmse=1.065666 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.011483 | rmse=1.077504 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.012742 | rmse=1.096376 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.012538 | rmse=1.100866 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.014873 | rmse=1.116258 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.011891 | rmse=1.118994 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.015484 | rmse=1.101433 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e-01__nudge_iters_001/lambda_scan/runs/lambda_004_1p000e01/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 1.101433
+Mean RMSE : 1.029170
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=100.0, h=0.5, a=0.5, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.003048 | rmse=0.804408 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.002772 | rmse=0.988277 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.003707 | rmse=1.017290 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.003871 | rmse=0.983319 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.003097 | rmse=1.009681 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.002752 | rmse=1.021868 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.002569 | rmse=1.022729 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.003938 | rmse=1.043913 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.003950 | rmse=1.052013 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.004099 | rmse=1.033971 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e-01__nudge_iters_001/lambda_scan/runs/lambda_005_1p000e02/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 1.033971
+Mean RMSE : 0.969180
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=1000.0, h=0.5, a=0.5, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.135751 | rmse=4.433941 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.099462 | rmse=4.350744 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.089195 | rmse=4.330615 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.090601 | rmse=4.362454 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.127366 | rmse=4.529201 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.131241 | rmse=4.474419 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.117466 | rmse=4.444508 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.114880 | rmse=4.508537 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.087798 | rmse=4.465176 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.089655 | rmse=4.441188 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e-01__nudge_iters_001/lambda_scan/runs/lambda_006_1p000e03/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 4.441188
+Mean RMSE : 4.361470
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=10000.0, h=0.5, a=0.5, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.185723 | rmse=13.718169 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.179294 | rmse=11.820541 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.180831 | rmse=10.391002 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.182169 | rmse=9.268587 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.180095 | rmse=8.379871 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.179856 | rmse=7.632727 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.180875 | rmse=7.077783 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.180311 | rmse=6.715636 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.178627 | rmse=6.591590 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.179745 | rmse=6.557886 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e-01__nudge_iters_001/lambda_scan/runs/lambda_007_1p000e04/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 6.557886
+Mean RMSE : 9.215536
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=0.0, h=0.5, a=0.5, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.015292 | rmse=0.850651 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.013807 | rmse=1.049744 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.031589 | rmse=1.153644 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.038047 | rmse=1.158813 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.031199 | rmse=1.177949 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.031729 | rmse=1.187034 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.033285 | rmse=1.204617 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.036022 | rmse=1.220995 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.034217 | rmse=1.229563 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.039445 | rmse=1.203369 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e-01__nudge_iters_005/lambda_scan/runs/lambda_001_0p000e00/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 1.203369
+Mean RMSE : 1.106799
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=0.1, h=0.5, a=0.5, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.015189 | rmse=0.850342 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.013633 | rmse=1.048985 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.031283 | rmse=1.152360 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.037593 | rmse=1.156888 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.030687 | rmse=1.175647 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.031189 | rmse=1.184754 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.032720 | rmse=1.202021 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.035436 | rmse=1.218200 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.033565 | rmse=1.226597 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.038746 | rmse=1.200594 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e-01__nudge_iters_005/lambda_scan/runs/lambda_002_1p000e-01/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 1.200594
+Mean RMSE : 1.104938
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=1.0, h=0.5, a=0.5, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.014325 | rmse=0.847706 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.012225 | rmse=1.042740 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.028775 | rmse=1.141872 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.033939 | rmse=1.141295 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.026704 | rmse=1.157332 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.027056 | rmse=1.167039 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.028411 | rmse=1.181936 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.030942 | rmse=1.196809 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.028553 | rmse=1.203849 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.033365 | rmse=1.179393 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e-01__nudge_iters_005/lambda_scan/runs/lambda_003_1p000e00/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 1.179393
+Mean RMSE : 1.090350
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=10.0, h=0.5, a=0.5, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.009248 | rmse=0.831078 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.006124 | rmse=1.011690 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.016290 | rmse=1.088690 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.017436 | rmse=1.066098 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.011387 | rmse=1.077842 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.012561 | rmse=1.096679 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.012393 | rmse=1.101240 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.014609 | rmse=1.116628 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.011801 | rmse=1.119336 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.015257 | rmse=1.101745 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e-01__nudge_iters_005/lambda_scan/runs/lambda_004_1p000e01/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 1.101745
+Mean RMSE : 1.029468
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=100.0, h=0.5, a=0.5, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.002550 | rmse=0.804941 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.002361 | rmse=0.988066 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.003271 | rmse=1.018578 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.003618 | rmse=0.984516 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.002970 | rmse=1.010118 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.002677 | rmse=1.022568 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.002440 | rmse=1.023180 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.003738 | rmse=1.045081 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.003725 | rmse=1.052691 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.003771 | rmse=1.034921 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e-01__nudge_iters_005/lambda_scan/runs/lambda_005_1p000e02/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 1.034921
+Mean RMSE : 0.969893
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=1000.0, h=0.5, a=0.5, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.000504 | rmse=0.794946 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.000682 | rmse=0.983266 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.000462 | rmse=0.996786 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.000855 | rmse=0.953366 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.000870 | rmse=0.980956 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.000699 | rmse=0.993895 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.000510 | rmse=0.995854 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.001006 | rmse=1.016321 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.000842 | rmse=1.024259 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.000690 | rmse=1.006555 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e-01__nudge_iters_005/lambda_scan/runs/lambda_006_1p000e03/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 1.006555
+Mean RMSE : 0.946650
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=10000.0, h=0.5, a=0.5, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.185733 | rmse=6.483063 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.179184 | rmse=6.475803 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.180615 | rmse=6.471759 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.181995 | rmse=6.448339 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.180087 | rmse=6.424561 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.179573 | rmse=6.442726 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.180618 | rmse=6.429123 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.180175 | rmse=6.441666 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.178463 | rmse=6.425639 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.179741 | rmse=6.373794 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e-01__nudge_iters_005/lambda_scan/runs/lambda_007_1p000e04/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 6.373794
+Mean RMSE : 6.429550
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=0.0, h=0.5, a=0.5, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.015292 | rmse=0.850651 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.013807 | rmse=1.049744 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.031589 | rmse=1.153644 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.038047 | rmse=1.158813 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.031199 | rmse=1.177949 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.031729 | rmse=1.187034 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.033285 | rmse=1.204617 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.036022 | rmse=1.220995 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.034217 | rmse=1.229563 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.039445 | rmse=1.203369 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e-01__nudge_iters_010/lambda_scan/runs/lambda_001_0p000e00/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 1.203369
+Mean RMSE : 1.106799
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=0.1, h=0.5, a=0.5, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.015189 | rmse=0.850342 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.013632 | rmse=1.048985 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.031282 | rmse=1.152360 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.037592 | rmse=1.156888 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.030686 | rmse=1.175647 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.031188 | rmse=1.184754 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.032719 | rmse=1.202021 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.035435 | rmse=1.218200 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.033564 | rmse=1.226597 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.038745 | rmse=1.200594 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e-01__nudge_iters_010/lambda_scan/runs/lambda_002_1p000e-01/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 1.200594
+Mean RMSE : 1.104938
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=1.0, h=0.5, a=0.5, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.014321 | rmse=0.847706 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.012222 | rmse=1.042741 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.028766 | rmse=1.141874 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.033929 | rmse=1.141297 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.026698 | rmse=1.157334 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.027049 | rmse=1.167041 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.028404 | rmse=1.181938 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.030933 | rmse=1.196812 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.028547 | rmse=1.203852 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.033356 | rmse=1.179395 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e-01__nudge_iters_010/lambda_scan/runs/lambda_003_1p000e00/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 1.179395
+Mean RMSE : 1.090352
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=10.0, h=0.5, a=0.5, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.009225 | rmse=0.831097 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.006117 | rmse=1.011713 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.016253 | rmse=1.088732 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.017402 | rmse=1.066151 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.011375 | rmse=1.077884 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.012539 | rmse=1.096716 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.012375 | rmse=1.101286 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.014577 | rmse=1.116673 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.011790 | rmse=1.119378 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.015229 | rmse=1.101784 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e-01__nudge_iters_010/lambda_scan/runs/lambda_004_1p000e01/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 1.101784
+Mean RMSE : 1.029505
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=100.0, h=0.5, a=0.5, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.002511 | rmse=0.805002 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.002327 | rmse=0.988048 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.003233 | rmse=1.018727 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.003594 | rmse=0.984657 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.002959 | rmse=1.010167 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.002670 | rmse=1.022653 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.002431 | rmse=1.023238 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.003719 | rmse=1.045216 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.003701 | rmse=1.052772 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.003740 | rmse=1.035030 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e-01__nudge_iters_010/lambda_scan/runs/lambda_005_1p000e02/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 1.035030
+Mean RMSE : 0.969977
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=1000.0, h=0.5, a=0.5, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.000486 | rmse=0.794957 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.000668 | rmse=0.983296 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.000447 | rmse=0.996882 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.000846 | rmse=0.953482 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.000863 | rmse=0.981018 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.000692 | rmse=0.993960 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.000503 | rmse=0.995844 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.000994 | rmse=1.016377 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.000822 | rmse=1.024419 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.000681 | rmse=1.006655 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e-01__nudge_iters_010/lambda_scan/runs/lambda_006_1p000e03/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 1.006655
+Mean RMSE : 0.946711
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=10000.0, h=0.5, a=0.5, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.153560 | rmse=5.584030 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.137907 | rmse=5.610894 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.155117 | rmse=5.637916 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.159421 | rmse=5.657916 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.150697 | rmse=5.671527 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.150501 | rmse=5.652652 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.150543 | rmse=5.613651 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.142057 | rmse=5.639179 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.144474 | rmse=5.637403 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.142087 | rmse=5.647060 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e-01__nudge_iters_010/lambda_scan/runs/lambda_007_1p000e04/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 5.647060
+Mean RMSE : 5.612393
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=0.0, h=0.5, a=0.5, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.015292 | rmse=0.850651 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.013807 | rmse=1.049744 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.031589 | rmse=1.153644 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.038047 | rmse=1.158813 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.031199 | rmse=1.177949 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.031729 | rmse=1.187034 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.033285 | rmse=1.204617 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.036022 | rmse=1.220995 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.034217 | rmse=1.229563 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.039445 | rmse=1.203369 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e-01__nudge_iters_020/lambda_scan/runs/lambda_001_0p000e00/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 1.203369
+Mean RMSE : 1.106799
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=0.1, h=0.5, a=0.5, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.015189 | rmse=0.850342 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.013632 | rmse=1.048985 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.031281 | rmse=1.152360 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.037591 | rmse=1.156888 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.030686 | rmse=1.175647 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.031188 | rmse=1.184754 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.032719 | rmse=1.202021 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.035434 | rmse=1.218200 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.033564 | rmse=1.226597 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.038745 | rmse=1.200594 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e-01__nudge_iters_020/lambda_scan/runs/lambda_002_1p000e-01/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 1.200594
+Mean RMSE : 1.104938
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=1.0, h=0.5, a=0.5, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.014318 | rmse=0.847706 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.012221 | rmse=1.042741 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.028762 | rmse=1.141874 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.033925 | rmse=1.141298 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.026694 | rmse=1.157335 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.027045 | rmse=1.167042 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.028400 | rmse=1.181940 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.030929 | rmse=1.196813 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.028543 | rmse=1.203854 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.033351 | rmse=1.179396 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e-01__nudge_iters_020/lambda_scan/runs/lambda_003_1p000e00/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 1.179396
+Mean RMSE : 1.090353
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=10.0, h=0.5, a=0.5, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.009214 | rmse=0.831106 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.006114 | rmse=1.011725 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.016234 | rmse=1.088753 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.017385 | rmse=1.066178 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.011369 | rmse=1.077904 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.012528 | rmse=1.096735 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.012366 | rmse=1.101309 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.014561 | rmse=1.116696 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.011785 | rmse=1.119399 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.015215 | rmse=1.101803 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e-01__nudge_iters_020/lambda_scan/runs/lambda_004_1p000e01/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 1.101803
+Mean RMSE : 1.029523
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=100.0, h=0.5, a=0.5, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.002492 | rmse=0.805032 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.002311 | rmse=0.988039 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.003215 | rmse=1.018800 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.003583 | rmse=0.984726 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.002953 | rmse=1.010190 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.002667 | rmse=1.022696 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.002427 | rmse=1.023267 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.003709 | rmse=1.045283 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.003690 | rmse=1.052811 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.003725 | rmse=1.035083 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e-01__nudge_iters_020/lambda_scan/runs/lambda_005_1p000e02/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 1.035083
+Mean RMSE : 0.970019
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=1000.0, h=0.5, a=0.5, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.000478 | rmse=0.794967 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.000662 | rmse=0.983301 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.000441 | rmse=0.996936 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.000842 | rmse=0.953543 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.000860 | rmse=0.981054 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.000688 | rmse=0.993996 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.000499 | rmse=0.995842 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.000987 | rmse=1.016408 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.000813 | rmse=1.024497 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.000676 | rmse=1.006709 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e-01__nudge_iters_020/lambda_scan/runs/lambda_006_1p000e03/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 1.006709
+Mean RMSE : 0.946743
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=10000.0, h=0.5, a=0.5, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.015378 | rmse=1.589746 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.007593 | rmse=1.642093 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.013677 | rmse=1.665692 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.022039 | rmse=1.633942 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.010832 | rmse=1.661904 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.011095 | rmse=1.685730 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.014113 | rmse=1.676468 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.018376 | rmse=1.677986 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.011816 | rmse=1.674860 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.011492 | rmse=1.683110 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e-01__nudge_iters_020/lambda_scan/runs/lambda_007_1p000e04/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 1.683110
+Mean RMSE : 1.642315
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=0.0, h=0.5, a=2.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.022221 | rmse=0.740316 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.038323 | rmse=0.851716 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.031625 | rmse=0.876135 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.027499 | rmse=0.834391 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.035016 | rmse=0.842155 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.035528 | rmse=0.846251 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.036258 | rmse=0.843328 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.033425 | rmse=0.868297 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.037458 | rmse=0.879610 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.041267 | rmse=0.874117 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_2p000e00__nudge_iters_001/lambda_scan/runs/lambda_001_0p000e00/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.874117
+Mean RMSE : 0.826411
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=0.1, h=0.5, a=2.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.022098 | rmse=0.740580 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.038111 | rmse=0.852353 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.031359 | rmse=0.877022 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.027241 | rmse=0.835165 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.034796 | rmse=0.842854 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.035257 | rmse=0.847113 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.035994 | rmse=0.844165 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.033118 | rmse=0.869057 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.037105 | rmse=0.880291 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.040683 | rmse=0.874450 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_2p000e00__nudge_iters_001/lambda_scan/runs/lambda_002_1p000e-01/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.874450
+Mean RMSE : 0.827075
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=1.0, h=0.5, a=2.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.021047 | rmse=0.742884 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.036298 | rmse=0.857835 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.029056 | rmse=0.884522 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.025059 | rmse=0.841705 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.032936 | rmse=0.848832 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.032950 | rmse=0.854481 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.033718 | rmse=0.851263 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.030509 | rmse=0.875599 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.034224 | rmse=0.886371 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.036181 | rmse=0.878231 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_2p000e00__nudge_iters_001/lambda_scan/runs/lambda_003_1p000e00/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.878231
+Mean RMSE : 0.832795
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=10.0, h=0.5, a=2.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.014046 | rmse=0.759325 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.024340 | rmse=0.894048 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.015438 | rmse=0.927446 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.013611 | rmse=0.879416 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.020967 | rmse=0.886360 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.019292 | rmse=0.899110 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.020342 | rmse=0.893846 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.016670 | rmse=0.917402 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.019616 | rmse=0.930147 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.018253 | rmse=0.916562 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_2p000e00__nudge_iters_001/lambda_scan/runs/lambda_004_1p000e01/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.916562
+Mean RMSE : 0.869023
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=100.0, h=0.5, a=2.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.003866 | rmse=0.785663 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.006777 | rmse=0.955713 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.003530 | rmse=0.976079 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.003454 | rmse=0.924049 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.004106 | rmse=0.945705 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.005062 | rmse=0.956274 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.005845 | rmse=0.956086 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.004843 | rmse=0.976506 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.003636 | rmse=0.996211 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.004136 | rmse=0.971639 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_2p000e00__nudge_iters_001/lambda_scan/runs/lambda_005_1p000e02/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.971639
+Mean RMSE : 0.919483
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=1000.0, h=0.5, a=2.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.116195 | rmse=3.731261 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.069194 | rmse=3.571452 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.076908 | rmse=3.566942 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.105044 | rmse=3.723124 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.102736 | rmse=3.655217 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.104886 | rmse=3.640136 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.075448 | rmse=3.582760 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.083247 | rmse=3.628903 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.069485 | rmse=3.519589 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.111420 | rmse=3.616493 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_2p000e00__nudge_iters_001/lambda_scan/runs/lambda_006_1p000e03/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 3.616493
+Mean RMSE : 3.598794
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=10000.0, h=0.5, a=2.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.185764 | rmse=8.890533 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.179355 | rmse=6.422611 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.180893 | rmse=6.381993 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.182230 | rmse=6.357163 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.180153 | rmse=6.321663 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.179919 | rmse=6.316368 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.180937 | rmse=6.343377 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.180372 | rmse=6.324713 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.178683 | rmse=6.320324 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.179807 | rmse=6.305495 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_2p000e00__nudge_iters_001/lambda_scan/runs/lambda_007_1p000e04/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 6.305495
+Mean RMSE : 7.061784
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=0.0, h=0.5, a=2.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.022221 | rmse=0.740316 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.038323 | rmse=0.851716 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.031625 | rmse=0.876135 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.027499 | rmse=0.834391 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.035016 | rmse=0.842155 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.035528 | rmse=0.846251 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.036258 | rmse=0.843328 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.033425 | rmse=0.868297 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.037458 | rmse=0.879610 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.041267 | rmse=0.874117 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_2p000e00__nudge_iters_005/lambda_scan/runs/lambda_001_0p000e00/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.874117
+Mean RMSE : 0.826411
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=0.1, h=0.5, a=2.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.022092 | rmse=0.740580 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.038100 | rmse=0.852353 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.031349 | rmse=0.877022 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.027233 | rmse=0.835165 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.034785 | rmse=0.842854 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.035246 | rmse=0.847113 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.035983 | rmse=0.844165 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.033108 | rmse=0.869057 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.037094 | rmse=0.880291 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.040671 | rmse=0.874450 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_2p000e00__nudge_iters_005/lambda_scan/runs/lambda_002_1p000e-01/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.874450
+Mean RMSE : 0.827075
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=1.0, h=0.5, a=2.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.020986 | rmse=0.742880 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.036196 | rmse=0.857827 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.028972 | rmse=0.884511 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.024989 | rmse=0.841695 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.032842 | rmse=0.848823 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.032855 | rmse=0.854469 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.033623 | rmse=0.851253 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.030426 | rmse=0.875589 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.034127 | rmse=0.886362 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.036078 | rmse=0.878225 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_2p000e00__nudge_iters_005/lambda_scan/runs/lambda_003_1p000e00/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.878225
+Mean RMSE : 0.832787
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=10.0, h=0.5, a=2.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.013712 | rmse=0.759129 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.023766 | rmse=0.893645 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.015136 | rmse=0.927026 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.013339 | rmse=0.879055 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.020470 | rmse=0.885952 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.018868 | rmse=0.898645 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.019889 | rmse=0.893400 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.016363 | rmse=0.916979 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.019192 | rmse=0.929671 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.017903 | rmse=0.916132 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_2p000e00__nudge_iters_005/lambda_scan/runs/lambda_004_1p000e01/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.916132
+Mean RMSE : 0.868644
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=100.0, h=0.5, a=2.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.003398 | rmse=0.784937 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.005759 | rmse=0.953452 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.003350 | rmse=0.974920 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.003052 | rmse=0.923012 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.003841 | rmse=0.943774 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.004586 | rmse=0.954553 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.005276 | rmse=0.953837 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.004520 | rmse=0.975259 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.003226 | rmse=0.994573 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.003922 | rmse=0.970485 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_2p000e00__nudge_iters_005/lambda_scan/runs/lambda_005_1p000e02/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.970485
+Mean RMSE : 0.918066
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=1000.0, h=0.5, a=2.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.000638 | rmse=0.794565 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.000452 | rmse=0.977712 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.000786 | rmse=0.992359 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.000310 | rmse=0.939865 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.000572 | rmse=0.965251 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.000592 | rmse=0.978723 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.000768 | rmse=0.982740 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.000752 | rmse=1.001130 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.000616 | rmse=1.013305 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.000477 | rmse=0.993147 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_2p000e00__nudge_iters_005/lambda_scan/runs/lambda_006_1p000e03/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.993147
+Mean RMSE : 0.937348
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=10000.0, h=0.5, a=2.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.185750 | rmse=6.284414 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.178970 | rmse=6.259180 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.180850 | rmse=6.243659 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.181978 | rmse=6.235895 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.180023 | rmse=6.213265 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.179851 | rmse=6.217797 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.180902 | rmse=6.220394 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.180335 | rmse=6.231937 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.178470 | rmse=6.227377 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.179751 | rmse=6.228464 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_2p000e00__nudge_iters_005/lambda_scan/runs/lambda_007_1p000e04/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 6.228464
+Mean RMSE : 6.225551
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=0.0, h=0.5, a=2.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.022221 | rmse=0.740316 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.038323 | rmse=0.851716 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.031625 | rmse=0.876135 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.027499 | rmse=0.834391 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.035016 | rmse=0.842155 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.035528 | rmse=0.846251 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.036258 | rmse=0.843328 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.033425 | rmse=0.868297 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.037458 | rmse=0.879610 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.041267 | rmse=0.874117 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_2p000e00__nudge_iters_010/lambda_scan/runs/lambda_001_0p000e00/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.874117
+Mean RMSE : 0.826411
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=0.1, h=0.5, a=2.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.022091 | rmse=0.740580 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.038099 | rmse=0.852353 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.031348 | rmse=0.877022 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.027232 | rmse=0.835165 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.034784 | rmse=0.842854 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.035245 | rmse=0.847113 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.035982 | rmse=0.844165 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.033107 | rmse=0.869057 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.037092 | rmse=0.880291 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.040669 | rmse=0.874450 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_2p000e00__nudge_iters_010/lambda_scan/runs/lambda_002_1p000e-01/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.874450
+Mean RMSE : 0.827075
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=1.0, h=0.5, a=2.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.020978 | rmse=0.742880 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.036183 | rmse=0.857826 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.028961 | rmse=0.884509 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.024980 | rmse=0.841694 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.032830 | rmse=0.848822 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.032843 | rmse=0.854468 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.033611 | rmse=0.851251 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.030415 | rmse=0.875588 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.034115 | rmse=0.886361 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.036065 | rmse=0.878224 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_2p000e00__nudge_iters_010/lambda_scan/runs/lambda_003_1p000e00/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.878224
+Mean RMSE : 0.832785
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=10.0, h=0.5, a=2.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.013671 | rmse=0.759105 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.023696 | rmse=0.893596 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.015099 | rmse=0.926974 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.013306 | rmse=0.879010 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.020410 | rmse=0.885901 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.018817 | rmse=0.898587 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.019834 | rmse=0.893345 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.016326 | rmse=0.916927 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.019141 | rmse=0.929612 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.017861 | rmse=0.916080 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_2p000e00__nudge_iters_010/lambda_scan/runs/lambda_004_1p000e01/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.916080
+Mean RMSE : 0.868597
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=100.0, h=0.5, a=2.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.003358 | rmse=0.784851 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.005670 | rmse=0.953196 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.003332 | rmse=0.974784 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.003017 | rmse=0.922891 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.003815 | rmse=0.943546 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.004542 | rmse=0.954356 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.005223 | rmse=0.953582 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.004487 | rmse=0.975112 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.003191 | rmse=0.994382 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.003901 | rmse=0.970347 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_2p000e00__nudge_iters_010/lambda_scan/runs/lambda_005_1p000e02/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.970347
+Mean RMSE : 0.917901
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=1000.0, h=0.5, a=2.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.000611 | rmse=0.794482 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.000446 | rmse=0.977580 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.000778 | rmse=0.992289 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.000307 | rmse=0.939797 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.000564 | rmse=0.965140 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.000587 | rmse=0.978594 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.000752 | rmse=0.982545 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.000738 | rmse=1.000957 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.000603 | rmse=1.013272 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.000477 | rmse=0.993052 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_2p000e00__nudge_iters_010/lambda_scan/runs/lambda_006_1p000e03/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.993052
+Mean RMSE : 0.937238
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=10000.0, h=0.5, a=2.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.152611 | rmse=5.356716 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.136025 | rmse=5.316983 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.143728 | rmse=5.343356 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.140331 | rmse=5.331408 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.141430 | rmse=5.344048 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.136056 | rmse=5.322935 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.137111 | rmse=5.327587 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.131724 | rmse=5.303772 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.146148 | rmse=5.348050 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.144321 | rmse=5.317275 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_2p000e00__nudge_iters_010/lambda_scan/runs/lambda_007_1p000e04/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 5.317275
+Mean RMSE : 5.321936
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=0.0, h=0.5, a=2.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.022221 | rmse=0.740316 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.038323 | rmse=0.851716 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.031625 | rmse=0.876135 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.027499 | rmse=0.834391 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.035016 | rmse=0.842155 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.035528 | rmse=0.846251 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.036258 | rmse=0.843328 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.033425 | rmse=0.868297 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.037458 | rmse=0.879610 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.041267 | rmse=0.874117 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_2p000e00__nudge_iters_020/lambda_scan/runs/lambda_001_0p000e00/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.874117
+Mean RMSE : 0.826411
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=0.1, h=0.5, a=2.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.022091 | rmse=0.740580 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.038098 | rmse=0.852353 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.031347 | rmse=0.877022 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.027231 | rmse=0.835165 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.034784 | rmse=0.842854 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.035244 | rmse=0.847113 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.035981 | rmse=0.844165 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.033107 | rmse=0.869057 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.037092 | rmse=0.880291 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.040669 | rmse=0.874450 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_2p000e00__nudge_iters_020/lambda_scan/runs/lambda_002_1p000e-01/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.874450
+Mean RMSE : 0.827075
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=1.0, h=0.5, a=2.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.020974 | rmse=0.742879 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.036177 | rmse=0.857825 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.028956 | rmse=0.884508 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.024976 | rmse=0.841693 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.032824 | rmse=0.848821 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.032837 | rmse=0.854467 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.033605 | rmse=0.851251 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.030410 | rmse=0.875588 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.034109 | rmse=0.886360 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.036059 | rmse=0.878224 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_2p000e00__nudge_iters_020/lambda_scan/runs/lambda_003_1p000e00/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.878224
+Mean RMSE : 0.832785
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=10.0, h=0.5, a=2.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.013651 | rmse=0.759093 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.023662 | rmse=0.893571 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.015081 | rmse=0.926948 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.013289 | rmse=0.878988 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.020380 | rmse=0.885876 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.018791 | rmse=0.898559 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.019807 | rmse=0.893317 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.016307 | rmse=0.916901 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.019115 | rmse=0.929583 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.017840 | rmse=0.916053 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_2p000e00__nudge_iters_020/lambda_scan/runs/lambda_004_1p000e01/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.916053
+Mean RMSE : 0.868574
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=100.0, h=0.5, a=2.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.003339 | rmse=0.784809 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.005628 | rmse=0.953069 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.003323 | rmse=0.974717 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.003001 | rmse=0.922832 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.003803 | rmse=0.943433 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.004521 | rmse=0.954259 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.005198 | rmse=0.953457 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.004472 | rmse=0.975039 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.003175 | rmse=0.994287 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.003890 | rmse=0.970278 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_2p000e00__nudge_iters_020/lambda_scan/runs/lambda_005_1p000e02/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.970278
+Mean RMSE : 0.917820
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=1000.0, h=0.5, a=2.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.000599 | rmse=0.794442 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.000444 | rmse=0.977497 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.000774 | rmse=0.992252 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.000305 | rmse=0.939759 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.000561 | rmse=0.965080 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.000585 | rmse=0.978524 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.000745 | rmse=0.982441 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.000732 | rmse=1.000868 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.000597 | rmse=1.013245 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.000476 | rmse=0.993002 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_2p000e00__nudge_iters_020/lambda_scan/runs/lambda_006_1p000e03/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.993002
+Mean RMSE : 0.937178
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=10000.0, h=0.5, a=2.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.018630 | rmse=1.332518 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.012152 | rmse=1.424859 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.023453 | rmse=1.380725 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.029048 | rmse=1.344015 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.013560 | rmse=1.407311 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.008868 | rmse=1.476792 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.022470 | rmse=1.448153 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.022061 | rmse=1.442598 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.013174 | rmse=1.456977 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.010852 | rmse=1.437307 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_2p000e00__nudge_iters_020/lambda_scan/runs/lambda_007_1p000e04/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 1.437307
+Mean RMSE : 1.412620
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=0.0, h=0.5, a=5.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.053408 | rmse=0.694077 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.066986 | rmse=0.776237 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.063720 | rmse=0.775847 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.059028 | rmse=0.742319 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.065214 | rmse=0.757351 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.065734 | rmse=0.760199 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.065747 | rmse=0.756220 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.062529 | rmse=0.782629 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.066007 | rmse=0.791216 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.069633 | rmse=0.787193 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e00__nudge_iters_001/lambda_scan/runs/lambda_001_0p000e00/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.787193
+Mean RMSE : 0.746905
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=0.1, h=0.5, a=5.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.053272 | rmse=0.694324 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.066836 | rmse=0.776680 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.063547 | rmse=0.776370 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.058861 | rmse=0.742691 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.065060 | rmse=0.757764 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.065572 | rmse=0.760637 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.065588 | rmse=0.756606 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.062344 | rmse=0.782966 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.065759 | rmse=0.791512 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.069197 | rmse=0.786946 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e00__nudge_iters_001/lambda_scan/runs/lambda_002_1p000e-01/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.786946
+Mean RMSE : 0.747250
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=1.0, h=0.5, a=5.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.052051 | rmse=0.696575 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.065477 | rmse=0.780689 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.061921 | rmse=0.781052 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.057347 | rmse=0.746103 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.063667 | rmse=0.761563 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.064095 | rmse=0.764645 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.064109 | rmse=0.760075 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.060685 | rmse=0.786124 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.063682 | rmse=0.794634 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.065903 | rmse=0.786549 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e00__nudge_iters_001/lambda_scan/runs/lambda_003_1p000e00/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.786549
+Mean RMSE : 0.750506
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=10.0, h=0.5, a=5.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.040794 | rmse=0.718247 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.052056 | rmse=0.818732 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.045923 | rmse=0.827072 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.043587 | rmse=0.783134 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.049439 | rmse=0.799127 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.049318 | rmse=0.805847 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.049658 | rmse=0.798017 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.046250 | rmse=0.822094 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.048058 | rmse=0.835132 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.048179 | rmse=0.822943 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e00__nudge_iters_001/lambda_scan/runs/lambda_004_1p000e01/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.822943
+Mean RMSE : 0.786215
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=100.0, h=0.5, a=5.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.011682 | rmse=0.773031 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.016089 | rmse=0.926682 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.012493 | rmse=0.942135 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.012694 | rmse=0.885951 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.012963 | rmse=0.911267 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.014197 | rmse=0.922823 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.014848 | rmse=0.918773 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.014037 | rmse=0.929308 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.012947 | rmse=0.953281 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.013072 | rmse=0.931644 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e00__nudge_iters_001/lambda_scan/runs/lambda_005_1p000e02/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.931644
+Mean RMSE : 0.887017
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=1000.0, h=0.5, a=5.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.122768 | rmse=2.890256 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.100531 | rmse=2.580453 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.113045 | rmse=2.483835 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.104519 | rmse=2.133107 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.094257 | rmse=2.115601 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.056719 | rmse=1.853598 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.068503 | rmse=1.746198 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.053814 | rmse=2.020117 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.050065 | rmse=2.200518 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.068812 | rmse=1.589959 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e00__nudge_iters_001/lambda_scan/runs/lambda_006_1p000e03/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 1.589959
+Mean RMSE : 2.178019
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=10000.0, h=0.5, a=5.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.185948 | rmse=6.542593 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.179506 | rmse=6.489363 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.181044 | rmse=6.445518 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.182378 | rmse=6.430655 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.180294 | rmse=6.400121 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.180045 | rmse=6.376360 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.181074 | rmse=6.442055 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.180527 | rmse=6.452073 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.178831 | rmse=6.411962 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.179961 | rmse=6.404912 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e00__nudge_iters_001/lambda_scan/runs/lambda_007_1p000e04/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 6.404912
+Mean RMSE : 6.765202
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=0.0, h=0.5, a=5.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.053408 | rmse=0.694077 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.066986 | rmse=0.776237 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.063720 | rmse=0.775847 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.059028 | rmse=0.742319 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.065214 | rmse=0.757351 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.065734 | rmse=0.760199 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.065747 | rmse=0.756220 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.062529 | rmse=0.782629 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.066007 | rmse=0.791216 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.069633 | rmse=0.787193 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e00__nudge_iters_005/lambda_scan/runs/lambda_001_0p000e00/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.787193
+Mean RMSE : 0.746905
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=0.1, h=0.5, a=5.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.053259 | rmse=0.694324 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.066821 | rmse=0.776680 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.063532 | rmse=0.776370 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.058847 | rmse=0.742691 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.065045 | rmse=0.757764 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.065557 | rmse=0.760637 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.065573 | rmse=0.756606 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.062329 | rmse=0.782966 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.065743 | rmse=0.791512 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.069180 | rmse=0.786946 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e00__nudge_iters_005/lambda_scan/runs/lambda_002_1p000e-01/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.786946
+Mean RMSE : 0.747250
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=1.0, h=0.5, a=5.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.051925 | rmse=0.696573 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.065326 | rmse=0.780686 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.061770 | rmse=0.781049 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.057209 | rmse=0.746100 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.063518 | rmse=0.761560 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.063945 | rmse=0.764642 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.063964 | rmse=0.760073 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.060544 | rmse=0.786123 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.063523 | rmse=0.794633 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.065745 | rmse=0.786552 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e00__nudge_iters_005/lambda_scan/runs/lambda_003_1p000e00/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.786552
+Mean RMSE : 0.750504
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=10.0, h=0.5, a=5.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.039779 | rmse=0.718005 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.050778 | rmse=0.818298 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.044772 | rmse=0.826501 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.042518 | rmse=0.782663 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.048221 | rmse=0.798668 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.048096 | rmse=0.805323 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.048450 | rmse=0.797528 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.045146 | rmse=0.821647 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.046838 | rmse=0.834639 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.047004 | rmse=0.822446 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e00__nudge_iters_005/lambda_scan/runs/lambda_004_1p000e01/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.822446
+Mean RMSE : 0.785775
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=100.0, h=0.5, a=5.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.010119 | rmse=0.770559 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.013743 | rmse=0.921248 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.011033 | rmse=0.937006 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.011024 | rmse=0.881126 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.011391 | rmse=0.905581 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.012394 | rmse=0.917123 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.012991 | rmse=0.912386 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.012514 | rmse=0.924405 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.011340 | rmse=0.947950 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.011629 | rmse=0.927137 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e00__nudge_iters_005/lambda_scan/runs/lambda_005_1p000e02/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.927137
+Mean RMSE : 0.882234
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=1000.0, h=0.5, a=5.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.001549 | rmse=0.796492 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.001384 | rmse=0.974164 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.001753 | rmse=0.986332 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.001387 | rmse=0.931007 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.001657 | rmse=0.955532 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.001598 | rmse=0.969717 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.001889 | rmse=0.974083 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.001733 | rmse=0.990721 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.001671 | rmse=1.003418 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.001537 | rmse=0.982666 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e00__nudge_iters_005/lambda_scan/runs/lambda_006_1p000e03/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.982666
+Mean RMSE : 0.930796
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=10000.0, h=0.5, a=5.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.185662 | rmse=6.144647 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.179141 | rmse=6.179634 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.180429 | rmse=6.167059 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.182051 | rmse=6.180863 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.180008 | rmse=6.206786 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.179800 | rmse=6.236579 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.180734 | rmse=6.203358 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.179947 | rmse=6.203188 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.178604 | rmse=6.204340 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.179583 | rmse=6.180799 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e00__nudge_iters_005/lambda_scan/runs/lambda_007_1p000e04/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 6.180799
+Mean RMSE : 6.165140
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=0.0, h=0.5, a=5.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.053408 | rmse=0.694077 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.066986 | rmse=0.776237 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.063720 | rmse=0.775847 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.059028 | rmse=0.742319 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.065214 | rmse=0.757351 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.065734 | rmse=0.760199 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.065747 | rmse=0.756220 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.062529 | rmse=0.782629 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.066007 | rmse=0.791216 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.069633 | rmse=0.787193 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e00__nudge_iters_010/lambda_scan/runs/lambda_001_0p000e00/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.787193
+Mean RMSE : 0.746905
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=0.1, h=0.5, a=5.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.053257 | rmse=0.694324 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.066819 | rmse=0.776680 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.063530 | rmse=0.776370 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.058845 | rmse=0.742691 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.065043 | rmse=0.757764 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.065555 | rmse=0.760637 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.065571 | rmse=0.756606 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.062327 | rmse=0.782966 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.065741 | rmse=0.791512 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.069178 | rmse=0.786946 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e00__nudge_iters_010/lambda_scan/runs/lambda_002_1p000e-01/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.786946
+Mean RMSE : 0.747250
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=1.0, h=0.5, a=5.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.051909 | rmse=0.696573 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.065307 | rmse=0.780686 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.061751 | rmse=0.781048 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.057192 | rmse=0.746100 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.063499 | rmse=0.761560 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.063926 | rmse=0.764642 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.063946 | rmse=0.760072 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.060527 | rmse=0.786122 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.063503 | rmse=0.794633 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.065725 | rmse=0.786553 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e00__nudge_iters_010/lambda_scan/runs/lambda_003_1p000e00/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.786553
+Mean RMSE : 0.750504
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=10.0, h=0.5, a=5.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.039655 | rmse=0.717975 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.050621 | rmse=0.818244 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.044632 | rmse=0.826430 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.042387 | rmse=0.782606 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.048071 | rmse=0.798611 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.047947 | rmse=0.805258 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.048301 | rmse=0.797468 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.045011 | rmse=0.821592 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.046689 | rmse=0.834579 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.046860 | rmse=0.822385 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e00__nudge_iters_010/lambda_scan/runs/lambda_004_1p000e01/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.822385
+Mean RMSE : 0.785721
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=100.0, h=0.5, a=5.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.009985 | rmse=0.770278 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.013543 | rmse=0.920639 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.010906 | rmse=0.936425 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.010879 | rmse=0.880583 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.011254 | rmse=0.904937 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.012239 | rmse=0.916483 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.012830 | rmse=0.911672 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.012379 | rmse=0.923848 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.011201 | rmse=0.947343 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.011504 | rmse=0.926624 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e00__nudge_iters_010/lambda_scan/runs/lambda_005_1p000e02/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.926624
+Mean RMSE : 0.881694
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=1000.0, h=0.5, a=5.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.001510 | rmse=0.796245 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.001370 | rmse=0.973729 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.001733 | rmse=0.985988 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.001365 | rmse=0.930623 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.001630 | rmse=0.955164 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.001575 | rmse=0.969304 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.001857 | rmse=0.973563 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.001703 | rmse=0.990120 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.001651 | rmse=1.003032 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.001519 | rmse=0.982240 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e00__nudge_iters_010/lambda_scan/runs/lambda_006_1p000e03/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.982240
+Mean RMSE : 0.930399
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=10000.0, h=0.5, a=5.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.139508 | rmse=5.193882 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.126709 | rmse=5.179878 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.146535 | rmse=5.183787 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.143470 | rmse=5.162667 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.143258 | rmse=5.140298 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.138625 | rmse=5.136821 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.141906 | rmse=5.149421 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.129893 | rmse=5.148150 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.127400 | rmse=5.139806 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.121117 | rmse=5.123275 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e00__nudge_iters_010/lambda_scan/runs/lambda_007_1p000e04/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 5.123275
+Mean RMSE : 5.152126
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=0.0, h=0.5, a=5.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.053408 | rmse=0.694077 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.066986 | rmse=0.776237 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.063720 | rmse=0.775847 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.059028 | rmse=0.742319 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.065214 | rmse=0.757351 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.065734 | rmse=0.760199 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.065747 | rmse=0.756220 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.062529 | rmse=0.782629 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.066007 | rmse=0.791216 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.069633 | rmse=0.787193 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e00__nudge_iters_020/lambda_scan/runs/lambda_001_0p000e00/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.787193
+Mean RMSE : 0.746905
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=0.1, h=0.5, a=5.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.053257 | rmse=0.694324 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.066818 | rmse=0.776680 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.063529 | rmse=0.776370 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.058844 | rmse=0.742691 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.065042 | rmse=0.757764 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.065554 | rmse=0.760637 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.065570 | rmse=0.756606 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.062327 | rmse=0.782966 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.065740 | rmse=0.791512 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.069177 | rmse=0.786946 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e00__nudge_iters_020/lambda_scan/runs/lambda_002_1p000e-01/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.786946
+Mean RMSE : 0.747250
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=1.0, h=0.5, a=5.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.051901 | rmse=0.696573 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.065298 | rmse=0.780686 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.061741 | rmse=0.781048 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.057183 | rmse=0.746099 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.063490 | rmse=0.761559 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.063916 | rmse=0.764642 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.063937 | rmse=0.760072 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.060518 | rmse=0.786122 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.063494 | rmse=0.794633 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.065715 | rmse=0.786553 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e00__nudge_iters_020/lambda_scan/runs/lambda_003_1p000e00/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.786553
+Mean RMSE : 0.750504
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=10.0, h=0.5, a=5.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.039593 | rmse=0.717960 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.050543 | rmse=0.818218 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.044562 | rmse=0.826395 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.042322 | rmse=0.782577 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.047997 | rmse=0.798583 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.047872 | rmse=0.805226 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.048227 | rmse=0.797438 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.044944 | rmse=0.821565 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.046615 | rmse=0.834548 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.046788 | rmse=0.822355 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e00__nudge_iters_020/lambda_scan/runs/lambda_004_1p000e01/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.822355
+Mean RMSE : 0.785694
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=100.0, h=0.5, a=5.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.009921 | rmse=0.770139 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.013447 | rmse=0.920339 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.010845 | rmse=0.936138 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.010810 | rmse=0.880315 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.011188 | rmse=0.904619 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.012164 | rmse=0.916168 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.012753 | rmse=0.911321 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.012315 | rmse=0.923574 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.011134 | rmse=0.947044 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.011445 | rmse=0.926371 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e00__nudge_iters_020/lambda_scan/runs/lambda_005_1p000e02/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.926371
+Mean RMSE : 0.881428
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=1000.0, h=0.5, a=5.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.001492 | rmse=0.796117 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.001363 | rmse=0.973484 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.001724 | rmse=0.985793 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.001356 | rmse=0.930408 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.001617 | rmse=0.954947 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.001564 | rmse=0.969071 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.001842 | rmse=0.973277 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.001689 | rmse=0.989809 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.001642 | rmse=1.002813 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.001510 | rmse=0.982006 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e00__nudge_iters_020/lambda_scan/runs/lambda_006_1p000e03/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 0.982006
+Mean RMSE : 0.930180
+Running 1D DA: steps=500, N=1000, dt=0.01, lambda=10000.0, h=0.5, a=5.0, c=0.8, keep_prob=1.0, obs_noise=0.0, init_from_truth=False, forecast_seed_offset=101
+Step    50/500 | mesh_err=0.048410 | rmse=1.230729 | obs_ratio=1.000
+Step   100/500 | mesh_err=0.013418 | rmse=1.328725 | obs_ratio=1.000
+Step   150/500 | mesh_err=0.021888 | rmse=1.276029 | obs_ratio=1.000
+Step   200/500 | mesh_err=0.023489 | rmse=1.081296 | obs_ratio=1.000
+Step   250/500 | mesh_err=0.023462 | rmse=0.939910 | obs_ratio=1.000
+Step   300/500 | mesh_err=0.021933 | rmse=0.994859 | obs_ratio=1.000
+Step   350/500 | mesh_err=0.016721 | rmse=0.956057 | obs_ratio=1.000
+Step   400/500 | mesh_err=0.045463 | rmse=0.949208 | obs_ratio=1.000
+Step   450/500 | mesh_err=0.020417 | rmse=1.052015 | obs_ratio=1.000
+Step   500/500 | mesh_err=0.010247 | rmse=1.020981 | obs_ratio=1.000
+Saved DA result to: data/lambda_scan_parameter_grid/a_5p000e00__nudge_iters_020/lambda_scan/runs/lambda_007_1p000e04/x_da_kdenudge_1d_seed0.npz
+Final RMSE: 1.020981
+Mean RMSE : 1.105905
+[parameter_grid] 1/12 | a=0.5, nudge_iters=1
+[lambda_scan] 1/7 | lambda=0
+[lambda_scan] 2/7 | lambda=0.1
+[lambda_scan] 3/7 | lambda=1
+[lambda_scan] 4/7 | lambda=10
+[lambda_scan] 5/7 | lambda=100
+[lambda_scan] 6/7 | lambda=1000
+[lambda_scan] 7/7 | lambda=10000
+Saved lambda scan summary to: data/lambda_scan_parameter_grid/a_5p000e-01__nudge_iters_001/lambda_scan/lambda_scan_summary.npz
+Saved lambda scan plot to: data/lambda_scan_parameter_grid/a_5p000e-01__nudge_iters_001/lambda_scan/lambda_scan_summary.png
+[parameter_grid] 2/12 | a=0.5, nudge_iters=5
+[lambda_scan] 1/7 | lambda=0
+[lambda_scan] 2/7 | lambda=0.1
+[lambda_scan] 3/7 | lambda=1
+[lambda_scan] 4/7 | lambda=10
+[lambda_scan] 5/7 | lambda=100
+[lambda_scan] 6/7 | lambda=1000
+[lambda_scan] 7/7 | lambda=10000
+Saved lambda scan summary to: data/lambda_scan_parameter_grid/a_5p000e-01__nudge_iters_005/lambda_scan/lambda_scan_summary.npz
+Saved lambda scan plot to: data/lambda_scan_parameter_grid/a_5p000e-01__nudge_iters_005/lambda_scan/lambda_scan_summary.png
+[parameter_grid] 3/12 | a=0.5, nudge_iters=10
+[lambda_scan] 1/7 | lambda=0
+[lambda_scan] 2/7 | lambda=0.1
+[lambda_scan] 3/7 | lambda=1
+[lambda_scan] 4/7 | lambda=10
+[lambda_scan] 5/7 | lambda=100
+[lambda_scan] 6/7 | lambda=1000
+[lambda_scan] 7/7 | lambda=10000
+Saved lambda scan summary to: data/lambda_scan_parameter_grid/a_5p000e-01__nudge_iters_010/lambda_scan/lambda_scan_summary.npz
+Saved lambda scan plot to: data/lambda_scan_parameter_grid/a_5p000e-01__nudge_iters_010/lambda_scan/lambda_scan_summary.png
+[parameter_grid] 4/12 | a=0.5, nudge_iters=20
+[lambda_scan] 1/7 | lambda=0
+[lambda_scan] 2/7 | lambda=0.1
+[lambda_scan] 3/7 | lambda=1
+[lambda_scan] 4/7 | lambda=10
+[lambda_scan] 5/7 | lambda=100
+[lambda_scan] 6/7 | lambda=1000
+[lambda_scan] 7/7 | lambda=10000
+Saved lambda scan summary to: data/lambda_scan_parameter_grid/a_5p000e-01__nudge_iters_020/lambda_scan/lambda_scan_summary.npz
+Saved lambda scan plot to: data/lambda_scan_parameter_grid/a_5p000e-01__nudge_iters_020/lambda_scan/lambda_scan_summary.png
+[parameter_grid] 5/12 | a=2, nudge_iters=1
+[lambda_scan] 1/7 | lambda=0
+[lambda_scan] 2/7 | lambda=0.1
+[lambda_scan] 3/7 | lambda=1
+[lambda_scan] 4/7 | lambda=10
+[lambda_scan] 5/7 | lambda=100
+[lambda_scan] 6/7 | lambda=1000
+[lambda_scan] 7/7 | lambda=10000
+Saved lambda scan summary to: data/lambda_scan_parameter_grid/a_2p000e00__nudge_iters_001/lambda_scan/lambda_scan_summary.npz
+Saved lambda scan plot to: data/lambda_scan_parameter_grid/a_2p000e00__nudge_iters_001/lambda_scan/lambda_scan_summary.png
+[parameter_grid] 6/12 | a=2, nudge_iters=5
+[lambda_scan] 1/7 | lambda=0
+[lambda_scan] 2/7 | lambda=0.1
+[lambda_scan] 3/7 | lambda=1
+[lambda_scan] 4/7 | lambda=10
+[lambda_scan] 5/7 | lambda=100
+[lambda_scan] 6/7 | lambda=1000
+[lambda_scan] 7/7 | lambda=10000
+Saved lambda scan summary to: data/lambda_scan_parameter_grid/a_2p000e00__nudge_iters_005/lambda_scan/lambda_scan_summary.npz
+Saved lambda scan plot to: data/lambda_scan_parameter_grid/a_2p000e00__nudge_iters_005/lambda_scan/lambda_scan_summary.png
+[parameter_grid] 7/12 | a=2, nudge_iters=10
+[lambda_scan] 1/7 | lambda=0
+[lambda_scan] 2/7 | lambda=0.1
+[lambda_scan] 3/7 | lambda=1
+[lambda_scan] 4/7 | lambda=10
+[lambda_scan] 5/7 | lambda=100
+[lambda_scan] 6/7 | lambda=1000
+[lambda_scan] 7/7 | lambda=10000
+Saved lambda scan summary to: data/lambda_scan_parameter_grid/a_2p000e00__nudge_iters_010/lambda_scan/lambda_scan_summary.npz
+Saved lambda scan plot to: data/lambda_scan_parameter_grid/a_2p000e00__nudge_iters_010/lambda_scan/lambda_scan_summary.png
+[parameter_grid] 8/12 | a=2, nudge_iters=20
+[lambda_scan] 1/7 | lambda=0
+[lambda_scan] 2/7 | lambda=0.1
+[lambda_scan] 3/7 | lambda=1
+[lambda_scan] 4/7 | lambda=10
+[lambda_scan] 5/7 | lambda=100
+[lambda_scan] 6/7 | lambda=1000
+[lambda_scan] 7/7 | lambda=10000
+Saved lambda scan summary to: data/lambda_scan_parameter_grid/a_2p000e00__nudge_iters_020/lambda_scan/lambda_scan_summary.npz
+Saved lambda scan plot to: data/lambda_scan_parameter_grid/a_2p000e00__nudge_iters_020/lambda_scan/lambda_scan_summary.png
+[parameter_grid] 9/12 | a=5, nudge_iters=1
+[lambda_scan] 1/7 | lambda=0
+[lambda_scan] 2/7 | lambda=0.1
+[lambda_scan] 3/7 | lambda=1
+[lambda_scan] 4/7 | lambda=10
+[lambda_scan] 5/7 | lambda=100
+[lambda_scan] 6/7 | lambda=1000
+[lambda_scan] 7/7 | lambda=10000
+Saved lambda scan summary to: data/lambda_scan_parameter_grid/a_5p000e00__nudge_iters_001/lambda_scan/lambda_scan_summary.npz
+Saved lambda scan plot to: data/lambda_scan_parameter_grid/a_5p000e00__nudge_iters_001/lambda_scan/lambda_scan_summary.png
+[parameter_grid] 10/12 | a=5, nudge_iters=5
+[lambda_scan] 1/7 | lambda=0
+[lambda_scan] 2/7 | lambda=0.1
+[lambda_scan] 3/7 | lambda=1
+[lambda_scan] 4/7 | lambda=10
+[lambda_scan] 5/7 | lambda=100
+[lambda_scan] 6/7 | lambda=1000
+[lambda_scan] 7/7 | lambda=10000
+Saved lambda scan summary to: data/lambda_scan_parameter_grid/a_5p000e00__nudge_iters_005/lambda_scan/lambda_scan_summary.npz
+Saved lambda scan plot to: data/lambda_scan_parameter_grid/a_5p000e00__nudge_iters_005/lambda_scan/lambda_scan_summary.png
+[parameter_grid] 11/12 | a=5, nudge_iters=10
+[lambda_scan] 1/7 | lambda=0
+[lambda_scan] 2/7 | lambda=0.1
+[lambda_scan] 3/7 | lambda=1
+[lambda_scan] 4/7 | lambda=10
+[lambda_scan] 5/7 | lambda=100
+[lambda_scan] 6/7 | lambda=1000
+[lambda_scan] 7/7 | lambda=10000
+Saved lambda scan summary to: data/lambda_scan_parameter_grid/a_5p000e00__nudge_iters_010/lambda_scan/lambda_scan_summary.npz
+Saved lambda scan plot to: data/lambda_scan_parameter_grid/a_5p000e00__nudge_iters_010/lambda_scan/lambda_scan_summary.png
+[parameter_grid] 12/12 | a=5, nudge_iters=20
+[lambda_scan] 1/7 | lambda=0
+[lambda_scan] 2/7 | lambda=0.1
+[lambda_scan] 3/7 | lambda=1
+[lambda_scan] 4/7 | lambda=10
+[lambda_scan] 5/7 | lambda=100
+[lambda_scan] 6/7 | lambda=1000
+[lambda_scan] 7/7 | lambda=10000
+Saved lambda scan summary to: data/lambda_scan_parameter_grid/a_5p000e00__nudge_iters_020/lambda_scan/lambda_scan_summary.npz
+Saved lambda scan plot to: data/lambda_scan_parameter_grid/a_5p000e00__nudge_iters_020/lambda_scan/lambda_scan_summary.png
+Saved parameter-grid summary to: data/lambda_scan_parameter_grid/parameter_grid_summary.csv

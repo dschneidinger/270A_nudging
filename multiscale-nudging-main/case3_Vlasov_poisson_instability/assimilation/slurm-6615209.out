@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/mnt/ufs18/rs-003/MultiscaleML_group/Liyao/MEAN_FIELD_KERNEL/DA/case3_Vlasov_poisson_instability/assimilation/simulation.py", line 15, in <module>
+    from pic_two_stream_instability import (  # noqa: E402
+  File "/mnt/ufs18/rs-003/MultiscaleML_group/Liyao/MEAN_FIELD_KERNEL/DA/case3_Vlasov_poisson_instability/simulation/pic_two_stream_instability.py", line 15, in <module>
+    class SimulationConfig:
+  File "/mnt/ufs18/rs-003/MultiscaleML_group/Liyao/MEAN_FIELD_KERNEL/DA/case3_Vlasov_poisson_instability/simulation/pic_two_stream_instability.py", line 19, in SimulationConfig
+    length: float = 4.0 * np.pi
+                          ^^^^^
+AttributeError: module 'numpy' has no attribute 'pi'

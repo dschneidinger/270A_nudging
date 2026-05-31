@@ -1,0 +1,12 @@
+python pic_landau_damping.py \
+  --seed 0 \
+  --num-particles 50000 \
+  --num-grid 128 \
+  --num-v-grid 64 \
+  --t-end 50 \
+  --dt 0.05 \
+  --length 12.566370614359172 \
+  --mode 1 \
+  --epsilon 0.5 \
+  --vmax 6.0 \
+  --output-dir data

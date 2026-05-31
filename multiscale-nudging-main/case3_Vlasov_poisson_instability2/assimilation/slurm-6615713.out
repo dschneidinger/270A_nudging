@@ -1,0 +1,96 @@
+Running 1D-1V DA: steps=1000, N_truth=50000, N_obs=50000, N_est=1000, dt=0.05, lambda=0.0, hx=0.39269908169872414, hv=0.19367248969030532, init_mode=model_a, init_T=0.048, init_eps=0.01, init_theta=0.0, keep_prob=1.0, obs_noise_x=0.0, obs_noise_v=0.0
+Step    50/1000 | phase_err_obs=0.037726 | phase_err_truth=37.725961 | obs_ratio=1.000
+Step   100/1000 | phase_err_obs=0.037662 | phase_err_truth=37.661644 | obs_ratio=1.000
+Step   150/1000 | phase_err_obs=0.037577 | phase_err_truth=37.577007 | obs_ratio=1.000
+Step   200/1000 | phase_err_obs=0.037280 | phase_err_truth=37.279598 | obs_ratio=1.000
+Step   250/1000 | phase_err_obs=0.035558 | phase_err_truth=35.557966 | obs_ratio=1.000
+Step   300/1000 | phase_err_obs=0.029715 | phase_err_truth=29.714686 | obs_ratio=1.000
+Step   350/1000 | phase_err_obs=0.026057 | phase_err_truth=26.056523 | obs_ratio=1.000
+Step   400/1000 | phase_err_obs=0.029147 | phase_err_truth=29.146946 | obs_ratio=1.000
+Step   450/1000 | phase_err_obs=0.029604 | phase_err_truth=29.604128 | obs_ratio=1.000
+Step   500/1000 | phase_err_obs=0.026759 | phase_err_truth=26.759072 | obs_ratio=1.000
+Step   550/1000 | phase_err_obs=0.027556 | phase_err_truth=27.555886 | obs_ratio=1.000
+Step   600/1000 | phase_err_obs=0.030543 | phase_err_truth=30.542954 | obs_ratio=1.000
+Step   650/1000 | phase_err_obs=0.029199 | phase_err_truth=29.199229 | obs_ratio=1.000
+Step   700/1000 | phase_err_obs=0.024975 | phase_err_truth=24.975129 | obs_ratio=1.000
+Step   750/1000 | phase_err_obs=0.026709 | phase_err_truth=26.708797 | obs_ratio=1.000
+Step   800/1000 | phase_err_obs=0.030785 | phase_err_truth=30.784948 | obs_ratio=1.000
+Step   850/1000 | phase_err_obs=0.031812 | phase_err_truth=31.812429 | obs_ratio=1.000
+Step   900/1000 | phase_err_obs=0.027980 | phase_err_truth=27.979616 | obs_ratio=1.000
+Step   950/1000 | phase_err_obs=0.025256 | phase_err_truth=25.256422 | obs_ratio=1.000
+Step  1000/1000 | phase_err_obs=0.028922 | phase_err_truth=28.922042 | obs_ratio=1.000
+Saved DA result to: ./data_lambda_0/phase_da_kdenudge_1d1v_seed0.npz
+Final phase-space RMSE to truth: 28.922042
+Mean  phase-space RMSE to truth: 30.746618
+Running 1D-1V DA: steps=1000, N_truth=50000, N_obs=50000, N_est=1000, dt=0.05, lambda=1000.0, hx=0.39269908169872414, hv=0.19367248969030532, init_mode=model_a, init_T=0.048, init_eps=0.01, init_theta=0.0, keep_prob=1.0, obs_noise_x=0.0, obs_noise_v=0.0
+Step    50/1000 | phase_err_obs=0.000072 | phase_err_truth=0.071474 | obs_ratio=1.000
+Step   100/1000 | phase_err_obs=0.000068 | phase_err_truth=0.068264 | obs_ratio=1.000
+Step   150/1000 | phase_err_obs=0.000064 | phase_err_truth=0.063463 | obs_ratio=1.000
+Step   200/1000 | phase_err_obs=0.000069 | phase_err_truth=0.068444 | obs_ratio=1.000
+Step   250/1000 | phase_err_obs=0.000071 | phase_err_truth=0.070470 | obs_ratio=1.000
+Step   300/1000 | phase_err_obs=0.000082 | phase_err_truth=0.082195 | obs_ratio=1.000
+Step   350/1000 | phase_err_obs=0.000077 | phase_err_truth=0.077359 | obs_ratio=1.000
+Step   400/1000 | phase_err_obs=0.000081 | phase_err_truth=0.080604 | obs_ratio=1.000
+Step   450/1000 | phase_err_obs=0.000076 | phase_err_truth=0.075983 | obs_ratio=1.000
+Step   500/1000 | phase_err_obs=0.000087 | phase_err_truth=0.086348 | obs_ratio=1.000
+Step   550/1000 | phase_err_obs=0.000075 | phase_err_truth=0.075224 | obs_ratio=1.000
+Step   600/1000 | phase_err_obs=0.000078 | phase_err_truth=0.077528 | obs_ratio=1.000
+Step   650/1000 | phase_err_obs=0.000075 | phase_err_truth=0.075364 | obs_ratio=1.000
+Step   700/1000 | phase_err_obs=0.000094 | phase_err_truth=0.093860 | obs_ratio=1.000
+Step   750/1000 | phase_err_obs=0.000083 | phase_err_truth=0.083089 | obs_ratio=1.000
+Step   800/1000 | phase_err_obs=0.000071 | phase_err_truth=0.071227 | obs_ratio=1.000
+Step   850/1000 | phase_err_obs=0.000080 | phase_err_truth=0.080335 | obs_ratio=1.000
+Step   900/1000 | phase_err_obs=0.000092 | phase_err_truth=0.092389 | obs_ratio=1.000
+Step   950/1000 | phase_err_obs=0.000095 | phase_err_truth=0.094723 | obs_ratio=1.000
+Step  1000/1000 | phase_err_obs=0.000105 | phase_err_truth=0.105219 | obs_ratio=1.000
+Saved DA result to: ./data_lambda_1e_3/phase_da_kdenudge_1d1v_seed0.npz
+Final phase-space RMSE to truth: 0.105219
+Mean  phase-space RMSE to truth: 0.120396
+Running 1D-1V DA: steps=1000, N_truth=50000, N_obs=50000, N_est=1000, dt=0.05, lambda=10.0, hx=0.39269908169872414, hv=0.19367248969030532, init_mode=model_a, init_T=0.048, init_eps=0.01, init_theta=0.0, keep_prob=1.0, obs_noise_x=0.0, obs_noise_v=0.0
+Step    50/1000 | phase_err_obs=0.003658 | phase_err_truth=3.640383 | obs_ratio=1.000
+Step   100/1000 | phase_err_obs=0.001500 | phase_err_truth=1.495326 | obs_ratio=1.000
+Step   150/1000 | phase_err_obs=0.000955 | phase_err_truth=0.952665 | obs_ratio=1.000
+Step   200/1000 | phase_err_obs=0.000778 | phase_err_truth=0.775212 | obs_ratio=1.000
+Step   250/1000 | phase_err_obs=0.000797 | phase_err_truth=0.792701 | obs_ratio=1.000
+Step   300/1000 | phase_err_obs=0.000860 | phase_err_truth=0.854503 | obs_ratio=1.000
+Step   350/1000 | phase_err_obs=0.000782 | phase_err_truth=0.778285 | obs_ratio=1.000
+Step   400/1000 | phase_err_obs=0.000707 | phase_err_truth=0.703123 | obs_ratio=1.000
+Step   450/1000 | phase_err_obs=0.000623 | phase_err_truth=0.620563 | obs_ratio=1.000
+Step   500/1000 | phase_err_obs=0.000629 | phase_err_truth=0.626010 | obs_ratio=1.000
+Step   550/1000 | phase_err_obs=0.000619 | phase_err_truth=0.616085 | obs_ratio=1.000
+Step   600/1000 | phase_err_obs=0.000621 | phase_err_truth=0.618699 | obs_ratio=1.000
+Step   650/1000 | phase_err_obs=0.000594 | phase_err_truth=0.591106 | obs_ratio=1.000
+Step   700/1000 | phase_err_obs=0.000708 | phase_err_truth=0.704880 | obs_ratio=1.000
+Step   750/1000 | phase_err_obs=0.000725 | phase_err_truth=0.721897 | obs_ratio=1.000
+Step   800/1000 | phase_err_obs=0.000647 | phase_err_truth=0.644200 | obs_ratio=1.000
+Step   850/1000 | phase_err_obs=0.000623 | phase_err_truth=0.620512 | obs_ratio=1.000
+Step   900/1000 | phase_err_obs=0.000624 | phase_err_truth=0.620780 | obs_ratio=1.000
+Step   950/1000 | phase_err_obs=0.000715 | phase_err_truth=0.710667 | obs_ratio=1.000
+Step  1000/1000 | phase_err_obs=0.000661 | phase_err_truth=0.656897 | obs_ratio=1.000
+Saved DA result to: ./data_lambda_1e_5/phase_da_kdenudge_1d1v_seed0.npz
+Final phase-space RMSE to truth: 0.656897
+Mean  phase-space RMSE to truth: 1.358567
+Running 1D-1V DA: steps=1000, N_truth=50000, N_obs=50000, N_est=1000, dt=0.05, lambda=100.0, hx=0.39269908169872414, hv=0.19367248969030532, init_mode=model_a, init_T=0.048, init_eps=0.01, init_theta=0.0, keep_prob=1.0, obs_noise_x=0.0, obs_noise_v=0.0
+Step    50/1000 | phase_err_obs=0.000260 | phase_err_truth=0.258703 | obs_ratio=1.000
+Step   100/1000 | phase_err_obs=0.000171 | phase_err_truth=0.169995 | obs_ratio=1.000
+Step   150/1000 | phase_err_obs=0.000157 | phase_err_truth=0.155740 | obs_ratio=1.000
+Step   200/1000 | phase_err_obs=0.000152 | phase_err_truth=0.151474 | obs_ratio=1.000
+Step   250/1000 | phase_err_obs=0.000161 | phase_err_truth=0.159434 | obs_ratio=1.000
+Step   300/1000 | phase_err_obs=0.000198 | phase_err_truth=0.195880 | obs_ratio=1.000
+Step   350/1000 | phase_err_obs=0.000195 | phase_err_truth=0.193916 | obs_ratio=1.000
+Step   400/1000 | phase_err_obs=0.000203 | phase_err_truth=0.201269 | obs_ratio=1.000
+Step   450/1000 | phase_err_obs=0.000194 | phase_err_truth=0.192076 | obs_ratio=1.000
+Step   500/1000 | phase_err_obs=0.000192 | phase_err_truth=0.190304 | obs_ratio=1.000
+Step   550/1000 | phase_err_obs=0.000183 | phase_err_truth=0.181751 | obs_ratio=1.000
+Step   600/1000 | phase_err_obs=0.000169 | phase_err_truth=0.167712 | obs_ratio=1.000
+Step   650/1000 | phase_err_obs=0.000170 | phase_err_truth=0.168696 | obs_ratio=1.000
+Step   700/1000 | phase_err_obs=0.000210 | phase_err_truth=0.208506 | obs_ratio=1.000
+Step   750/1000 | phase_err_obs=0.000187 | phase_err_truth=0.185741 | obs_ratio=1.000
+Step   800/1000 | phase_err_obs=0.000207 | phase_err_truth=0.205274 | obs_ratio=1.000
+Step   850/1000 | phase_err_obs=0.000177 | phase_err_truth=0.175818 | obs_ratio=1.000
+Step   900/1000 | phase_err_obs=0.000204 | phase_err_truth=0.202620 | obs_ratio=1.000
+Step   950/1000 | phase_err_obs=0.000216 | phase_err_truth=0.214022 | obs_ratio=1.000
+Step  1000/1000 | phase_err_obs=0.000183 | phase_err_truth=0.181966 | obs_ratio=1.000
+Saved DA result to: ./data_lambda_1e_4/phase_da_kdenudge_1d1v_seed0.npz
+Final phase-space RMSE to truth: 0.181966
+Mean  phase-space RMSE to truth: 0.286812

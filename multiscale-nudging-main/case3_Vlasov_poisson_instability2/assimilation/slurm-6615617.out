@@ -1,0 +1,72 @@
+Traceback (most recent call last):
+  File "/mnt/ufs18/rs-003/MultiscaleML_group/Liyao/MEAN_FIELD_KERNEL/DA/case3_Vlasov_poisson_instability2/assimilation/simulation.py", line 994, in <module>
+    main()
+  File "/mnt/ufs18/rs-003/MultiscaleML_group/Liyao/MEAN_FIELD_KERNEL/DA/case3_Vlasov_poisson_instability2/assimilation/simulation.py", line 990, in main
+    run_data_assimilation(args)
+  File "/mnt/ufs18/rs-003/MultiscaleML_group/Liyao/MEAN_FIELD_KERNEL/DA/case3_Vlasov_poisson_instability2/assimilation/simulation.py", line 645, in run_data_assimilation
+    ) = load_truth_data(args.data_path)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ufs18/rs-003/MultiscaleML_group/Liyao/MEAN_FIELD_KERNEL/DA/case3_Vlasov_poisson_instability2/assimilation/simulation.py", line 67, in load_truth_data
+    config_obj = raw["config"]
+                 ~~~^^^^^^^^^^
+  File "/opt/software-current/2023.06/x86_64/generic/software/SciPy-bundle/2023.07-gfbf-2023a/lib/python3.11/site-packages/numpy/lib/npyio.py", line 256, in __getitem__
+    return format.read_array(bytes,
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/software-current/2023.06/x86_64/generic/software/SciPy-bundle/2023.07-gfbf-2023a/lib/python3.11/site-packages/numpy/lib/format.py", line 800, in read_array
+    array = pickle.load(fp, **pickle_kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'numpy._core'
+Traceback (most recent call last):
+  File "/mnt/ufs18/rs-003/MultiscaleML_group/Liyao/MEAN_FIELD_KERNEL/DA/case3_Vlasov_poisson_instability2/assimilation/simulation.py", line 994, in <module>
+    main()
+  File "/mnt/ufs18/rs-003/MultiscaleML_group/Liyao/MEAN_FIELD_KERNEL/DA/case3_Vlasov_poisson_instability2/assimilation/simulation.py", line 990, in main
+    run_data_assimilation(args)
+  File "/mnt/ufs18/rs-003/MultiscaleML_group/Liyao/MEAN_FIELD_KERNEL/DA/case3_Vlasov_poisson_instability2/assimilation/simulation.py", line 645, in run_data_assimilation
+    ) = load_truth_data(args.data_path)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ufs18/rs-003/MultiscaleML_group/Liyao/MEAN_FIELD_KERNEL/DA/case3_Vlasov_poisson_instability2/assimilation/simulation.py", line 67, in load_truth_data
+    config_obj = raw["config"]
+                 ~~~^^^^^^^^^^
+  File "/opt/software-current/2023.06/x86_64/generic/software/SciPy-bundle/2023.07-gfbf-2023a/lib/python3.11/site-packages/numpy/lib/npyio.py", line 256, in __getitem__
+    return format.read_array(bytes,
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/software-current/2023.06/x86_64/generic/software/SciPy-bundle/2023.07-gfbf-2023a/lib/python3.11/site-packages/numpy/lib/format.py", line 800, in read_array
+    array = pickle.load(fp, **pickle_kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'numpy._core'
+Traceback (most recent call last):
+  File "/mnt/ufs18/rs-003/MultiscaleML_group/Liyao/MEAN_FIELD_KERNEL/DA/case3_Vlasov_poisson_instability2/assimilation/simulation.py", line 994, in <module>
+    main()
+  File "/mnt/ufs18/rs-003/MultiscaleML_group/Liyao/MEAN_FIELD_KERNEL/DA/case3_Vlasov_poisson_instability2/assimilation/simulation.py", line 990, in main
+    run_data_assimilation(args)
+  File "/mnt/ufs18/rs-003/MultiscaleML_group/Liyao/MEAN_FIELD_KERNEL/DA/case3_Vlasov_poisson_instability2/assimilation/simulation.py", line 645, in run_data_assimilation
+    ) = load_truth_data(args.data_path)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ufs18/rs-003/MultiscaleML_group/Liyao/MEAN_FIELD_KERNEL/DA/case3_Vlasov_poisson_instability2/assimilation/simulation.py", line 67, in load_truth_data
+    config_obj = raw["config"]
+                 ~~~^^^^^^^^^^
+  File "/opt/software-current/2023.06/x86_64/generic/software/SciPy-bundle/2023.07-gfbf-2023a/lib/python3.11/site-packages/numpy/lib/npyio.py", line 256, in __getitem__
+    return format.read_array(bytes,
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/software-current/2023.06/x86_64/generic/software/SciPy-bundle/2023.07-gfbf-2023a/lib/python3.11/site-packages/numpy/lib/format.py", line 800, in read_array
+    array = pickle.load(fp, **pickle_kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'numpy._core'
+Traceback (most recent call last):
+  File "/mnt/ufs18/rs-003/MultiscaleML_group/Liyao/MEAN_FIELD_KERNEL/DA/case3_Vlasov_poisson_instability2/assimilation/simulation.py", line 994, in <module>
+    main()
+  File "/mnt/ufs18/rs-003/MultiscaleML_group/Liyao/MEAN_FIELD_KERNEL/DA/case3_Vlasov_poisson_instability2/assimilation/simulation.py", line 990, in main
+    run_data_assimilation(args)
+  File "/mnt/ufs18/rs-003/MultiscaleML_group/Liyao/MEAN_FIELD_KERNEL/DA/case3_Vlasov_poisson_instability2/assimilation/simulation.py", line 645, in run_data_assimilation
+    ) = load_truth_data(args.data_path)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/ufs18/rs-003/MultiscaleML_group/Liyao/MEAN_FIELD_KERNEL/DA/case3_Vlasov_poisson_instability2/assimilation/simulation.py", line 67, in load_truth_data
+    config_obj = raw["config"]
+                 ~~~^^^^^^^^^^
+  File "/opt/software-current/2023.06/x86_64/generic/software/SciPy-bundle/2023.07-gfbf-2023a/lib/python3.11/site-packages/numpy/lib/npyio.py", line 256, in __getitem__
+    return format.read_array(bytes,
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/software-current/2023.06/x86_64/generic/software/SciPy-bundle/2023.07-gfbf-2023a/lib/python3.11/site-packages/numpy/lib/format.py", line 800, in read_array
+    array = pickle.load(fp, **pickle_kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'numpy._core'

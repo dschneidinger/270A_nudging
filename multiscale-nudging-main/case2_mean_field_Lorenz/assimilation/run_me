@@ -1,0 +1,9 @@
+#!/bin/bash --login
+module purge
+module load SciPy-bundle/2025.07-gfbf-2025b
+
+# Lambda values rescaled by N^2 = 1e6 (N=1000) since residual is now in density units
+python simulation.py --data_path ../simulation/data/mv_sim_seed0.npz  --outdir ./data_lambda_0     --max_steps 1000 --nudge_iters 1  --lambda_nudge 0
+python simulation.py --data_path ../simulation/data/mv_sim_seed0.npz  --outdir ./data_lambda_10    --max_steps 1000 --nudge_iters 1  --lambda_nudge 10
+python simulation.py --data_path ../simulation/data/mv_sim_seed0.npz  --outdir ./data_lambda_100   --max_steps 1000 --nudge_iters 1  --lambda_nudge 100
+python simulation.py --data_path ../simulation/data/mv_sim_seed0.npz  --outdir ./data_lambda_1000  --max_steps 1000 --nudge_iters 1  --lambda_nudge 1000

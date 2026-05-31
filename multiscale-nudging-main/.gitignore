@@ -1,0 +1,18 @@
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+data/
+data_*/
+*.npy
+*.npz
+*.h5
+*.hdf5
+*.mat
+.DS_Store
+._*
+
+# Fish simulation: keep small mp4s, exclude rendered frames and the giant preview
+fish_simulation/frames_*/
+fish_simulation/data/
+fish_simulation/pv_preview.mp4
+fish_simulation/training/model_save_path/

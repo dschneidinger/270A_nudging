@@ -1,0 +1,15 @@
+python simulation.py \
+  --seed 0 \
+  --n_particles 1000 \
+  --t_final 100 \
+  --dt 0.01 \
+  --sigma 10.0 \
+  --rho 28.0 \
+  --beta 2.6666666666666665 \
+  --x0_mean 1.0 \
+  --x0_std 1.0 \
+  --y0_mean 1.0 \
+  --y0_std 1.0 \
+  --z0_mean 1.0 \
+  --z0_std 1.0 \
+  --outdir data

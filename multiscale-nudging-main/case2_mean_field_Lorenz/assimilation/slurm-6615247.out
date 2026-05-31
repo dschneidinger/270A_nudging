@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/mnt/ufs18/rs-003/MultiscaleML_group/Liyao/MEAN_FIELD_KERNEL/DA/case2_mean_field_Lorenz/assimilation/simulation.py", line 4, in <module>
+    import numpy as np
+ModuleNotFoundError: No module named 'numpy'
+Traceback (most recent call last):
+  File "/mnt/ufs18/rs-003/MultiscaleML_group/Liyao/MEAN_FIELD_KERNEL/DA/case2_mean_field_Lorenz/assimilation/simulation.py", line 4, in <module>
+    import numpy as np
+ModuleNotFoundError: No module named 'numpy'
+Traceback (most recent call last):
+  File "/mnt/ufs18/rs-003/MultiscaleML_group/Liyao/MEAN_FIELD_KERNEL/DA/case2_mean_field_Lorenz/assimilation/simulation.py", line 4, in <module>
+    import numpy as np
+ModuleNotFoundError: No module named 'numpy'
+Traceback (most recent call last):
+  File "/mnt/ufs18/rs-003/MultiscaleML_group/Liyao/MEAN_FIELD_KERNEL/DA/case2_mean_field_Lorenz/assimilation/simulation.py", line 4, in <module>
+    import numpy as np
+ModuleNotFoundError: No module named 'numpy'
