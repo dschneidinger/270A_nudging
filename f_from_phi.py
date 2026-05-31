@@ -360,7 +360,7 @@ def train_model(
 if __name__ == "__main__":
     # Configuration
     config = {
-        "data_path": "/Users/ARand/Desktop/270A_nudging/multiscale-nudging-main 2/case3_Vlasov_poisson_instability/simulation/data/mv_sim_seed0.npz",
+        "data_path": "multiscale-nudging-main/case3_Vlasov_poisson_instability/simulation/data/mv_sim_seed0.npz",
         "downsample_factor": 10,
         "batch_size": 32,
         "num_epochs": 100,
