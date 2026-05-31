@@ -104,7 +104,7 @@ class MLP(nn.Module):
         # Reshape to (batch, n_x, n_v)
         return out.view(-1, self.n_x_grid, self.n_v_grid)
 
-def prepare_training_data(data_path, downsample_factor=10, train_split=0.8):
+def prepare_training_data(data_path, downsample_factor=10, train_split=0.8, noise_std=0.0):
     """
     Load and prepare training data from simulation output.
     
@@ -112,6 +112,7 @@ def prepare_training_data(data_path, downsample_factor=10, train_split=0.8):
         data_path: Path to .npz file with simulation data
         downsample_factor: Factor to downsample spatial measurements
         train_split: Fraction of data to use for training
+        noise_std: Standard deviation of Gaussian noise added to sparse phi
     
     Returns:
         train_dataset, val_dataset, n_sparse, n_x, n_v
@@ -135,6 +136,11 @@ def prepare_training_data(data_path, downsample_factor=10, train_split=0.8):
     
     # Downsample phi spatially
     phi_sparse = phi[:, ::downsample_factor]  # (N_t, N_x/downsample_factor)
+
+    if noise_std > 0:
+        phi_sparse = phi_sparse + np.random.normal(0.0, noise_std, size=phi_sparse.shape)
+        print(f"  Added Gaussian noise to sparse phi (std={noise_std})")
+
     n_sparse = phi_sparse.shape[1]
     n_x, n_v = phase_density.shape[1], phase_density.shape[2]
     
@@ -253,6 +259,7 @@ if __name__ == "__main__":
     BATCH_SIZE = 32
     NUM_EPOCHS = 100
     LEARNING_RATE = 0.001
+    NOISE_STD = 0.01
     
     # Set device
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -261,7 +268,8 @@ if __name__ == "__main__":
     # Prepare data
     train_dataset, val_dataset, n_sparse, n_x, n_v = prepare_training_data(
         DATA_PATH, 
-        downsample_factor=DOWNSAMPLE_FACTOR
+        downsample_factor=DOWNSAMPLE_FACTOR,
+        noise_std=NOISE_STD
     )
     
     train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True)
