@@ -29,7 +29,7 @@ def phi_from_E(E, x_grid) -> np.ndarray:
 
 
 class VlasovDataset(Dataset):
-    """Dataset for training MLP to predict f from sparse phi measurements."""
+    """Dataset for training model to predict f from sparse phi measurements."""
 
     def __init__(self, phi_sparse, f_full, time_diffs):
         """
@@ -63,63 +63,60 @@ class VlasovDataset(Dataset):
         return input_vector, target
 
 
-class MLP(nn.Module):
-    def __init__(
-        self,
-        n_sparse_measurements,
-        n_x_grid,
-        n_v_grid,
-        hidden_layers=[256, 512, 1024, 512],
-    ):
-        """
-        MLP to predict full distribution function from sparse potential measurements.
+class FCCNNDecoder(nn.Module):
+    """
+    FC encoder + CNN decoder for predicting a 2D spatial field from a small input vector.
 
-        Args:
-            n_sparse_measurements: Number of sparse phi measurements per timestep
-            n_x_grid: Number of spatial grid points (128)
-            n_v_grid: Number of velocity grid points (64)
-            hidden_layers: List of hidden layer sizes
-        """
-        super(MLP, self).__init__()
+    Why this architecture:
+    - The input is a small 1d vector, so FC layers
+    - The output is a 2D spatial field (128x64) where neighboring pixels are correlated,
+      so convolutional layers are the right tool to decode it.
+    - No activation on the final layer since outputs are normalized regression targets.
+    """
 
-        # Input: sparse phi at t, sparse phi at t-1, and dt = 2*n_sparse + 1
+    def __init__(self, n_sparse_measurements, n_x_grid, n_v_grid, latent_dim=256):
+        super().__init__()
+
         input_size = 2 * n_sparse_measurements + 1
-
-        # Output: full f(x,v) distribution = n_x_grid * n_v_grid
-        output_size = n_x_grid * n_v_grid
-
         self.n_x_grid = n_x_grid
         self.n_v_grid = n_v_grid
 
-        # Build network layers
-        layers = []
-        prev_size = input_size
+        # FC encoder: sparse phi vector -> latent -> spatial seed (128, 4, 2)
+        self.encoder = nn.Sequential(
+            nn.Linear(input_size, latent_dim),
+            nn.SiLU(),
+            nn.Linear(latent_dim, latent_dim),
+            nn.SiLU(),
+            nn.Linear(latent_dim, 128 * 4 * 2),
+            nn.SiLU(),
+        )
 
-        for hidden_size in hidden_layers:
-            layers.append(nn.Linear(prev_size, hidden_size))
-            layers.append(nn.SiLU())
-            layers.append(nn.Dropout(0.1))  # Add dropout for regularization
-            prev_size = hidden_size
-
-        # Output layer
-        layers.append(nn.Linear(prev_size, output_size))
-
-        self.network = nn.Sequential(*layers)
+        # CNN decoder: (128, 4, 2) -> (1, 128, 64) via 5 upsampling stages
+        self.decoder = nn.Sequential(
+            nn.ConvTranspose2d(128, 64, kernel_size=4, stride=2, padding=1),
+            nn.BatchNorm2d(64),
+            nn.SiLU(),
+            nn.ConvTranspose2d(64, 32, kernel_size=4, stride=2, padding=1),
+            nn.BatchNorm2d(32),
+            nn.SiLU(),
+            nn.ConvTranspose2d(32, 16, kernel_size=4, stride=2, padding=1),
+            nn.BatchNorm2d(16),
+            nn.SiLU(),
+            nn.ConvTranspose2d(16, 8, kernel_size=4, stride=2, padding=1),
+            nn.BatchNorm2d(8),
+            nn.SiLU(),
+            nn.ConvTranspose2d(8, 1, kernel_size=4, stride=2, padding=1),
+        )
 
     def forward(self, x):
-        """
-        Args:
-            x: (batch, 2*n_sparse + 1) - sparse phi measurements and time diff
-        Returns:
-            f: (batch, n_x_grid, n_v_grid) - predicted distribution function
-        """
-        out = self.network(x)
-        # Reshape to (batch, n_x, n_v)
-        return out.view(-1, self.n_x_grid, self.n_v_grid)
+        latent = self.encoder(x)
+        latent = latent.view(-1, 128, 4, 2)
+        out = self.decoder(latent)
+        return out.squeeze(1)  # (batch, n_x_grid, n_v_grid)
 
 
 def prepare_training_data(
-    data_path, downsample_factor=10, train_frac=0.80, val_frac=0.05, test_frac=0.15
+    data_path, downsample_factor=10, train_frac=0.80, val_frac=0.05, test_frac=0.15, noise_std=0.00
 ):
     """
     Load and prepare training data from simulation output.
@@ -130,7 +127,7 @@ def prepare_training_data(
         train_frac: Fraction of data for training (default 0.80)
         val_frac: Fraction of data for validation (default 0.05)
         test_frac: Fraction of data for testing (default 0.15)
-
+        noise_std: Standard deviation of noise to add to sparse measurements (default 0.05)
     Returns:
         train_dataset, val_dataset, test_dataset, n_sparse, n_x, n_v, norm_stats
     """
@@ -242,10 +239,10 @@ def train_model(
     norm_stats=None,
 ):
     """
-    Train the MLP model.
+    Train the model.
 
     Args:
-        model: The MLP model
+        model: The model
         train_loader: DataLoader for training data
         val_loader: DataLoader for validation data
         num_epochs: Number of training epochs
@@ -368,13 +365,12 @@ def train_model(
 if __name__ == "__main__":
     # Configuration
     config = {
-        "data_path": "/Users/ARand/Desktop/270A_nudging/multiscale-nudging-main 2/case3_Vlasov_poisson_instability/simulation/data/mv_sim_seed0.npz",
+        "data_path": "multiscale-nudging-main/case3_Vlasov_poisson_instability/simulation/data/mv_sim_seed0.npz",
         "downsample_factor": 10,
         "batch_size": 32,
         "num_epochs": 100,
         "learning_rate": 0.001,
-        "hidden_layers": [256, 512, 1024, 512, 256],
-        "dropout": 0.1,
+        "latent_dim": 256,
         "activation": "SiLU",
         "loss": "MSE",
         "optimizer": "Adam",
@@ -384,6 +380,7 @@ if __name__ == "__main__":
         "train_frac": 0.80,
         "val_frac": 0.05,
         "test_frac": 0.15,
+        "noise_std": 0.05,
     }
 
     # Create experiment directory
@@ -409,6 +406,7 @@ if __name__ == "__main__":
             train_frac=config["train_frac"],
             val_frac=config["val_frac"],
             test_frac=config["test_frac"],
+            noise_std=config["noise_std"],
         )
     )
 
@@ -435,11 +433,11 @@ if __name__ == "__main__":
     )
 
     # Initialize model
-    model = MLP(
+    model = FCCNNDecoder(
         n_sparse_measurements=n_sparse,
         n_x_grid=n_x,
         n_v_grid=n_v,
-        hidden_layers=config["hidden_layers"],
+        latent_dim=config["latent_dim"],
     )
 
     n_params = sum(p.numel() for p in model.parameters())
