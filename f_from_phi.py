@@ -10,7 +10,7 @@ from torch.utils.data import Dataset, DataLoader
 
 r"""
 Vlasov equation : \partial_t f + v \cdot \nabla_x f + F \cdot \nabla_v f = 0
-For now we will just consider the electrostatic case, where F = q E = -\nabla_x * \phi * q
+For now we will just consider the electrostatic case, where F = q E = -\nabla_x * \phi * q #TODO check
 
 Full distribution function f(x1,v1,t) is output from the numerical solver.
 In the future this could be from osiris, but for now it will be from the numerical solver Hayden's postdoc wrote
@@ -27,6 +27,7 @@ class VlasovDataset(Dataset):
     def __init__(self, phi_sparse, f_full, time_diffs):
         """
         Args:
+            #TODO, I think you need to include the positions of the sparse measurements
             phi_sparse: (N_samples, 2, N_sparse) - sparse phi at t and t-1
             f_full: (N_samples, N_x, N_v) - full distribution function at time t
             time_diffs: (N_samples,) - time difference between measurements
@@ -40,11 +41,13 @@ class VlasovDataset(Dataset):
     
     def __getitem__(self, idx):
         # Flatten phi measurements and append time difference
+        #TODO check that the indexing is correct here
         phi_t = self.phi_sparse[idx, 0, :]  # phi at time t
         phi_t_minus_1 = self.phi_sparse[idx, 1, :]  # phi at time t-1
         dt = self.time_diffs[idx:idx+1]  # time difference
         
         # Concatenate: [phi_t, phi_t-1, dt]
+        #TODO is there a smarter way to do this?
         input_vector = torch.cat([phi_t, phi_t_minus_1, dt])
         
         # Flatten the output f
@@ -244,7 +247,8 @@ def train_model(model, train_loader, val_loader, num_epochs=100, lr=0.001, devic
 
 if __name__ == "__main__":
     # Configuration
-    DATA_PATH = "/Users/david/270A_nudging/multiscale-nudging-main/case3_Vlasov_poisson_instability/simulation/data/mv_sim_seed0.npz"
+    # DATA_PATH = "/Users/david/270A_nudging/multiscale-nudging-main/case3_Vlasov_poisson_instability/simulation/data/mv_sim_seed0.npz"
+    DATA_PATH = "/home/dschneidinger/270A_nudging/multiscale-nudging-main/case3_Vlasov_poisson_instability/simulation/data/mv_sim_seed0.npz"
     DOWNSAMPLE_FACTOR = 10  # Use 128/10 = ~13 sparse measurements
     BATCH_SIZE = 32
     NUM_EPOCHS = 100
