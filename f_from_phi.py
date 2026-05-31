@@ -1,5 +1,4 @@
 # Train a Network to find a distribution function f, from a given potential phi, measured sparsely in space.
-
 import json
 import csv
 import os
@@ -22,7 +21,8 @@ Full distribution function f(x1,v1,t) is output from the numerical solver.
 In the future this could be from osiris, but for now it will be from the numerical solver Hayden's postdoc wrote
 """
 
-def phi_from_E(E, x_grid)-> np.ndarray:
+
+def phi_from_E(E, x_grid) -> np.ndarray:
     """Compute electric potential from electric field using integration."""
     phi = np.cumsum(-E * np.gradient(x_grid), axis=1)
     return phi
@@ -30,6 +30,7 @@ def phi_from_E(E, x_grid)-> np.ndarray:
 
 class VlasovDataset(Dataset):
     """Dataset for training MLP to predict f from sparse phi measurements."""
+
     def __init__(self, phi_sparse, f_full, time_diffs):
         """
         Args:
@@ -41,32 +42,38 @@ class VlasovDataset(Dataset):
         self.phi_sparse = torch.FloatTensor(phi_sparse)
         self.f_full = torch.FloatTensor(f_full)
         self.time_diffs = torch.FloatTensor(time_diffs)
-        
+
     def __len__(self):
         return len(self.phi_sparse)
-    
+
     def __getitem__(self, idx):
         # Flatten phi measurements and append time difference
         #TODO check that the indexing is correct here
         phi_t = self.phi_sparse[idx, 0, :]  # phi at time t
         phi_t_minus_1 = self.phi_sparse[idx, 1, :]  # phi at time t-1
-        dt = self.time_diffs[idx:idx+1]  # time difference
-        
+        dt = self.time_diffs[idx : idx + 1]  # time difference
+
         # Concatenate: [phi_t, phi_t-1, dt]
         #TODO is there a smarter way to do this?
         input_vector = torch.cat([phi_t, phi_t_minus_1, dt])
-        
+
         # Flatten the output f
         target = self.f_full[idx].flatten()
-        
+
         return input_vector, target
 
 
 class MLP(nn.Module):
-    def __init__(self, n_sparse_measurements, n_x_grid, n_v_grid, hidden_layers=[256, 512, 1024, 512]):
+    def __init__(
+        self,
+        n_sparse_measurements,
+        n_x_grid,
+        n_v_grid,
+        hidden_layers=[256, 512, 1024, 512],
+    ):
         """
         MLP to predict full distribution function from sparse potential measurements.
-        
+
         Args:
             n_sparse_measurements: Number of sparse phi measurements per timestep
             n_x_grid: Number of spatial grid points (128)
@@ -74,31 +81,31 @@ class MLP(nn.Module):
             hidden_layers: List of hidden layer sizes
         """
         super(MLP, self).__init__()
-        
+
         # Input: sparse phi at t, sparse phi at t-1, and dt = 2*n_sparse + 1
         input_size = 2 * n_sparse_measurements + 1
-        
+
         # Output: full f(x,v) distribution = n_x_grid * n_v_grid
         output_size = n_x_grid * n_v_grid
-        
+
         self.n_x_grid = n_x_grid
         self.n_v_grid = n_v_grid
-        
+
         # Build network layers
         layers = []
         prev_size = input_size
-        
+
         for hidden_size in hidden_layers:
             layers.append(nn.Linear(prev_size, hidden_size))
             layers.append(nn.SiLU())
             layers.append(nn.Dropout(0.1))  # Add dropout for regularization
             prev_size = hidden_size
-        
+
         # Output layer
         layers.append(nn.Linear(prev_size, output_size))
-        
+
         self.network = nn.Sequential(*layers)
-        
+
     def forward(self, x):
         """
         Args:
@@ -109,6 +116,7 @@ class MLP(nn.Module):
         out = self.network(x)
         # Reshape to (batch, n_x, n_v)
         return out.view(-1, self.n_x_grid, self.n_v_grid)
+
 
 def prepare_training_data(
     data_path, downsample_factor=10, train_frac=0.80, val_frac=0.05, test_frac=0.15
