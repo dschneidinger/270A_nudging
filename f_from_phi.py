@@ -306,3 +306,4 @@ if __name__ == "__main__":
     # Save the trained model
     torch.save(model.state_dict(), 'vlasov_mlp_model.pth')
     print("Saved model to vlasov_mlp_model.pth")
+    
