@@ -150,8 +150,11 @@ def prepare_training_data(
 
     # Downsample phi spatially
     phi_sparse = phi[:, ::downsample_factor]  # (N_t, N_x/downsample_factor)
+
     if noise_std > 0:
         phi_sparse = phi_sparse + np.random.normal(0.0, noise_std, size=phi_sparse.shape)
+        print(f"  Added Gaussian noise to sparse phi (std={noise_std})")
+
     n_sparse = phi_sparse.shape[1]
     n_x, n_v = phase_density.shape[1], phase_density.shape[2]
 
