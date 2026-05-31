@@ -35,7 +35,7 @@ class VlasovDataset(Dataset):
         """
         Args:
             #TODO, I think you need to include the positions of the sparse measurements
-            phi_sparse: (N_samples, 2, N_sparse) - sparse phi at t and t-1
+            phi_sparse: (N_samples, T, N_sparse) - T timesteps of sparse phi
             f_full: (N_samples, N_x, N_v) - full distribution function at time t
             time_diffs: (N_samples,) - time difference between measurements
         """
@@ -47,20 +47,19 @@ class VlasovDataset(Dataset):
         return len(self.phi_sparse)
 
     def __getitem__(self, idx):
-        # Flatten phi measurements and append time difference
         #TODO check that the indexing is correct here
-        phi_t = self.phi_sparse[idx, 0, :]  # phi at time t
-        phi_t_minus_1 = self.phi_sparse[idx, 1, :]  # phi at time t-1
-        dt = self.time_diffs[idx : idx + 1]  # time difference
+        # phi_sparse[idx] is (T, N_sparse) — the window of timesteps
+        phi_window = self.phi_sparse[idx]  # (T, N_sparse)
+        dt = self.time_diffs[idx]
 
-        # Concatenate: [phi_t, phi_t-1, dt]
-        #TODO is there a smarter way to do this?
-        input_vector = torch.cat([phi_t, phi_t_minus_1, dt])
+        # Append dt as a constant row so the model sees the time spacing
+        # dt_row shape: (1, N_sparse) — broadcast dt across all sensor positions
+        dt_row = dt.expand(1, phi_window.shape[1])
+        inputs = torch.cat([phi_window, dt_row], dim=0)  # (T+1, N_sparse)
 
-        # Flatten the output f
         target = self.f_full[idx].flatten()
 
-        return input_vector, target
+        return inputs, target
 
 
 class FCCNNDecoder(nn.Module):
@@ -115,8 +114,74 @@ class FCCNNDecoder(nn.Module):
         return out.squeeze(1)  # (batch, n_x_grid, n_v_grid)
 
 
+class Conv1D2DNet(nn.Module):
+    """
+    Conv1D encoder (temporal) → FC bridge → Conv2D decoder (spatial).
+
+    Conv1D processes the sequence of sparse phi measurements across timesteps,
+    learning temporal patterns (velocity, acceleration) directly.
+    A small FC bridge reshapes the temporal features into a 2D spatial seed.
+    Conv2D decoder upsamples the seed into the full (n_x, n_v) output grid.
+    """
+
+    def __init__(self, n_sparse_measurements, n_x_grid, n_v_grid, n_timesteps=5, latent_dim=256):
+        super().__init__()
+
+        self.n_x_grid = n_x_grid
+        self.n_v_grid = n_v_grid
+
+        # Input channels = n_sparse, sequence length = T+1 (T timesteps + dt row)
+        # Conv1D encoder: learns temporal patterns across timesteps
+        self.temporal_encoder = nn.Sequential(
+            nn.Conv1d(n_sparse_measurements, 64, kernel_size=3, padding=1),
+            nn.BatchNorm1d(64),
+            nn.SiLU(),
+            nn.Conv1d(64, 128, kernel_size=3, padding=1),
+            nn.BatchNorm1d(128),
+            nn.SiLU(),
+            nn.AdaptiveAvgPool1d(1),  # pool across time → (128, 1)
+        )
+
+        # FC bridge: temporal features → spatial seed
+        self.bridge = nn.Sequential(
+            nn.Linear(128, latent_dim),
+            nn.SiLU(),
+            nn.Linear(latent_dim, 128 * 4 * 2),
+            nn.SiLU(),
+        )
+
+        # Conv2D decoder: (128, 4, 2) → (1, 128, 64)
+        self.decoder = nn.Sequential(
+            nn.ConvTranspose2d(128, 64, kernel_size=4, stride=2, padding=1),
+            nn.BatchNorm2d(64),
+            nn.SiLU(),
+            nn.ConvTranspose2d(64, 32, kernel_size=4, stride=2, padding=1),
+            nn.BatchNorm2d(32),
+            nn.SiLU(),
+            nn.ConvTranspose2d(32, 16, kernel_size=4, stride=2, padding=1),
+            nn.BatchNorm2d(16),
+            nn.SiLU(),
+            nn.ConvTranspose2d(16, 8, kernel_size=4, stride=2, padding=1),
+            nn.BatchNorm2d(8),
+            nn.SiLU(),
+            nn.ConvTranspose2d(8, 1, kernel_size=4, stride=2, padding=1),
+        )
+
+    def forward(self, x):
+        # x: (batch, T+1, n_sparse)
+        # Conv1d expects (batch, channels, seq_len) → transpose to (batch, n_sparse, T+1)
+        x = x.transpose(1, 2)
+        temporal = self.temporal_encoder(x)  # (batch, 128, 1)
+        temporal = temporal.squeeze(2)       # (batch, 128)
+        spatial_seed = self.bridge(temporal)
+        spatial_seed = spatial_seed.view(-1, 128, 4, 2)
+        out = self.decoder(spatial_seed)
+        return out.squeeze(1)  # (batch, n_x_grid, n_v_grid)
+
+
 def prepare_training_data(
-    data_path, downsample_factor=10, train_frac=0.80, val_frac=0.05, test_frac=0.15
+    data_path, downsample_factor=10, n_timesteps=5,
+    train_frac=0.80, val_frac=0.05, test_frac=0.15,
 ):
     """
     Load and prepare training data from simulation output.
@@ -156,19 +221,18 @@ def prepare_training_data(
     print(f"Sparse phi measurements: {n_sparse} per timestep")
     print(f"Output grid: {n_x} x {n_v} = {n_x * n_v} values")
 
-    # Create training samples: use pairs of consecutive timesteps
-    # Each sample: [phi(t), phi(t-1), dt] -> f(t)
-    N_samples = len(times) - 1
+    # Create training samples: sliding window of n_timesteps
+    # Each sample: [phi(t-T+1), ..., phi(t), dt] -> f(t)
+    N_samples = len(times) - n_timesteps
 
-    phi_input = np.zeros((N_samples, 2, n_sparse))  # (N_samples, 2, n_sparse)
-    f_output = np.zeros((N_samples, n_x, n_v))  # (N_samples, n_x, n_v)
+    phi_input = np.zeros((N_samples, n_timesteps, n_sparse))
+    f_output = np.zeros((N_samples, n_x, n_v))
     time_diffs = np.zeros(N_samples)
 
     for i in range(N_samples):
-        phi_input[i, 0, :] = phi_sparse[i + 1]  # phi at time t
-        phi_input[i, 1, :] = phi_sparse[i]  # phi at time t-1
-        f_output[i] = phase_density[i + 1]  # f at time t (ground truth)
-        time_diffs[i] = times[i + 1] - times[i]  # dt
+        phi_input[i] = phi_sparse[i : i + n_timesteps]  # window of T timesteps
+        f_output[i] = phase_density[i + n_timesteps]     # f at end of window
+        time_diffs[i] = times[i + 1] - times[i]          # dt (constant spacing)
 
     # Random split into train / val / test
     rng = np.random.default_rng(42)
@@ -362,6 +426,7 @@ if __name__ == "__main__":
     config = {
         "data_path": "/Users/ARand/Desktop/270A_nudging/multiscale-nudging-main 2/case3_Vlasov_poisson_instability/simulation/data/mv_sim_seed0.npz",
         "downsample_factor": 10,
+        "n_timesteps": 5,
         "batch_size": 32,
         "num_epochs": 100,
         "learning_rate": 0.001,
@@ -397,6 +462,7 @@ if __name__ == "__main__":
         prepare_training_data(
             config["data_path"],
             downsample_factor=config["downsample_factor"],
+            n_timesteps=config["n_timesteps"],
             train_frac=config["train_frac"],
             val_frac=config["val_frac"],
             test_frac=config["test_frac"],
@@ -409,9 +475,9 @@ if __name__ == "__main__":
         "n_val": len(val_dataset),
         "n_test": len(test_dataset),
         "n_sparse": n_sparse,
+        "n_timesteps": config["n_timesteps"],
         "n_x": n_x,
         "n_v": n_v,
-        "input_size": 2 * n_sparse + 1,
         "output_size": n_x * n_v,
     }
     with open(os.path.join(exp_dir, "split_info.json"), "w") as f:
@@ -426,10 +492,11 @@ if __name__ == "__main__":
     )
 
     # Initialize model
-    model = FCCNNDecoder(
+    model = Conv1D2DNet(
         n_sparse_measurements=n_sparse,
         n_x_grid=n_x,
         n_v_grid=n_v,
+        n_timesteps=config["n_timesteps"],
         latent_dim=config["latent_dim"],
     )
 
