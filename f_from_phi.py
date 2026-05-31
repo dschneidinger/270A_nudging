@@ -116,7 +116,7 @@ class FCCNNDecoder(nn.Module):
 
 
 def prepare_training_data(
-    data_path, downsample_factor=10, train_frac=0.80, val_frac=0.05, test_frac=0.15
+    data_path, downsample_factor=10, train_frac=0.80, val_frac=0.05, test_frac=0.15, noise_std=0.00
 ):
     """
     Load and prepare training data from simulation output.
@@ -127,7 +127,7 @@ def prepare_training_data(
         train_frac: Fraction of data for training (default 0.80)
         val_frac: Fraction of data for validation (default 0.05)
         test_frac: Fraction of data for testing (default 0.15)
-
+        noise_std: Standard deviation of noise to add to sparse measurements (default 0.05)
     Returns:
         train_dataset, val_dataset, test_dataset, n_sparse, n_x, n_v, norm_stats
     """
@@ -150,6 +150,8 @@ def prepare_training_data(
 
     # Downsample phi spatially
     phi_sparse = phi[:, ::downsample_factor]  # (N_t, N_x/downsample_factor)
+    if noise_std > 0:
+        phi_sparse = phi_sparse + np.random.normal(0.0, noise_std, size=phi_sparse.shape)
     n_sparse = phi_sparse.shape[1]
     n_x, n_v = phase_density.shape[1], phase_density.shape[2]
 
@@ -375,6 +377,7 @@ if __name__ == "__main__":
         "train_frac": 0.80,
         "val_frac": 0.05,
         "test_frac": 0.15,
+        "noise_std": 0.05,
     }
 
     # Create experiment directory
@@ -400,6 +403,7 @@ if __name__ == "__main__":
             train_frac=config["train_frac"],
             val_frac=config["val_frac"],
             test_frac=config["test_frac"],
+            noise_std=config["noise_std"],
         )
     )
 
