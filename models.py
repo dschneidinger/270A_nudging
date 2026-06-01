@@ -1,5 +1,6 @@
 """Model architectures for predicting the distribution function f from sparse phi."""
 
+import torch
 import torch.nn as nn
 
 
@@ -156,6 +157,76 @@ class Conv1D2DNet(nn.Module):
         return out.squeeze(1)  # (batch, n_x_grid, n_v_grid)
 
 
+class TemporalAttentionMLP(nn.Module):
+    """Self-attention over timesteps, then MLP decoder to full f(x,v).
+
+    Each timestep's sparse phi vector is embedded, positional encodings are
+    added, and multi-head self-attention lets the model learn which timesteps
+    are most informative.  The attended representations are mean-pooled into
+    a fixed-size vector and decoded by the same style of MLP that already
+    works well as a standalone baseline.
+
+    Input mode: "sequence" — receives (T+1, n_sparse) with a dt row appended.
+    """
+
+    def __init__(
+        self,
+        n_sparse_measurements,
+        n_x_grid,
+        n_v_grid,
+        n_timesteps=10,
+        embed_dim=128,
+        n_heads=4,
+        n_attn_layers=2,
+        hidden_layers=[512, 1024, 512],
+        dropout=0.1,
+    ):
+        super().__init__()
+
+        self.n_x_grid = n_x_grid
+        self.n_v_grid = n_v_grid
+        output_size = n_x_grid * n_v_grid
+
+        # Per-timestep embedding: project each sparse phi vector to embed_dim
+        self.input_proj = nn.Linear(n_sparse_measurements, embed_dim)
+
+        # Learnable positional embeddings (T+1 slots: T timesteps + dt row)
+        self.pos_embed = nn.Parameter(
+            torch.randn(1, n_timesteps + 1, embed_dim) * 0.02
+        )
+
+        # Transformer encoder (self-attention over timesteps)
+        encoder_layer = nn.TransformerEncoderLayer(
+            d_model=embed_dim,
+            nhead=n_heads,
+            dim_feedforward=embed_dim * 4,
+            dropout=dropout,
+            activation="gelu",
+            batch_first=True,
+        )
+        self.attn = nn.TransformerEncoder(encoder_layer, num_layers=n_attn_layers)
+
+        # MLP decoder: pooled attention output -> f(x,v)
+        layers = []
+        prev_size = embed_dim
+        for hidden_size in hidden_layers:
+            layers.append(nn.Linear(prev_size, hidden_size))
+            layers.append(nn.SiLU())
+            layers.append(nn.Dropout(dropout))
+            prev_size = hidden_size
+        layers.append(nn.Linear(prev_size, output_size))
+        self.decoder = nn.Sequential(*layers)
+
+    def forward(self, x):
+        # x: (batch, T+1, n_sparse)
+        x = self.input_proj(x)             # (batch, T+1, embed_dim)
+        x = x + self.pos_embed[:, :x.size(1), :]  # add positional encoding
+        x = self.attn(x)                   # (batch, T+1, embed_dim)
+        x = x.mean(dim=1)                  # mean pool across time
+        out = self.decoder(x)              # (batch, output_size)
+        return out.view(-1, self.n_x_grid, self.n_v_grid)
+
+
 # Model registry: maps a config `model_type` to its class + required input mode
 
 MODEL_REGISTRY = {
@@ -163,6 +234,7 @@ MODEL_REGISTRY = {
     "mlp_residual": {"class": MLP, "input_mode": "flat_residual"},
     "fc_cnn": {"class": FCCNNDecoder, "input_mode": "flat_pair"},
     "conv1d2d": {"class": Conv1D2DNet, "input_mode": "sequence"},
+    "attn_mlp": {"class": TemporalAttentionMLP, "input_mode": "sequence"},
 }
 
 
@@ -206,5 +278,17 @@ def build_model(model_type, n_sparse, n_x, n_v, config):
             n_v_grid=n_v,
             n_timesteps=config["n_timesteps"],
             latent_dim=config["latent_dim"],
+        )
+    elif model_type == "attn_mlp":
+        return cls(
+            n_sparse_measurements=n_sparse,
+            n_x_grid=n_x,
+            n_v_grid=n_v,
+            n_timesteps=config["n_timesteps"],
+            embed_dim=config.get("embed_dim", 128),
+            n_heads=config.get("n_heads", 4),
+            n_attn_layers=config.get("n_attn_layers", 2),
+            hidden_layers=config["hidden_layers"],
+            dropout=config["dropout"],
         )
     raise ValueError(f"Unknown model_type '{model_type}'")

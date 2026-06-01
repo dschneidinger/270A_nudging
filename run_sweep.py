@@ -3,10 +3,9 @@
 Usage:
     python run_sweep.py
 
-Outputs go to experiments/<timestamp>_sweep/ with one subdirectory per
-model type (and per noise level, if sweeping noise), each containing
-per-seed run dirs plus an aggregated plot.
-A final model_comparison.png and sweep_results.json summarize everything.
+Each entry in EXPERIMENTS defines a model + config override. Conv1D2D is
+tested at multiple timestep window sizes to give it a fair shot against
+the flat models.
 """
 import json
 import os
@@ -20,11 +19,22 @@ from f_from_phi import prepare_training_data, run_single_experiment
 from visualization import plot_aggregated_results, plot_model_comparison
 
 # ── Configuration ────────────────────────────────────────────────────
-# Edit these to control the sweep.
 
-MODEL_TYPES = ["mlp", "mlp_residual", "fc_cnn", "conv1d2d"]
-N_RUNS = 3  # seeds per model per noise level
-NOISE_STDS = [0.1]  # noise stds to sweep
+N_RUNS = 3  # seeds per experiment
+NOISE_STDS = [0.1]
+
+# Each experiment: a label (used for directory name + comparison chart)
+# plus any config overrides.  Everything else comes from BASE_CONFIG.
+EXPERIMENTS = [
+    {"label": "mlp",              "model_type": "mlp"},
+    {"label": "mlp_residual",     "model_type": "mlp_residual"},
+    {"label": "fc_cnn",           "model_type": "fc_cnn"},
+    {"label": "conv1d2d_nt5",     "model_type": "conv1d2d", "n_timesteps": 5},
+    {"label": "conv1d2d_nt10",    "model_type": "conv1d2d", "n_timesteps": 10},
+    {"label": "conv1d2d_nt20",    "model_type": "conv1d2d", "n_timesteps": 20},
+    {"label": "attn_mlp_nt10",    "model_type": "attn_mlp", "n_timesteps": 10},
+    {"label": "attn_mlp_nt20",    "model_type": "attn_mlp", "n_timesteps": 20},
+]
 
 BASE_CONFIG = {
     "data_path": "/Users/ARand/Desktop/270A_nudging/multiscale-nudging-main 2/case3_Vlasov_poisson_instability/simulation/data/mv_sim_seed0.npz",
@@ -64,23 +74,25 @@ if __name__ == "__main__":
 
     sweeping_noise = len(NOISE_STDS) > 1
 
-    # Cache datasets by (input_mode, noise_std) so we only reload when
-    # the combination changes.
+    # Cache datasets by (input_mode, noise_std, n_timesteps) so we only
+    # reload when the combination changes.
     dataset_cache = {}
 
-    # sweep_results is keyed by model_type.  Each entry holds a dict
-    # keyed by noise_std (or a single entry when not sweeping noise).
     sweep_results = {}
 
-    for model_type in MODEL_TYPES:
+    for exp in EXPERIMENTS:
+        label = exp["label"]
+        model_type = exp["model_type"]
+
         print(f"\n{'#' * 60}")
-        print(f"# Model: {model_type}")
+        print(f"# Experiment: {label}")
         print(f"{'#' * 60}")
 
         input_mode = get_input_mode(model_type)
-        sweep_results[model_type] = {}
+        sweep_results[label] = {}
 
         for noise_std in NOISE_STDS:
+            # Build config: base + experiment overrides
             config = {
                 **BASE_CONFIG,
                 "model_type": model_type,
@@ -88,19 +100,25 @@ if __name__ == "__main__":
                 "noise_std": noise_std,
                 "device": str(device),
             }
+            # Apply per-experiment overrides (e.g. n_timesteps)
+            for k, v in exp.items():
+                if k != "label":
+                    config[k] = v
 
+            n_timesteps = config["n_timesteps"]
             noise_tag = f"noise_{noise_std:.4f}"
             if sweeping_noise:
                 print(f"\n  >> noise_std={noise_std}")
 
-            # ── Data (cached by input_mode + noise_std) ──
-            cache_key = (input_mode, noise_std)
+            # ── Data (cached) ──
+            cache_key = (input_mode, noise_std, n_timesteps)
             if cache_key not in dataset_cache:
-                print(f"Preparing data for input_mode={input_mode}, noise_std={noise_std} ...")
+                print(f"Preparing data: input_mode={input_mode}, "
+                      f"n_timesteps={n_timesteps}, noise_std={noise_std}")
                 dataset_cache[cache_key] = prepare_training_data(
                     config["data_path"],
                     downsample_factor=config["downsample_factor"],
-                    n_timesteps=config["n_timesteps"],
+                    n_timesteps=n_timesteps,
                     target_offset=config["target_offset"],
                     input_mode=input_mode,
                     noise_std=noise_std,
@@ -109,23 +127,23 @@ if __name__ == "__main__":
                     test_frac=config["test_frac"],
                 )
             else:
-                print(f"Reusing cached data for input_mode={input_mode}, noise_std={noise_std}")
+                print(f"Reusing cached data for {cache_key}")
 
             (train_dataset, val_dataset, test_dataset,
              n_sparse, n_x, n_v, norm_stats) = dataset_cache[cache_key]
 
             # ── Output dir ──
             if sweeping_noise:
-                group_dir = os.path.join(sweep_dir, model_type, noise_tag)
+                group_dir = os.path.join(sweep_dir, label, noise_tag)
             else:
-                group_dir = os.path.join(sweep_dir, model_type)
+                group_dir = os.path.join(sweep_dir, label)
             os.makedirs(group_dir, exist_ok=True)
 
             # Count params once
             tmp_model = build_model(model_type, n_sparse, n_x, n_v, config)
             n_params = sum(p.numel() for p in tmp_model.parameters())
             config["n_parameters"] = n_params
-            print(f"Architecture: {model_type}  |  Parameters: {n_params:,}")
+            print(f"Architecture: {label}  |  Parameters: {n_params:,}")
             del tmp_model
 
             with open(os.path.join(group_dir, "config.json"), "w") as f:
@@ -139,10 +157,8 @@ if __name__ == "__main__":
                 run_dir = os.path.join(group_dir, f"run_{run_idx}_seed{seed}")
                 os.makedirs(run_dir, exist_ok=True)
 
-                label = f"{model_type}"
-                if sweeping_noise:
-                    label += f" noise={noise_std}"
-                print(f"\n--- {label} run {run_idx + 1}/{N_RUNS} (seed={seed}) ---")
+                tag = f"{label} noise={noise_std}" if sweeping_noise else label
+                print(f"\n--- {tag} run {run_idx + 1}/{N_RUNS} (seed={seed}) ---")
 
                 result = run_single_experiment(
                     model_type, config,
@@ -152,7 +168,7 @@ if __name__ == "__main__":
                 )
                 all_results.append(result)
 
-            # ── Per-group aggregated plot ──
+            # ── Per-experiment aggregated plot ──
             plot_aggregated_results(all_results, group_dir)
 
             # ── Collect summary stats ──
@@ -161,9 +177,10 @@ if __name__ == "__main__":
             test_ssims = [r["test_ssim"] for r in all_results]
 
             best_idx = int(np.argmin(test_mses))
-            sweep_results[model_type][noise_std] = {
+            sweep_results[label][noise_std] = {
                 "n_params": n_params,
                 "noise_std": noise_std,
+                "n_timesteps": n_timesteps,
                 "test_mse_mean": float(np.mean(test_mses)),
                 "test_mse_std": float(np.std(test_mses)),
                 "test_mae_mean": float(np.mean(test_maes)),
@@ -191,42 +208,37 @@ if __name__ == "__main__":
     with open(os.path.join(sweep_dir, "sweep_results.json"), "w") as f:
         json.dump(sweep_results, f, indent=2)
 
-    # ── Comparison plot (flatten for plot_model_comparison) ────────────
-    # When sweeping noise, create one comparison chart per noise level.
-    for noise_std in NOISE_STDS:
-        flat = {}
-        for m in MODEL_TYPES:
-            r = sweep_results[m][noise_std]
-            label = f"{m}" if not sweeping_noise else f"{m}"
-            flat[label] = r
+    # ── Comparison plot ────────────────────────────────────────────────
+    labels = [exp["label"] for exp in EXPERIMENTS]
 
-        suffix = "" if not sweeping_noise else f"_noise{noise_std:.4f}"
-        sub_dir = sweep_dir  # save comparison charts in sweep root
-        plot_model_comparison(flat, sub_dir)
-        # rename if sweeping noise to avoid overwriting
+    for noise_std in NOISE_STDS:
+        flat = {lab: sweep_results[lab][noise_std] for lab in labels}
+        plot_model_comparison(flat, sweep_dir)
+
         if sweeping_noise:
-            src = os.path.join(sub_dir, "model_comparison.png")
-            dst = os.path.join(sub_dir, f"model_comparison{suffix}.png")
+            src = os.path.join(sweep_dir, "model_comparison.png")
+            dst = os.path.join(sweep_dir, f"model_comparison_noise{noise_std:.4f}.png")
             if os.path.exists(src):
                 os.rename(src, dst)
 
     # ── Print summary table ────────────────────────────────────────────
-    print(f"\n{'=' * 95}")
+    print(f"\n{'=' * 105}")
     print("SWEEP RESULTS")
-    print(f"{'=' * 95}")
+    print(f"{'=' * 105}")
 
     for noise_std in NOISE_STDS:
         if sweeping_noise:
             print(f"\n  noise_std = {noise_std}")
-            print(f"  {'-' * 90}")
+            print(f"  {'-' * 100}")
 
-        header = f"  {'Model':<15} {'Params':>10} {'Test MSE':>22} {'Test MAE':>22} {'Test SSIM':>20}"
+        header = (f"  {'Experiment':<20} {'nt':>3} {'Params':>10} "
+                  f"{'Test MSE':>22} {'Test MAE':>22} {'Test SSIM':>20}")
         print(header)
-        print(f"  {'-' * 90}")
-        for m in MODEL_TYPES:
-            r = sweep_results[m][noise_std]
+        print(f"  {'-' * 100}")
+        for lab in labels:
+            r = sweep_results[lab][noise_std]
             print(
-                f"  {m:<15} {r['n_params']:>10,} "
+                f"  {lab:<20} {r['n_timesteps']:>3} {r['n_params']:>10,} "
                 f"{r['test_mse_mean']:>9.6f} +/- {r['test_mse_std']:<9.6f} "
                 f"{r['test_mae_mean']:>9.6f} +/- {r['test_mae_std']:<9.6f} "
                 f"{r['test_ssim_mean']:>7.4f} +/- {r['test_ssim_std']:<7.4f}"

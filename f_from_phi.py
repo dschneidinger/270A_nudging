@@ -70,14 +70,13 @@ class VlasovDataset(Dataset):
             inputs = torch.cat([phi_window, dt_row], dim=0)  # (T+1, N_sparse)
         else:
             # Flat modes use the last two timesteps of the window.
-            phi_t = phi_window[-1]  # phi at time t
-            phi_t_minus_1 = phi_window[-2]  # phi at time t-1
-            dt_scalar = dt.reshape(1)  # (1,)
-            if self.input_mode == "flat_residual":
-                dphi = phi_t - phi_t_minus_1  # residual: phi(t) - phi(t-1)
-                inputs = torch.cat([phi_t, dphi, dt_scalar])
-            else:  # "flat_pair"
-                inputs = torch.cat([phi_t, phi_t_minus_1, dt_scalar])
+            # For flat_pair: channels are [phi_t, phi_{t-1}]
+            # For flat_residual: channels are [phi_t, dphi] (dphi computed
+            # on raw phi before normalization in prepare_training_data)
+            phi_t = phi_window[-1]
+            second_channel = phi_window[-2]
+            dt_scalar = dt.reshape(1)
+            inputs = torch.cat([phi_t, second_channel, dt_scalar])
 
         target = self.f_full[idx].flatten()
         return inputs, target
@@ -171,7 +170,17 @@ def prepare_training_data(
     val_idx = indices[train_end:val_end]
     test_idx = indices[val_end:]
 
+    # For residual mode, replace the second channel with dphi = phi_t - phi_{t-1}
+    # BEFORE normalization so that dphi gets its own scale instead of being a
+    # near-zero difference of two independently standardized signals.
+    if input_mode == "flat_residual":
+        phi_t = phi_input[:, -1, :]       # (N, n_sparse)
+        phi_t_minus_1 = phi_input[:, -2, :]
+        dphi = phi_t - phi_t_minus_1      # raw residual
+        phi_input[:, -2, :] = dphi        # overwrite second channel with dphi
+
     # Normalize inputs using training set statistics only
+    # (each channel now has its own meaningful scale — phi_t vs dphi for residual)
     phi_mean = phi_input[train_idx].mean(axis=0)
     phi_std = phi_input[train_idx].std(axis=0) + 1e-8
     phi_input = (phi_input - phi_mean) / phi_std
