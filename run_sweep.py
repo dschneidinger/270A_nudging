@@ -27,7 +27,7 @@ N_RUNS = 3  # seeds per model per noise level
 NOISE_STDS = [0.1]  # noise stds to sweep
 
 BASE_CONFIG = {
-    "data_path": "/Users/ARand/Desktop/270A_nudging/multiscale-nudging-main 2/case3_Vlasov_poisson_instability/simulation/data/mv_sim_seed0.npz",
+    "data_path": "multiscale-nudging-main/case3_Vlasov_poisson_instability/simulation/data/mv_sim_seed0.npz",
     "downsample_factor": 10,
     "n_timesteps": 2,
     "target_offset": 0,
