@@ -9,11 +9,11 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 import numpy as np
-import matplotlib.pyplot as plt
 from torch.utils.data import Dataset, DataLoader
 from torchmetrics.image import StructuralSimilarityIndexMeasure
 
 from models import build_model, get_input_mode
+from visualization import plot_training_history, plot_aggregated_results, plot_predictions
 
 r"""
 Vlasov equation : \partial_t f + v \cdot \nabla_x f + F \cdot \nabla_v f = 0
@@ -89,6 +89,7 @@ def prepare_training_data(
     n_timesteps=2,
     target_offset=0,
     input_mode="flat_pair",
+    noise_std=0.0,
     train_frac=0.80,
     val_frac=0.05,
     test_frac=0.15,
@@ -107,6 +108,7 @@ def prepare_training_data(
         n_timesteps: Number of timesteps per input window
         target_offset: Offset of target f relative to the window end (0 or 1)
         input_mode: How VlasovDataset builds inputs (set from model_type)
+        noise_std: Std of Gaussian noise added to phi inputs (0 = clean)
         train_frac/val_frac/test_frac: Split fractions
 
     Returns:
@@ -151,6 +153,12 @@ def prepare_training_data(
         target_idx = i + n_timesteps - 1 + target_offset
         f_output[i] = phase_density[target_idx]
         time_diffs[i] = times[i + 1] - times[i]  # dt (constant spacing)
+
+    # Add Gaussian noise to phi inputs (simulates noisy observations)
+    if noise_std > 0:
+        noise_rng = np.random.default_rng(123)
+        phi_input += noise_std * noise_rng.standard_normal(phi_input.shape)
+        print(f"Added Gaussian noise to phi inputs (std={noise_std})")
 
     # Random split into train / val / test
     rng = np.random.default_rng(42)
@@ -339,109 +347,49 @@ def train_model(
     return train_losses, val_losses, val_mae_list, val_ssim_list
 
 
-if __name__ == "__main__":
-    # Configuration
-    #
-    # Pick the experiment with `model_type`. Keys are grouped by which models
-    # use them; unused keys are simply ignored by the other models.
-    config = {
-        "data_path": "/Users/ARand/Desktop/270A_nudging/multiscale-nudging-main 2/case3_Vlasov_poisson_instability/simulation/data/mv_sim_seed0.npz",
-        # --- experiment selection ---
-        "model_type": "mlp",  # one of: mlp, mlp_residual, fc_cnn, conv1d2d
-        "downsample_factor": 10,
-        "n_timesteps": 2,  # input window length (flat models use last 2)
-        "target_offset": 0,  # 0 = reconstruct f at window end; 1 = forecast +1 step
-        # --- training ---
-        "batch_size": 32,
-        "num_epochs": 100,
-        "learning_rate": 0.001,
-        # --- MLP (mlp / mlp_residual) only ---
-        "hidden_layers": [256, 512, 1024, 512, 256],
-        "dropout": 0.1,
-        # --- fc_cnn / conv1d2d only ---
-        "latent_dim": 256,
-        # --- bookkeeping ---
-        "activation": "SiLU",
-        "loss": "MSE",
-        "optimizer": "Adam",
-        "scheduler": "ReduceLROnPlateau",
-        "scheduler_factor": 0.5,
-        "scheduler_patience": 5,
-        "train_frac": 0.80,
-        "val_frac": 0.05,
-        "test_frac": 0.15,
-    }
+def run_single_experiment(
+    model_type,
+    config,
+    train_dataset,
+    val_dataset,
+    test_dataset,
+    n_sparse,
+    n_x,
+    n_v,
+    norm_stats,
+    device,
+    run_dir,
+    seed,
+):
+    """Run one training experiment with a given random seed.
 
-    model_type = config["model_type"]
-    input_mode = get_input_mode(model_type)
-    print(f"Experiment: model_type={model_type} (input_mode={input_mode})")
+    Data split is fixed; the seed controls model initialization and
+    training shuffle order.
 
-    # Create experiment directory
-    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    exp_dir = os.path.join("experiments", f"{timestamp}_{model_type}")
-    os.makedirs(exp_dir, exist_ok=True)
-    print(f"Experiment directory: {exp_dir}")
+    Returns a dict of per-epoch training curves and test-set metrics.
+    """
+    # Set seeds for reproducibility of this run
+    torch.manual_seed(seed)
+    np.random.seed(seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(seed)
 
-    # Save config
-    with open(os.path.join(exp_dir, "config.json"), "w") as f:
-        json.dump(config, f, indent=2)
-
-    # Set device
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    config["device"] = str(device)
-    print(f"Using device: {device}")
-
-    # Prepare data
-    train_dataset, val_dataset, test_dataset, n_sparse, n_x, n_v, norm_stats = (
-        prepare_training_data(
-            config["data_path"],
-            downsample_factor=config["downsample_factor"],
-            n_timesteps=config["n_timesteps"],
-            target_offset=config["target_offset"],
-            input_mode=input_mode,
-            train_frac=config["train_frac"],
-            val_frac=config["val_frac"],
-            test_frac=config["test_frac"],
-        )
-    )
-
-    # Save split info
-    split_info = {
-        "n_train": len(train_dataset),
-        "n_val": len(val_dataset),
-        "n_test": len(test_dataset),
-        "n_sparse": n_sparse,
-        "n_timesteps": config["n_timesteps"],
-        "n_x": n_x,
-        "n_v": n_v,
-        "output_size": n_x * n_v,
-    }
-    with open(os.path.join(exp_dir, "split_info.json"), "w") as f:
-        json.dump(split_info, f, indent=2)
-
+    # Use a seeded generator so DataLoader shuffle is reproducible per run
+    g = torch.Generator().manual_seed(seed)
     train_loader = DataLoader(
-        train_dataset, batch_size=config["batch_size"], shuffle=True
+        train_dataset, batch_size=config["batch_size"], shuffle=True, generator=g
     )
-    val_loader = DataLoader(val_dataset, batch_size=config["batch_size"], shuffle=False)
+    val_loader = DataLoader(
+        val_dataset, batch_size=config["batch_size"], shuffle=False
+    )
     test_loader = DataLoader(
         test_dataset, batch_size=config["batch_size"], shuffle=False
     )
 
-    # Initialize model (selected by config["model_type"])
+    # Build a fresh model (random weight init depends on the seed)
     model = build_model(model_type, n_sparse, n_x, n_v, config)
 
-    n_params = sum(p.numel() for p in model.parameters())
-    config["n_parameters"] = n_params
-    print("Model architecture:")
-    print(model)
-    print(f"Total parameters: {n_params:,}")
-
-    # Save model summary
-    with open(os.path.join(exp_dir, "config.json"), "w") as f:
-        json.dump(config, f, indent=2)
-
-    # Train the model
-    print("Starting training...")
+    # Train
     train_losses, val_losses, val_mae_list, val_ssim_list = train_model(
         model,
         train_loader,
@@ -449,54 +397,22 @@ if __name__ == "__main__":
         num_epochs=config["num_epochs"],
         lr=config["learning_rate"],
         device=device,
-        exp_dir=exp_dir,
+        exp_dir=run_dir,
         norm_stats=norm_stats,
     )
 
-    # Plot training history
-    fig, axes = plt.subplots(1, 3, figsize=(18, 5))
+    plot_training_history(train_losses, val_losses, val_mae_list, val_ssim_list, run_dir)
 
-    axes[0].plot(train_losses, label="Train MSE")
-    axes[0].plot(val_losses, label="Val MSE")
-    axes[0].set_xlabel("Epoch")
-    axes[0].set_ylabel("MSE Loss")
-    axes[0].set_yscale("log")
-    axes[0].legend()
-    axes[0].set_title("MSE Loss")
-    axes[0].grid(True)
-
-    axes[1].plot(val_mae_list, label="Val MAE", color="orange")
-    axes[1].set_xlabel("Epoch")
-    axes[1].set_ylabel("MAE")
-    axes[1].set_yscale("log")
-    axes[1].legend()
-    axes[1].set_title("Mean Absolute Error")
-    axes[1].grid(True)
-
-    axes[2].plot(val_ssim_list, label="Val SSIM", color="green")
-    axes[2].set_xlabel("Epoch")
-    axes[2].set_ylabel("SSIM")
-    axes[2].set_ylim(-0.1, 1.05)
-    axes[2].legend()
-    axes[2].set_title("Structural Similarity")
-    axes[2].grid(True)
-
-    plt.tight_layout()
-    plt.savefig(
-        os.path.join(exp_dir, "training_history.png"), dpi=150, bbox_inches="tight"
-    )
-    print(f"Saved training history to {exp_dir}/training_history.png")
-
-    # Evaluate on held-out test set using best model
+    # Evaluate on test set using best model
     print("Test Set Evaluation")
-    best_ckpt = torch.load(os.path.join(exp_dir, "best_model.pth"), weights_only=False)
+    best_ckpt = torch.load(
+        os.path.join(run_dir, "best_model.pth"), weights_only=False
+    )
     model.load_state_dict(best_ckpt["model_state_dict"])
     model.eval()
 
     ssim_metric = StructuralSimilarityIndexMeasure(data_range=2.0).to(device)
-    test_mse = 0.0
-    test_mae = 0.0
-    test_ssim = 0.0
+    test_mse, test_mae, test_ssim = 0.0, 0.0, 0.0
     n_test_batches = 0
     with torch.no_grad():
         for inputs, targets in test_loader:
@@ -520,8 +436,11 @@ if __name__ == "__main__":
     print(f"Test SSIM: {test_ssim:.4f}")
 
     test_results = {"test_mse": test_mse, "test_mae": test_mae, "test_ssim": test_ssim}
-    with open(os.path.join(exp_dir, "test_results.json"), "w") as f:
+    with open(os.path.join(run_dir, "test_results.json"), "w") as f:
         json.dump(test_results, f, indent=2)
+
+    # Prediction vs ground-truth visualizations (model is already best-ckpt)
+    plot_predictions(model, test_loader, n_x, n_v, device, run_dir)
 
     # Save final model
     torch.save(
@@ -530,8 +449,204 @@ if __name__ == "__main__":
             "model_state_dict": model.state_dict(),
             "norm_stats": norm_stats,
         },
-        os.path.join(exp_dir, "final_model.pth"),
+        os.path.join(run_dir, "final_model.pth"),
     )
-    print(f"Saved final model to {exp_dir}/final_model.pth")
-    print(f"Experiment complete. All artifacts in {exp_dir}/")
-    
+    print(f"Saved models to {run_dir}/")
+
+    return {
+        "train_losses": train_losses,
+        "val_losses": val_losses,
+        "val_mae": val_mae_list,
+        "val_ssim": val_ssim_list,
+        "test_mse": test_mse,
+        "test_mae": test_mae,
+        "test_ssim": test_ssim,
+        "best_val_loss": best_ckpt["val_loss"],
+        "best_epoch": best_ckpt["epoch"],
+        "seed": seed,
+    }
+
+
+if __name__ == "__main__":
+    # Configuration
+    #
+    # Pick the experiment with `model_type`. Keys are grouped by which models
+    # use them; unused keys are simply ignored by the other models.
+    config = {
+        "data_path": "/Users/ARand/Desktop/270A_nudging/multiscale-nudging-main 2/case3_Vlasov_poisson_instability/simulation/data/mv_sim_seed0.npz",
+        # --- experiment selection ---
+        "model_type": "mlp",  # one of: mlp, mlp_residual, fc_cnn, conv1d2d
+        "downsample_factor": 10,
+        "n_timesteps": 2,  # input window length (flat models use last 2)
+        "target_offset": 0,  # 0 = reconstruct f at window end; 1 = forecast +1 step
+        # --- training ---
+        "batch_size": 32,
+        "num_epochs": 100,
+        "learning_rate": 0.001,
+        # --- multi-run averaging ---
+        "n_runs": 1,  # number of seeds to run; >1 averages results
+        "noise_std": 0.1,  # Gaussian noise std on phi inputs (0 = clean)
+        # --- MLP (mlp / mlp_residual) only ---
+        "hidden_layers": [256, 512, 1024, 512, 256],
+        "dropout": 0.1,
+        # --- fc_cnn / conv1d2d only ---
+        "latent_dim": 256,
+        # --- bookkeeping ---
+        "activation": "SiLU",
+        "loss": "MSE",
+        "optimizer": "Adam",
+        "scheduler": "ReduceLROnPlateau",
+        "scheduler_factor": 0.5,
+        "scheduler_patience": 5,
+        "train_frac": 0.80,
+        "val_frac": 0.05,
+        "test_frac": 0.15,
+    }
+
+    model_type = config["model_type"]
+    input_mode = get_input_mode(model_type)
+    n_runs = config.get("n_runs", 1)
+    print(f"Experiment: model_type={model_type} (input_mode={input_mode}), n_runs={n_runs}")
+
+    # Create experiment directory
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    exp_dir = os.path.join("experiments", f"{timestamp}_{model_type}")
+    os.makedirs(exp_dir, exist_ok=True)
+    print(f"Experiment directory: {exp_dir}")
+
+    # Save config
+    with open(os.path.join(exp_dir, "config.json"), "w") as f:
+        json.dump(config, f, indent=2)
+
+    # Set device
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    config["device"] = str(device)
+    print(f"Using device: {device}")
+
+    # Prepare data once — the split is deterministic (seed=42 inside
+    # prepare_training_data) so every run sees the same train/val/test split.
+    train_dataset, val_dataset, test_dataset, n_sparse, n_x, n_v, norm_stats = (
+        prepare_training_data(
+            config["data_path"],
+            downsample_factor=config["downsample_factor"],
+            n_timesteps=config["n_timesteps"],
+            target_offset=config["target_offset"],
+            input_mode=input_mode,
+            noise_std=config.get("noise_std", 0.0),
+            train_frac=config["train_frac"],
+            val_frac=config["val_frac"],
+            test_frac=config["test_frac"],
+        )
+    )
+
+    # Save split info
+    split_info = {
+        "n_train": len(train_dataset),
+        "n_val": len(val_dataset),
+        "n_test": len(test_dataset),
+        "n_sparse": n_sparse,
+        "n_timesteps": config["n_timesteps"],
+        "n_x": n_x,
+        "n_v": n_v,
+        "output_size": n_x * n_v,
+    }
+    with open(os.path.join(exp_dir, "split_info.json"), "w") as f:
+        json.dump(split_info, f, indent=2)
+
+    # Log model architecture once (architecture is the same across seeds)
+    tmp_model = build_model(model_type, n_sparse, n_x, n_v, config)
+    n_params = sum(p.numel() for p in tmp_model.parameters())
+    config["n_parameters"] = n_params
+    print("Model architecture:")
+    print(tmp_model)
+    print(f"Total parameters: {n_params:,}")
+    del tmp_model
+
+    # Re-save config with n_parameters
+    with open(os.path.join(exp_dir, "config.json"), "w") as f:
+        json.dump(config, f, indent=2)
+
+    # ---- Run experiment(s) ----
+    seeds = list(range(n_runs))
+    all_results = []
+
+    for run_idx, seed in enumerate(seeds):
+        if n_runs > 1:
+            run_dir = os.path.join(exp_dir, f"run_{run_idx}_seed{seed}")
+            os.makedirs(run_dir, exist_ok=True)
+        else:
+            run_dir = exp_dir
+
+        print(f"\n{'=' * 60}")
+        print(f"Run {run_idx + 1}/{n_runs} (seed={seed})")
+        print(f"{'=' * 60}")
+
+        result = run_single_experiment(
+            model_type,
+            config,
+            train_dataset,
+            val_dataset,
+            test_dataset,
+            n_sparse,
+            n_x,
+            n_v,
+            norm_stats,
+            device,
+            run_dir,
+            seed,
+        )
+        all_results.append(result)
+
+    # ---- Aggregate results (multi-run only) ----
+    if n_runs > 1:
+        plot_aggregated_results(all_results, exp_dir)
+
+        test_mses = [r["test_mse"] for r in all_results]
+        test_maes = [r["test_mae"] for r in all_results]
+        test_ssims = [r["test_ssim"] for r in all_results]
+
+        best_idx = int(np.argmin(test_mses))
+        summary = {
+            "n_runs": n_runs,
+            "seeds": seeds,
+            "per_run": [
+                {
+                    "run": i,
+                    "seed": r["seed"],
+                    "test_mse": r["test_mse"],
+                    "test_mae": r["test_mae"],
+                    "test_ssim": r["test_ssim"],
+                    "best_val_loss": r["best_val_loss"],
+                    "best_epoch": r["best_epoch"],
+                }
+                for i, r in enumerate(all_results)
+            ],
+            "aggregate": {
+                "test_mse_mean": float(np.mean(test_mses)),
+                "test_mse_std": float(np.std(test_mses)),
+                "test_mae_mean": float(np.mean(test_maes)),
+                "test_mae_std": float(np.std(test_maes)),
+                "test_ssim_mean": float(np.mean(test_ssims)),
+                "test_ssim_std": float(np.std(test_ssims)),
+            },
+            "best_run": {
+                "index": best_idx,
+                "seed": all_results[best_idx]["seed"],
+                "test_mse": float(np.min(test_mses)),
+            },
+        }
+        with open(os.path.join(exp_dir, "aggregate_results.json"), "w") as f:
+            json.dump(summary, f, indent=2)
+
+        print(f"\n{'=' * 60}")
+        print(f"Aggregate Results ({n_runs} runs)")
+        print(f"{'=' * 60}")
+        print(f"Test MSE:  {np.mean(test_mses):.6f} +/- {np.std(test_mses):.6f}")
+        print(f"Test MAE:  {np.mean(test_maes):.6f} +/- {np.std(test_maes):.6f}")
+        print(f"Test SSIM: {np.mean(test_ssims):.4f} +/- {np.std(test_ssims):.4f}")
+        print(
+            f"Best run: #{best_idx} seed={summary['best_run']['seed']} "
+            f"(MSE={summary['best_run']['test_mse']:.6f})"
+        )
+
+    print(f"\nExperiment complete. All artifacts in {exp_dir}/")
