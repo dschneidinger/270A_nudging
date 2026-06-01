@@ -61,23 +61,14 @@ class VlasovDataset(Dataset):
         return len(self.phi_sparse)
 
     def __getitem__(self, idx):
-        phi_window = self.phi_sparse[idx]  # (T, N_sparse)
-        dt = self.time_diffs[idx]
+        phi_t = self.phi_sparse[idx, 0, :]  # phi at time t
+        dphi = self.phi_sparse[idx, 0, :] - self.phi_sparse[idx, 1, :]  # residual: phi(t) - phi(t-1)
+        dt = self.time_diffs[idx : idx + 1]  # time difference
 
-        if self.input_mode == "sequence":
-            # Append dt as a constant row so the model sees the time spacing.
-            dt_row = dt.expand(1, phi_window.shape[1])  # (1, N_sparse)
-            inputs = torch.cat([phi_window, dt_row], dim=0)  # (T+1, N_sparse)
-        else:
-            # Flat modes use the last two timesteps of the window.
-            # For flat_pair: channels are [phi_t, phi_{t-1}]
-            # For flat_residual: channels are [phi_t, dphi] (dphi computed
-            # on raw phi before normalization in prepare_training_data)
-            phi_t = phi_window[-1]
-            second_channel = phi_window[-2]
-            dt_scalar = dt.reshape(1)
-            inputs = torch.cat([phi_t, second_channel, dt_scalar])
+        # Concatenate: [phi_t, dphi, dt]
+        input_vector = torch.cat([phi_t, dphi, dt])
 
+        # Flatten the output f
         target = self.f_full[idx].flatten()
         return inputs, target
 
