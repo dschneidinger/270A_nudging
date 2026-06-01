@@ -33,6 +33,7 @@ EXPERIMENTS = [
     {"label": "conv1d2d_nt20",    "model_type": "conv1d2d", "n_timesteps": 20},
     {"label": "attn_mlp_nt10",    "model_type": "attn_mlp", "n_timesteps": 10},
     {"label": "attn_mlp_nt20",    "model_type": "attn_mlp", "n_timesteps": 20},
+    {"label": "attn_cnn_nt20",    "model_type": "attn_cnn", "n_timesteps": 20},
 ]
 
 BASE_CONFIG = {

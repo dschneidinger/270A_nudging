@@ -227,6 +227,88 @@ class TemporalAttentionMLP(nn.Module):
         return out.view(-1, self.n_x_grid, self.n_v_grid)
 
 
+class AttnCNNDecoder(nn.Module):
+    """Self-attention temporal encoder + Conv2D spatial decoder.
+
+    Combines the strengths of TemporalAttentionMLP (adaptive temporal
+    weighting) with the Conv1D2DNet decoder (spatial upsampling).  The
+    attention encoder replaces Conv1D — it can selectively weight which
+    timesteps matter rather than applying fixed local kernels.
+
+    Input mode: "sequence" — receives (T+1, n_sparse) with a dt row.
+    """
+
+    def __init__(
+        self,
+        n_sparse_measurements,
+        n_x_grid,
+        n_v_grid,
+        n_timesteps=10,
+        embed_dim=128,
+        n_heads=4,
+        n_attn_layers=2,
+        latent_dim=256,
+        dropout=0.1,
+    ):
+        super().__init__()
+
+        self.n_x_grid = n_x_grid
+        self.n_v_grid = n_v_grid
+
+        # ── Attention temporal encoder (same as TemporalAttentionMLP) ──
+        self.input_proj = nn.Linear(n_sparse_measurements, embed_dim)
+
+        self.pos_embed = nn.Parameter(
+            torch.randn(1, n_timesteps + 1, embed_dim) * 0.02
+        )
+
+        encoder_layer = nn.TransformerEncoderLayer(
+            d_model=embed_dim,
+            nhead=n_heads,
+            dim_feedforward=embed_dim * 4,
+            dropout=dropout,
+            activation="gelu",
+            batch_first=True,
+        )
+        self.attn = nn.TransformerEncoder(encoder_layer, num_layers=n_attn_layers)
+
+        # ── FC bridge: pooled attention → spatial seed (same as Conv1D2DNet) ──
+        self.bridge = nn.Sequential(
+            nn.Linear(embed_dim, latent_dim),
+            nn.SiLU(),
+            nn.Linear(latent_dim, 128 * 4 * 2),
+            nn.SiLU(),
+        )
+
+        # ── Conv2D decoder: (128, 4, 2) → (1, 128, 64) ──
+        self.decoder = nn.Sequential(
+            nn.ConvTranspose2d(128, 64, kernel_size=4, stride=2, padding=1),
+            nn.BatchNorm2d(64),
+            nn.SiLU(),
+            nn.ConvTranspose2d(64, 32, kernel_size=4, stride=2, padding=1),
+            nn.BatchNorm2d(32),
+            nn.SiLU(),
+            nn.ConvTranspose2d(32, 16, kernel_size=4, stride=2, padding=1),
+            nn.BatchNorm2d(16),
+            nn.SiLU(),
+            nn.ConvTranspose2d(16, 8, kernel_size=4, stride=2, padding=1),
+            nn.BatchNorm2d(8),
+            nn.SiLU(),
+            nn.ConvTranspose2d(8, 1, kernel_size=4, stride=2, padding=1),
+        )
+
+    def forward(self, x):
+        # x: (batch, T+1, n_sparse)
+        x = self.input_proj(x)                        # (batch, T+1, embed_dim)
+        x = x + self.pos_embed[:, :x.size(1), :]      # positional encoding
+        x = self.attn(x)                               # (batch, T+1, embed_dim)
+        x = x.mean(dim=1)                              # pool → (batch, embed_dim)
+        spatial_seed = self.bridge(x)                   # (batch, 128*4*2)
+        spatial_seed = spatial_seed.view(-1, 128, 4, 2)
+        out = self.decoder(spatial_seed)
+        return out.squeeze(1)                           # (batch, n_x, n_v)
+
+
 # Model registry: maps a config `model_type` to its class + required input mode
 
 MODEL_REGISTRY = {
@@ -235,6 +317,7 @@ MODEL_REGISTRY = {
     "fc_cnn": {"class": FCCNNDecoder, "input_mode": "flat_pair"},
     "conv1d2d": {"class": Conv1D2DNet, "input_mode": "sequence"},
     "attn_mlp": {"class": TemporalAttentionMLP, "input_mode": "sequence"},
+    "attn_cnn": {"class": AttnCNNDecoder, "input_mode": "sequence"},
 }
 
 
@@ -289,6 +372,18 @@ def build_model(model_type, n_sparse, n_x, n_v, config):
             n_heads=config.get("n_heads", 4),
             n_attn_layers=config.get("n_attn_layers", 2),
             hidden_layers=config["hidden_layers"],
+            dropout=config["dropout"],
+        )
+    elif model_type == "attn_cnn":
+        return cls(
+            n_sparse_measurements=n_sparse,
+            n_x_grid=n_x,
+            n_v_grid=n_v,
+            n_timesteps=config["n_timesteps"],
+            embed_dim=config.get("embed_dim", 128),
+            n_heads=config.get("n_heads", 4),
+            n_attn_layers=config.get("n_attn_layers", 2),
+            latent_dim=config["latent_dim"],
             dropout=config["dropout"],
         )
     raise ValueError(f"Unknown model_type '{model_type}'")
