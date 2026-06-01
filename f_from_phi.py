@@ -345,7 +345,7 @@ if __name__ == "__main__":
     # Pick the experiment with `model_type`. Keys are grouped by which models
     # use them; unused keys are simply ignored by the other models.
     config = {
-        "data_path": "/Users/ARand/Desktop/270A_nudging/multiscale-nudging-main 2/case3_Vlasov_poisson_instability/simulation/data/mv_sim_seed0.npz",
+        "data_path": "multiscale-nudging-main/case3_Vlasov_poisson_instability/simulation/data/mv_sim_seed0.npz",
         # --- experiment selection ---
         "model_type": "mlp",  # one of: mlp, mlp_residual, fc_cnn, conv1d2d
         "downsample_factor": 10,
