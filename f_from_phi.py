@@ -494,7 +494,7 @@ if __name__ == "__main__":
         "learning_rate": 0.001,
         # --- multi-run averaging ---
         "n_runs": 1,  # number of seeds to run; >1 averages results
-        "noise_std": 0.1,  # Gaussian noise std on phi inputs (0 = clean)
+        "noise_std": 0.0,  # Gaussian noise std on phi inputs (0 = clean)
         # --- MLP (mlp / mlp_residual) only ---
         "hidden_layers": [256, 512, 1024, 512, 256],
         "dropout": 0.1,
