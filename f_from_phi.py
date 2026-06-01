@@ -47,12 +47,15 @@ class VlasovDataset(Dataset):
         return len(self.phi_sparse)
 
     def __getitem__(self, idx):
+        # Flatten phi measurements and append time difference
+        #TODO check that the indexing is correct here
         phi_t = self.phi_sparse[idx, 0, :]  # phi at time t
-        dphi = self.phi_sparse[idx, 0, :] - self.phi_sparse[idx, 1, :]  # residual: phi(t) - phi(t-1)
+        phi_t_minus_1 = self.phi_sparse[idx, 1, :]  # phi at time t-1
         dt = self.time_diffs[idx : idx + 1]  # time difference
 
-        # Concatenate: [phi_t, dphi, dt]
-        input_vector = torch.cat([phi_t, dphi, dt])
+        # Concatenate: [phi_t, phi_t-1, dt]
+        #TODO is there a smarter way to do this?
+        input_vector = torch.cat([phi_t, phi_t_minus_1, dt])
 
         # Flatten the output f
         target = self.f_full[idx].flatten()
