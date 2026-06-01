@@ -13,6 +13,8 @@ import matplotlib.pyplot as plt
 from torch.utils.data import Dataset, DataLoader
 from torchmetrics.image import StructuralSimilarityIndexMeasure
 
+from models import build_model, get_input_mode
+
 r"""
 Vlasov equation : \partial_t f + v \cdot \nabla_x f + F \cdot \nabla_v f = 0
 For now we will just consider the electrostatic case, where F = q E = -\nabla_x * \phi * q #TODO check
@@ -29,107 +31,83 @@ def phi_from_E(E, x_grid) -> np.ndarray:
 
 
 class VlasovDataset(Dataset):
-    """Dataset for training MLP to predict f from sparse phi measurements."""
+    """Dataset for training a model to predict f from sparse phi measurements.
 
-    def __init__(self, phi_sparse, f_full, time_diffs):
+    Stores a sliding window of `n_timesteps` sparse phi measurements per sample.
+    `input_mode` controls how that window is turned into the model input:
+
+      - "flat_pair":     [phi_t, phi_{t-1}, dt]  (flat vector, size 2*N_sparse+1)
+      - "flat_residual": [phi_t, phi_t-phi_{t-1}, dt]  (flat vector, size 2*N_sparse+1)
+      - "sequence":      (n_timesteps+1, N_sparse) with a dt row appended
+
+    For the flat modes only the last two timesteps of the window are used, so
+    n_timesteps=2 exactly reproduces the original two-frame inputs.
+    """
+
+    def __init__(self, phi_sparse, f_full, time_diffs, input_mode="flat_pair"):
         """
         Args:
-            #TODO, I think you need to include the positions of the sparse measurements
-            phi_sparse: (N_samples, 2, N_sparse) - sparse phi at t and t-1
-            f_full: (N_samples, N_x, N_v) - full distribution function at time t
+            phi_sparse: (N_samples, T, N_sparse) - T timesteps of sparse phi
+            f_full: (N_samples, N_x, N_v) - full distribution function (target)
             time_diffs: (N_samples,) - time difference between measurements
+            input_mode: one of "flat_pair", "flat_residual", "sequence"
         """
         self.phi_sparse = torch.FloatTensor(phi_sparse)
         self.f_full = torch.FloatTensor(f_full)
         self.time_diffs = torch.FloatTensor(time_diffs)
+        self.input_mode = input_mode
 
     def __len__(self):
         return len(self.phi_sparse)
 
     def __getitem__(self, idx):
-        # Flatten phi measurements and append time difference
-        #TODO check that the indexing is correct here
-        phi_t = self.phi_sparse[idx, 0, :]  # phi at time t
-        phi_t_minus_1 = self.phi_sparse[idx, 1, :]  # phi at time t-1
-        dt = self.time_diffs[idx : idx + 1]  # time difference
+        phi_window = self.phi_sparse[idx]  # (T, N_sparse)
+        dt = self.time_diffs[idx]
 
-        # Concatenate: [phi_t, phi_t-1, dt]
-        #TODO is there a smarter way to do this?
-        input_vector = torch.cat([phi_t, phi_t_minus_1, dt])
+        if self.input_mode == "sequence":
+            # Append dt as a constant row so the model sees the time spacing.
+            dt_row = dt.expand(1, phi_window.shape[1])  # (1, N_sparse)
+            inputs = torch.cat([phi_window, dt_row], dim=0)  # (T+1, N_sparse)
+        else:
+            # Flat modes use the last two timesteps of the window.
+            phi_t = phi_window[-1]  # phi at time t
+            phi_t_minus_1 = phi_window[-2]  # phi at time t-1
+            dt_scalar = dt.reshape(1)  # (1,)
+            if self.input_mode == "flat_residual":
+                dphi = phi_t - phi_t_minus_1  # residual: phi(t) - phi(t-1)
+                inputs = torch.cat([phi_t, dphi, dt_scalar])
+            else:  # "flat_pair"
+                inputs = torch.cat([phi_t, phi_t_minus_1, dt_scalar])
 
-        # Flatten the output f
         target = self.f_full[idx].flatten()
-
-        return input_vector, target
-
-
-class MLP(nn.Module):
-    def __init__(
-        self,
-        n_sparse_measurements,
-        n_x_grid,
-        n_v_grid,
-        hidden_layers=[256, 512, 1024, 512],
-    ):
-        """
-        MLP to predict full distribution function from sparse potential measurements.
-
-        Args:
-            n_sparse_measurements: Number of sparse phi measurements per timestep
-            n_x_grid: Number of spatial grid points (128)
-            n_v_grid: Number of velocity grid points (64)
-            hidden_layers: List of hidden layer sizes
-        """
-        super(MLP, self).__init__()
-
-        # Input: sparse phi at t, sparse phi at t-1, and dt = 2*n_sparse + 1
-        input_size = 2 * n_sparse_measurements + 1
-
-        # Output: full f(x,v) distribution = n_x_grid * n_v_grid
-        output_size = n_x_grid * n_v_grid
-
-        self.n_x_grid = n_x_grid
-        self.n_v_grid = n_v_grid
-
-        # Build network layers
-        layers = []
-        prev_size = input_size
-
-        for hidden_size in hidden_layers:
-            layers.append(nn.Linear(prev_size, hidden_size))
-            layers.append(nn.SiLU())
-            layers.append(nn.Dropout(0.1))  # Add dropout for regularization
-            prev_size = hidden_size
-
-        # Output layer
-        layers.append(nn.Linear(prev_size, output_size))
-
-        self.network = nn.Sequential(*layers)
-
-    def forward(self, x):
-        """
-        Args:
-            x: (batch, 2*n_sparse + 1) - sparse phi measurements and time diff
-        Returns:
-            f: (batch, n_x_grid, n_v_grid) - predicted distribution function
-        """
-        out = self.network(x)
-        # Reshape to (batch, n_x, n_v)
-        return out.view(-1, self.n_x_grid, self.n_v_grid)
+        return inputs, target
 
 
 def prepare_training_data(
-    data_path, downsample_factor=10, train_frac=0.80, val_frac=0.05, test_frac=0.15
+    data_path,
+    downsample_factor=10,
+    n_timesteps=2,
+    target_offset=0,
+    input_mode="flat_pair",
+    train_frac=0.80,
+    val_frac=0.05,
+    test_frac=0.15,
 ):
     """
     Load and prepare training data from simulation output.
 
+    Builds sliding windows of `n_timesteps` sparse phi measurements. The target
+    is f at index (window_end + target_offset):
+      - target_offset=0 -> reconstruct f at the last timestep of the window
+      - target_offset=1 -> forecast f one step past the window
+
     Args:
         data_path: Path to .npz file with simulation data
         downsample_factor: Factor to downsample spatial measurements
-        train_frac: Fraction of data for training (default 0.80)
-        val_frac: Fraction of data for validation (default 0.05)
-        test_frac: Fraction of data for testing (default 0.15)
+        n_timesteps: Number of timesteps per input window
+        target_offset: Offset of target f relative to the window end (0 or 1)
+        input_mode: How VlasovDataset builds inputs (set from model_type)
+        train_frac/val_frac/test_frac: Split fractions
 
     Returns:
         train_dataset, val_dataset, test_dataset, n_sparse, n_x, n_v, norm_stats
@@ -159,19 +137,20 @@ def prepare_training_data(
     print(f"Sparse phi measurements: {n_sparse} per timestep")
     print(f"Output grid: {n_x} x {n_v} = {n_x * n_v} values")
 
-    # Create training samples: use pairs of consecutive timesteps
-    # Each sample: [phi(t), phi(t-1), dt] -> f(t)
-    N_samples = len(times) - 1
+    # Create training samples: sliding window of n_timesteps.
+    # Window i covers phi_sparse[i : i+n_timesteps]; window end index is
+    # i + n_timesteps - 1. Target f is at (window_end + target_offset).
+    N_samples = len(times) - n_timesteps
 
-    phi_input = np.zeros((N_samples, 2, n_sparse))  # (N_samples, 2, n_sparse)
-    f_output = np.zeros((N_samples, n_x, n_v))  # (N_samples, n_x, n_v)
+    phi_input = np.zeros((N_samples, n_timesteps, n_sparse))
+    f_output = np.zeros((N_samples, n_x, n_v))
     time_diffs = np.zeros(N_samples)
 
     for i in range(N_samples):
-        phi_input[i, 0, :] = phi_sparse[i + 1]  # phi at time t
-        phi_input[i, 1, :] = phi_sparse[i]  # phi at time t-1
-        f_output[i] = phase_density[i + 1]  # f at time t (ground truth)
-        time_diffs[i] = times[i + 1] - times[i]  # dt
+        phi_input[i] = phi_sparse[i : i + n_timesteps]  # window of T timesteps
+        target_idx = i + n_timesteps - 1 + target_offset
+        f_output[i] = phase_density[target_idx]
+        time_diffs[i] = times[i + 1] - times[i]  # dt (constant spacing)
 
     # Random split into train / val / test
     rng = np.random.default_rng(42)
@@ -199,13 +178,13 @@ def prepare_training_data(
     f_output = (f_output - f_mean) / f_std
 
     train_dataset = VlasovDataset(
-        phi_input[train_idx], f_output[train_idx], time_diffs[train_idx]
+        phi_input[train_idx], f_output[train_idx], time_diffs[train_idx], input_mode
     )
     val_dataset = VlasovDataset(
-        phi_input[val_idx], f_output[val_idx], time_diffs[val_idx]
+        phi_input[val_idx], f_output[val_idx], time_diffs[val_idx], input_mode
     )
     test_dataset = VlasovDataset(
-        phi_input[test_idx], f_output[test_idx], time_diffs[test_idx]
+        phi_input[test_idx], f_output[test_idx], time_diffs[test_idx], input_mode
     )
 
     print("Dataset split:")
@@ -237,10 +216,10 @@ def train_model(
     norm_stats=None,
 ):
     """
-    Train the MLP model.
+    Train the model.
 
     Args:
-        model: The MLP model
+        model: The model
         train_loader: DataLoader for training data
         val_loader: DataLoader for validation data
         num_epochs: Number of training epochs
@@ -362,14 +341,26 @@ def train_model(
 
 if __name__ == "__main__":
     # Configuration
+    #
+    # Pick the experiment with `model_type`. Keys are grouped by which models
+    # use them; unused keys are simply ignored by the other models.
     config = {
         "data_path": "/Users/ARand/Desktop/270A_nudging/multiscale-nudging-main 2/case3_Vlasov_poisson_instability/simulation/data/mv_sim_seed0.npz",
+        # --- experiment selection ---
+        "model_type": "mlp",  # one of: mlp, mlp_residual, fc_cnn, conv1d2d
         "downsample_factor": 10,
+        "n_timesteps": 2,  # input window length (flat models use last 2)
+        "target_offset": 0,  # 0 = reconstruct f at window end; 1 = forecast +1 step
+        # --- training ---
         "batch_size": 32,
         "num_epochs": 100,
         "learning_rate": 0.001,
+        # --- MLP (mlp / mlp_residual) only ---
         "hidden_layers": [256, 512, 1024, 512, 256],
         "dropout": 0.1,
+        # --- fc_cnn / conv1d2d only ---
+        "latent_dim": 256,
+        # --- bookkeeping ---
         "activation": "SiLU",
         "loss": "MSE",
         "optimizer": "Adam",
@@ -381,9 +372,13 @@ if __name__ == "__main__":
         "test_frac": 0.15,
     }
 
+    model_type = config["model_type"]
+    input_mode = get_input_mode(model_type)
+    print(f"Experiment: model_type={model_type} (input_mode={input_mode})")
+
     # Create experiment directory
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    exp_dir = os.path.join("experiments", timestamp)
+    exp_dir = os.path.join("experiments", f"{timestamp}_{model_type}")
     os.makedirs(exp_dir, exist_ok=True)
     print(f"Experiment directory: {exp_dir}")
 
@@ -401,6 +396,9 @@ if __name__ == "__main__":
         prepare_training_data(
             config["data_path"],
             downsample_factor=config["downsample_factor"],
+            n_timesteps=config["n_timesteps"],
+            target_offset=config["target_offset"],
+            input_mode=input_mode,
             train_frac=config["train_frac"],
             val_frac=config["val_frac"],
             test_frac=config["test_frac"],
@@ -413,9 +411,9 @@ if __name__ == "__main__":
         "n_val": len(val_dataset),
         "n_test": len(test_dataset),
         "n_sparse": n_sparse,
+        "n_timesteps": config["n_timesteps"],
         "n_x": n_x,
         "n_v": n_v,
-        "input_size": 2 * n_sparse + 1,
         "output_size": n_x * n_v,
     }
     with open(os.path.join(exp_dir, "split_info.json"), "w") as f:
@@ -429,13 +427,8 @@ if __name__ == "__main__":
         test_dataset, batch_size=config["batch_size"], shuffle=False
     )
 
-    # Initialize model
-    model = MLP(
-        n_sparse_measurements=n_sparse,
-        n_x_grid=n_x,
-        n_v_grid=n_v,
-        hidden_layers=config["hidden_layers"],
-    )
+    # Initialize model (selected by config["model_type"])
+    model = build_model(model_type, n_sparse, n_x, n_v, config)
 
     n_params = sum(p.numel() for p in model.parameters())
     config["n_parameters"] = n_params
