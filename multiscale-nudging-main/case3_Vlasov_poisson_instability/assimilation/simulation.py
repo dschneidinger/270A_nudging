@@ -12,6 +12,12 @@ SIMULATION_DIR = THIS_DIR.parent / "simulation"
 if str(SIMULATION_DIR) not in sys.path:
     sys.path.insert(0, str(SIMULATION_DIR))
 
+# Repo root holds models.py (the f-from-phi architectures). Added so the
+# neural-network nudging target can be reconstructed at DA time.
+REPO_ROOT = THIS_DIR.parents[2]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
 from pic_two_stream_instability import (  # noqa: E402
     SimulationConfig,
     cic_deposit_density,
@@ -23,6 +29,159 @@ from pic_two_stream_instability import (  # noqa: E402
 
 COMPONENT_NAMES = ("x", "v")
 N_COMPONENTS = len(COMPONENT_NAMES)
+
+
+def phi_from_E(electric, x_grid):
+    """Electric potential from the field by cumulative integration in x.
+
+    Mirrors f_from_phi.phi_from_E so the network sees inputs built exactly the
+    way it was trained.
+    """
+    return np.cumsum(-electric * np.gradient(x_grid), axis=1)
+
+
+def load_phi_to_f_model(exp_dir, n_x, n_v, device):
+    """Rebuild a trained phi->f network from an experiment directory.
+
+    `exp_dir` must contain best_model.pth; config.json is looked up there and,
+    failing that, in the parent directory (the layout sweep runs produce, where
+    config.json sits beside the per-seed run_*/ subdirs).
+
+    Returns (model, config, input_mode, downsample_factor, n_sparse, norm_stats).
+    """
+    import json
+
+    import torch
+
+    from models import build_model, get_input_mode
+
+    exp_dir = Path(exp_dir)
+    ckpt_path = exp_dir / "best_model.pth"
+    if not ckpt_path.exists():
+        raise FileNotFoundError(f"No best_model.pth in {exp_dir}")
+
+    config_path = exp_dir / "config.json"
+    if not config_path.exists():
+        config_path = exp_dir.parent / "config.json"
+    if not config_path.exists():
+        raise FileNotFoundError(
+            f"No config.json in {exp_dir} or its parent; cannot rebuild model."
+        )
+    with open(config_path) as fh:
+        config = json.load(fh)
+
+    model_type = config["model_type"]
+    input_mode = get_input_mode(model_type)
+    downsample_factor = int(config["downsample_factor"])
+    # n_sparse is fixed by how many spatial samples the training downsample kept.
+    n_sparse = len(range(0, int(n_x), downsample_factor))
+
+    model = build_model(model_type, n_sparse, int(n_x), int(n_v), config)
+    ckpt = torch.load(ckpt_path, weights_only=False, map_location=device)
+    model.load_state_dict(ckpt["model_state_dict"])
+    model.to(device).eval()
+
+    norm_stats = ckpt.get("norm_stats")
+    if norm_stats is None:
+        raise ValueError(
+            f"Checkpoint {ckpt_path} has no norm_stats; cannot un-normalize f."
+        )
+
+    return model, config, input_mode, downsample_factor, n_sparse, norm_stats
+
+
+def reconstruct_f_sequence(
+    model,
+    input_mode,
+    norm_stats,
+    electric,
+    x_grid,
+    n_steps,
+    downsample_factor,
+    n_timesteps,
+    target_offset,
+    dt,
+    device,
+    n_x,
+    n_v,
+    phi_noise_std=0.0,
+):
+    """Reconstruct grid phase-space density f[t] from sparse truth phi.
+
+    Replicates the exact input pipeline of f_from_phi.prepare_training_data /
+    VlasovDataset (sparse phi window, optional residual channel, per-channel
+    normalization, dt normalization) so a checkpoint trained there can be
+    evaluated here. Returns (f_nn, valid) where f_nn has shape
+    (n_steps+1, n_x, n_v) (un-normalized) and `valid[t]` flags timesteps whose
+    input window was fully available.
+    """
+    import torch
+
+    phi = phi_from_E(np.asarray(electric, dtype=float), np.asarray(x_grid, dtype=float))
+    phi_sparse = phi[:, ::downsample_factor]  # (N_t, n_sparse)
+    if phi_noise_std > 0.0:
+        rng = np.random.default_rng(123)
+        phi_sparse = phi_sparse + phi_noise_std * rng.standard_normal(phi_sparse.shape)
+    n_sparse = phi_sparse.shape[1]
+
+    phi_mean = np.asarray(norm_stats["phi_mean"], dtype=float)  # (n_timesteps, n_sparse)
+    phi_std = np.asarray(norm_stats["phi_std"], dtype=float)
+    dt_mean = float(norm_stats["dt_mean"])
+    dt_std = float(norm_stats["dt_std"])
+    f_mean = float(norm_stats["f_mean"])
+    f_std = float(norm_stats["f_std"])
+    dt_norm = (float(dt) - dt_mean) / dt_std
+
+    f_nn = np.full((n_steps + 1, n_x, n_v), np.nan, dtype=float)
+    valid = np.zeros(n_steps + 1, dtype=bool)
+
+    for target_t in range(n_steps + 1):
+        window_end = target_t - target_offset
+        win_start = window_end - n_timesteps + 1
+        if win_start < 0 or window_end >= phi_sparse.shape[0]:
+            continue
+        window = phi_sparse[win_start : window_end + 1].astype(float)  # (n_timesteps, n_sparse)
+
+        if input_mode == "flat_residual":
+            # Second channel carries dphi = phi_t - phi_{t-1} (pre-normalization),
+            # matching prepare_training_data.
+            window = window.copy()
+            window[-2] = phi_sparse[window_end] - phi_sparse[window_end - 1]
+
+        window_norm = (window - phi_mean) / phi_std
+
+        if input_mode in ("flat_pair", "flat_residual"):
+            inp = np.concatenate([window_norm[-1], window_norm[-2], [dt_norm]])
+        elif input_mode == "sequence":
+            dt_row = np.full((1, n_sparse), dt_norm, dtype=float)
+            inp = np.concatenate([window_norm, dt_row], axis=0)
+        else:
+            raise ValueError(f"Unknown input_mode '{input_mode}'")
+
+        x_tensor = torch.as_tensor(inp, dtype=torch.float32, device=device).unsqueeze(0)
+        with torch.no_grad():
+            out = model(x_tensor).cpu().numpy().reshape(n_x, n_v)
+        f_nn[target_t] = out * f_std + f_mean
+        valid[target_t] = True
+
+    return f_nn, valid
+
+
+def build_phase_mesh_from_grids(x_grid, v_grid, length):
+    """Phase mesh that matches the network's native (x_grid, v_grid).
+
+    Returns the same tuple shape as build_phase_mesh so the rest of the DA code
+    is unchanged. x is assumed uniform on [0, length); v uniform from v_grid.
+    """
+    x_mesh = np.asarray(x_grid, dtype=float)
+    v_mesh = np.asarray(v_grid, dtype=float)
+    if x_mesh.ndim != 1 or v_mesh.ndim != 1 or x_mesh.size < 4 or v_mesh.size < 4:
+        raise ValueError("x_grid and v_grid must be 1D with at least 4 points")
+    dx = length / x_mesh.size
+    dv = float(v_mesh[1] - v_mesh[0])
+    v_min = float(v_mesh[0])
+    v_max = float(v_mesh[-1] + dv)
+    return x_mesh, v_mesh, dx, dv, v_min, v_max
 
 
 def load_truth_data(data_path: str):
@@ -576,8 +735,14 @@ def da_step_kde_nudging_1d1v(
     hv_bw,
     lambda_nudge,
     nudge_iters,
+    target_density=None,
 ):
-    """One DA step: PIC forecast followed by 2D phase-space density nudging."""
+    """One DA step: PIC forecast followed by 2D phase-space density nudging.
+
+    The nudging target is `target_density` when supplied (e.g. a network's f
+    reconstructed from sparse phi); otherwise it is a KDE of the particle
+    observations, as before.
+    """
     if nudge_iters < 1:
         raise ValueError("nudge_iters must be positive")
 
@@ -586,24 +751,27 @@ def da_step_kde_nudging_1d1v(
     )
     n_particles = states_pred.shape[0]
 
-    observed = 1.0 - mask_next
-    n_obs = float(np.sum(observed))
-    if n_obs < 1.0:
-        density_pred = build_phase_density(
-            states_pred, x_mesh, v_mesh, length, hx_bw, hv_bw
-        )
-        return states_pred, np.nan, density_pred, rho_x_pred, electric_pred
+    if target_density is not None:
+        density_obs = np.asarray(target_density, dtype=float)
+    else:
+        observed = 1.0 - mask_next
+        n_obs = float(np.sum(observed))
+        if n_obs < 1.0:
+            density_pred = build_phase_density(
+                states_pred, x_mesh, v_mesh, length, hx_bw, hv_bw
+            )
+            return states_pred, np.nan, density_pred, rho_x_pred, electric_pred
 
-    obs_weights = observed / n_obs
-    density_obs = build_phase_density(
-        states_obs_next,
-        x_mesh,
-        v_mesh,
-        length,
-        hx_bw,
-        hv_bw,
-        weights=obs_weights,
-    )
+        obs_weights = observed / n_obs
+        density_obs = build_phase_density(
+            states_obs_next,
+            x_mesh,
+            v_mesh,
+            length,
+            hx_bw,
+            hv_bw,
+            weights=obs_weights,
+        )
 
     residual = None
     for _ in range(nudge_iters):
@@ -639,8 +807,8 @@ def run_data_assimilation(args):
         phase_density_truth_file,
         rho_x_truth_file,
         electric_truth_file,
-        _,
-        _,
+        x_grid_file,
+        v_grid_file,
         truth_config,
     ) = load_truth_data(args.data_path)
     t_len, n_truth_particles, _ = states_true_all.shape
@@ -686,10 +854,82 @@ def run_data_assimilation(args):
         raise ValueError("obs_num_particles must be positive")
 
     states_true = states_true_all[: n_steps + 1]
-    x_mesh, v_mesh, dx, dv, v_min, v_max = build_phase_mesh(
-        states_true, length, args.grid_nx, args.grid_nv, args.v_mesh_margin
-    )
+
+    # When a phi->f network drives the nudging, the target f lives on the
+    # network's native (x_grid, v_grid). Align the DA phase mesh to it so the
+    # reconstructed density can be used directly without interpolation.
+    nn_mode = args.phi_to_f_model is not None
+    if nn_mode:
+        if x_grid_file is None or v_grid_file is None or electric_truth_file is None:
+            raise ValueError(
+                "--phi_to_f_model requires the truth file to contain x_grid, "
+                "v_grid, and electric."
+            )
+        x_mesh, v_mesh, dx, dv, v_min, v_max = build_phase_mesh_from_grids(
+            x_grid_file, v_grid_file, length
+        )
+        grid_nx, grid_nv = x_mesh.size, v_mesh.size
+    else:
+        x_mesh, v_mesh, dx, dv, v_min, v_max = build_phase_mesh(
+            states_true, length, args.grid_nx, args.grid_nv, args.v_mesh_margin
+        )
+        grid_nx, grid_nv = args.grid_nx, args.grid_nv
     hx_bw, hv_bw = resolve_bandwidths(args, dx, dv)
+
+    # Reconstruct the network's f-target sequence once, up front. Each target is
+    # clipped to be nonnegative and renormalized to unit phase-space mass so it
+    # matches the per-particle-normalized density the nudge compares against.
+    f_nn = None
+    f_nn_valid = None
+    nn_model_meta = None
+    if nn_mode:
+        import torch
+
+        nn_device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        model, model_cfg, input_mode, ds_factor, n_sparse_m, norm_stats = (
+            load_phi_to_f_model(args.phi_to_f_model, grid_nx, grid_nv, nn_device)
+        )
+        nn_model_meta = {
+            "model_type": model_cfg["model_type"],
+            "input_mode": input_mode,
+            "downsample_factor": ds_factor,
+            "n_timesteps": int(model_cfg["n_timesteps"]),
+            "target_offset": int(model_cfg.get("target_offset", 0)),
+            "n_sparse": n_sparse_m,
+        }
+        print(
+            f"phi->f nudging target: {args.phi_to_f_model} "
+            f"(model={nn_model_meta['model_type']}, input_mode={input_mode}, "
+            f"ds={ds_factor}, n_sparse={n_sparse_m}, "
+            f"n_timesteps={nn_model_meta['n_timesteps']}, "
+            f"target_offset={nn_model_meta['target_offset']})"
+        )
+        f_nn, f_nn_valid = reconstruct_f_sequence(
+            model=model,
+            input_mode=input_mode,
+            norm_stats=norm_stats,
+            electric=electric_truth_file[: n_steps + 1],
+            x_grid=x_mesh,
+            n_steps=n_steps,
+            downsample_factor=ds_factor,
+            n_timesteps=nn_model_meta["n_timesteps"],
+            target_offset=nn_model_meta["target_offset"],
+            dt=dt,
+            device=nn_device,
+            n_x=grid_nx,
+            n_v=grid_nv,
+            phi_noise_std=args.phi_noise_std,
+        )
+        for t in range(n_steps + 1):
+            if f_nn_valid[t]:
+                f_pos = np.clip(f_nn[t], 0.0, None)
+                mass = float(f_pos.sum() * dx * dv)
+                f_nn[t] = f_pos / mass if mass > 0.0 else f_pos
+        n_valid = int(np.sum(f_nn_valid))
+        print(
+            f"Reconstructed f targets: {n_valid}/{n_steps + 1} timesteps have a "
+            f"full phi window (earlier steps fall back to observation nudging)."
+        )
 
     states_obs_source_all, obs_indices = subsample_trajectory(
         states_true_all, n_obs_particles, seed=args.seed + 29
@@ -705,7 +945,7 @@ def run_data_assimilation(args):
     states_obs = states_obs_all[: n_steps + 1]
     mask_missing = mask_all[: n_steps + 1]
 
-    phase_density_true = np.empty((n_steps + 1, args.grid_nx, args.grid_nv), dtype=float)
+    phase_density_true = np.empty((n_steps + 1, grid_nx, grid_nv), dtype=float)
     phase_density_obs = np.empty_like(phase_density_true)
     truth_weights = np.full(
         n_truth_particles, n_est_particles / n_truth_particles, dtype=float
@@ -775,6 +1015,13 @@ def run_data_assimilation(args):
     )
 
     for t in range(n_steps):
+        # In NN mode, nudge toward the reconstructed f when its phi window is
+        # available; otherwise (and in observation mode) fall back to the
+        # observation-based KDE target.
+        target_density = None
+        if nn_mode and f_nn_valid[t + 1]:
+            target_density = f_nn[t + 1]
+
         states_est, err_obs, density_est, rho_x_now, electric_now = da_step_kde_nudging_1d1v(
             states_current=states_est,
             states_obs_next=states_obs[t + 1],
@@ -790,6 +1037,7 @@ def run_data_assimilation(args):
             hv_bw=hv_bw,
             lambda_nudge=lambda_nudge,
             nudge_iters=args.nudge_iters,
+            target_density=target_density,
         )
 
         states_est_all[t + 1] = states_est
@@ -858,6 +1106,12 @@ def run_data_assimilation(args):
         },
     }
 
+    if nn_mode:
+        payload["phase_density_nn"] = f_nn
+        payload["phase_density_nn_valid"] = f_nn_valid
+        payload["config"]["phi_to_f_model"] = args.phi_to_f_model
+        payload["config"]["phi_to_f_meta"] = nn_model_meta
+
     if phase_density_truth_file is not None:
         payload["phase_density_truth_file"] = phase_density_truth_file[: n_steps + 1]
     if rho_x_truth_file is not None:
@@ -913,6 +1167,26 @@ def parse_args():
     parser.add_argument("--obs_keep_prob", type=float, default=1.0)
     parser.add_argument("--obs_noise_x_std", type=float, default=0.0)
     parser.add_argument("--obs_noise_v_std", type=float, default=0.0)
+
+    parser.add_argument(
+        "--phi_to_f_model",
+        type=str,
+        default=None,
+        help=(
+            "Path to a trained f-from-phi experiment directory (containing "
+            "best_model.pth and config.json). When set, the nudging target f is "
+            "reconstructed by this network from sparse phi measurements of the "
+            "truth electric field, replacing the particle-observation target. "
+            "The DA phase mesh is aligned to the network's (x_grid, v_grid). "
+            "When omitted, behavior is unchanged."
+        ),
+    )
+    parser.add_argument(
+        "--phi_noise_std",
+        type=float,
+        default=0.0,
+        help="Std of Gaussian noise added to sparse phi inputs at inference (0 = clean).",
+    )
 
     parser.add_argument("--grid_nx", type=int, default=64)
     parser.add_argument("--grid_nv", type=int, default=64)

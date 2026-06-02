@@ -22,7 +22,8 @@ from visualization import plot_aggregated_results, plot_model_comparison
 
 N_RUNS = 3
 NOISE_STDS = [0.0]
-DOWNSAMPLE_FACTORS = [2, 4, 8, 16, 32]  # 128/ds = sparse points: 64, 32, 16, 8, 4
+# DOWNSAMPLE_FACTORS = [2, 4, 8, 16, 32]  # 128/ds = sparse points: 64, 32, 16, 8, 4
+DOWNSAMPLE_FACTORS = [2, 32, 64, 128]  # 128/ds = sparse points: 64, 32, 16, 8, 4
 
 EXPERIMENTS = [
     {"label": "mlp",              "model_type": "mlp"},

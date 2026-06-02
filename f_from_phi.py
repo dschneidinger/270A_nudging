@@ -61,14 +61,30 @@ class VlasovDataset(Dataset):
         return len(self.phi_sparse)
 
     def __getitem__(self, idx):
-        phi_t = self.phi_sparse[idx, 0, :]  # phi at time t
-        dphi = self.phi_sparse[idx, 0, :] - self.phi_sparse[idx, 1, :]  # residual: phi(t) - phi(t-1)
-        dt = self.time_diffs[idx : idx + 1]  # time difference
+        phi_window = self.phi_sparse[idx]  # (T, N_sparse)
+        dt = self.time_diffs[idx]
 
-        # Concatenate: [phi_t, dphi, dt]
-        input_vector = torch.cat([phi_t, dphi, dt])
+        if self.input_mode == "flat_pair":
+            # Use latest two timesteps: [phi_t, phi_{t-1}, dt]
+            phi_t = phi_window[-1]
+            phi_t_minus_1 = phi_window[-2]
+            inputs = torch.cat([phi_t, phi_t_minus_1, dt.view(1)])
+        elif self.input_mode == "flat_residual":
+            # Residual channel is precomputed in prepare_training_data.
+            phi_t = phi_window[-1]
+            dphi = phi_window[-2]
+            inputs = torch.cat([phi_t, dphi, dt.view(1)])
+        elif self.input_mode == "sequence":
+            # Append dt as a row, matching expected shape (T+1, N_sparse).
+            dt_row = torch.full((1, phi_window.size(1)), dt, dtype=phi_window.dtype)
+            inputs = torch.cat([phi_window, dt_row], dim=0)
+        else:
+            raise ValueError(
+                f"Unknown input_mode '{self.input_mode}'. "
+                "Expected one of: flat_pair, flat_residual, sequence"
+            )
 
-        # Flatten the output f
+        # Flatten the output f.
         target = self.f_full[idx].flatten()
         return inputs, target
 
