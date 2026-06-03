@@ -1,0 +1,32 @@
+{
+  "data_path": "multiscale-nudging-main/case3_Vlasov_poisson_instability/simulation/data/mv_sim_seed0.npz",
+  "downsample_factor": 2,
+  "n_timesteps": 10,
+  "target_offset": 0,
+  "batch_size": 32,
+  "num_epochs": 100,
+  "learning_rate": 0.001,
+  "hidden_layers": [
+    256,
+    512,
+    1024,
+    512,
+    256
+  ],
+  "dropout": 0.1,
+  "latent_dim": 256,
+  "activation": "SiLU",
+  "loss": "MSE",
+  "optimizer": "Adam",
+  "scheduler": "ReduceLROnPlateau",
+  "scheduler_factor": 0.5,
+  "scheduler_patience": 5,
+  "train_frac": 0.8,
+  "val_frac": 0.05,
+  "test_frac": 0.15,
+  "model_type": "attn_mlp",
+  "n_runs": 3,
+  "noise_std": 0.0,
+  "device": "cuda",
+  "n_parameters": 3857664
+}

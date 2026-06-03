@@ -1,0 +1,10 @@
+{
+  "n_train": 7999,
+  "n_val": 500,
+  "n_test": 1500,
+  "n_sparse": 13,
+  "n_timesteps": 2,
+  "n_x": 128,
+  "n_v": 64,
+  "output_size": 8192
+}
